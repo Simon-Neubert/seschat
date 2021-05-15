@@ -5,5 +5,6 @@ public class Deeznuts {
 			System.out.println("Annegret Weng");
 			System.out.println("yeet");
 			System.out.println("Mosler Abii");
+			System.out.println("Simon Stinkt");
 		}
 }
