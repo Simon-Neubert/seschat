@@ -9,5 +9,6 @@ public class Deeznuts {
 			System.out.println("Steffen geht auf den Strich im Kosovo");
 			System.out.println("Currently invading poland");
 			System.out.println("TEstjojojo");
+			System.out.println("damn.");
 		}
 }
