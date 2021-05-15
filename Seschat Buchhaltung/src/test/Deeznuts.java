@@ -7,5 +7,6 @@ public class Deeznuts {
 			System.out.println("Mosler Abii");
 			System.out.println("Simon Stinkt");
 			System.out.println("Steffen geht auf den Strich im Kosovo");
+			System.out.println("Currently invading poland");
 		}
 }
