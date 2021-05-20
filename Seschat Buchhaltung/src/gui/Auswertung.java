@@ -35,6 +35,12 @@ import javax.swing.JTable;
 
 public class Auswertung extends JFrame{
 	
+	// Auslesen DB
+	static ArrayList<objects.Kunde> k = dbaccess.DBAccess.createKunden();
+	static ArrayList<objects.Lieferant> l = dbaccess.DBAccess.createLieferanten();
+	static ArrayList<objects.Kundenrechnung> kr = dbaccess.DBAccess.createKundenrechnungen();
+	static ArrayList<objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
+	
 	public Auswertung() {
 		
 		// Set Frame
@@ -275,12 +281,6 @@ public class Auswertung extends JFrame{
 		
 	}
 
-	// Auslesen DB
-	static ArrayList<objects.Kunde> k = dbaccess.DBAccess.createKunden();
-	static ArrayList<objects.Lieferant> l = dbaccess.DBAccess.createLieferanten();
-	static ArrayList<objects.Kundenrechnung> kr = dbaccess.DBAccess.createKundenrechnungen();
-	static ArrayList<objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
-	
 	// Globale Hilfsvariablen
 	private static int summe;
 	private static int ausstehend;
