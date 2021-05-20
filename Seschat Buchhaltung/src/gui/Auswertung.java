@@ -263,6 +263,7 @@ public class Auswertung extends JFrame{
 		getContentPane().add(speichernButton);
 
 		jahresAbschlussTable = new JTable();
+		jahresAbschlussTable.setEnabled(false);
 		jahresAbschlussTable.setBounds(171, 582, 1519, 420);
 		jahresAbschlussTable.setBorder(new LineBorder(Color.BLACK, 2));
 		jahresAbschlussTable.setFillsViewportHeight(true);
