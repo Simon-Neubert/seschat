@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class DBAccess {
 
-	static Connection conn = null;
+	public static Connection conn = null;
 
 	public static boolean checkLogin (String username, String password) {
 
@@ -99,7 +99,7 @@ public class DBAccess {
 		checkConnection();
 		int counter = 1;
 		try {
-			Statement stmt = conn.createStatement();;
+			Statement stmt = conn.createStatement();
             ResultSet rs;
             rs = stmt.executeQuery("SELECT * FROM kundenrechnungen");
             
