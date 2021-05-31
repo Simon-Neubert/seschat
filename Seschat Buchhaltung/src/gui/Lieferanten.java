@@ -2,6 +2,7 @@ package gui;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Lieferanten {
 	static ArrayList <objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
 	static List<Integer> changedIndex = new ArrayList<Integer>();	
 	
-	// Checks hinzufuegen: Lieferant schon/noch vorhanden?
+	
 	
 	// Lieferanten in ArrayList aendern
 	private static void lieferantAufnehmen (String name) {	
@@ -36,6 +37,7 @@ public class Lieferanten {
 		dbChangeLieferant(id, name);
 		
 	}
+	
 	
 	// Lieferanten in DB aendern
 	public static void dbAddLieferant (String name) {
@@ -65,6 +67,7 @@ public class Lieferanten {
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
+	
 	// Neue Rechnung anlegen
 	private static void rechnungAufnehmen (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
 		int newID = lr.toArray().length + 1;
@@ -75,14 +78,47 @@ public class Lieferanten {
 	public static void dbAddRechnung (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
-			stmt.execute(" INSERT INTO lieferantenrechnungen (LieferantenID, Monat, Jahr, Bestellvolumen, Status) VALUES ('"+lieferantenID+"', '"+monat+"', '"+jahr+"', '"+bestellvolumen+"', '"+status+"')");
+			stmt.execute("INSERT INTO lieferantenrechnungen (LieferantenID, Monat, Jahr, Bestellvolumen, Status) VALUES ('"+lieferantenID+"', '"+monat+"', '"+jahr+"', '"+bestellvolumen+"', '"+status+"')");
 			// Autoincrement should handle ID
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
+	// Hilfsfunktionen
+	public static int dbGetAutoIncrement (String column, String table) {
+		try {
+			Statement stmt = DBAccess.conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(" + column + ") FROM " + table);
+            if (rs.next()) return rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public static void dbResetAutoIncrement (String column, String table) {
+		try {
+			Statement stmt = DBAccess.conn.createStatement();
+            if (dbGetAutoIncrement(column, table) != -1) stmt.execute("ALTER TABLE " + table + " AUTO_INCREMENT = "+dbGetAutoIncrement(column, table)+"");
+			return;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		// Test
-		lieferantAufnehmen ("Acer");
+		//dbAddLieferant("Boser");
+		System.out.println(dbGetAutoIncrement("LieferantenID", "lieferanten"));
+		dbResetAutoIncrement("LieferantenID", "lieferanten");
+		
+		try {
+			DBAccess.conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }
