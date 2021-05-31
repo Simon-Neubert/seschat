@@ -24,18 +24,18 @@ public class Lieferanten {
 		int newID = l.toArray().length + 1;
 		l.add(new Lieferant(newID, name));
 		dbAddLieferant(name);
+		dbResetAutoIncrement("LieferantenID", "lieferanten");
 	}
 	
 	private static void lieferantLoeschen (int id) {
 		l.remove(id);
 		dbDeleteLieferant(id);
+		dbResetAutoIncrement("LieferantenID", "lieferanten");
 	}
 	
 	private static void lieferantBearbeiten (int id, String name) {
-		
 		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> x.setName(name));
 		dbChangeLieferant(id, name);
-		
 	}
 	
 	
@@ -73,6 +73,7 @@ public class Lieferanten {
 		int newID = lr.toArray().length + 1;
 		lr.add(new Lieferantenrechnung(newID, monat, jahr, bestellvolumen, status, lieferantenID));
 		dbAddRechnung(lieferantenID, monat, jahr, bestellvolumen, status);
+		dbResetAutoIncrement("RechnungsID", "lieferantenrechnungen");
 	}
 	
 	public static void dbAddRechnung (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
