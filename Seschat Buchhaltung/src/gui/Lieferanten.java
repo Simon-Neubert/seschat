@@ -77,7 +77,10 @@ public class Lieferanten extends JPanel{
 		generiertField.setBounds(455, 188, 219, 53);
 		add(generiertField);
 		nameNeuField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {nameNeuField.setText("");}
+			public void focusGained(FocusEvent e) {
+				nameNeuField.setText("");
+				generiertField.setText("  Generierte ID erscheint hier");
+			}
 			public void focusLost(FocusEvent e) {}
 		});
 		
@@ -107,6 +110,10 @@ public class Lieferanten extends JPanel{
 				lieferantAufnehmen(nameInput);
 				inputLabel.setText(nameInput + " erfolgreich aufgenommen.");
 				DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
+				
+				generiertField.setText(String.valueOf(l.toArray().length));
+				nameNeuField.setText("   Bitte Name eingeben...");
+				return;
 			}
 		});
 		add(speichernButton);
