@@ -13,6 +13,30 @@ public class DBAccess {
 
 	public static Connection conn = null;
 
+	// Hilfsfunktionen
+	public static int dbGetAutoIncrement (String column, String table) {
+		try {
+			Statement stmt = DBAccess.conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT MAX(" + column + ") FROM " + table);
+            if (rs.next()) return rs.getInt(1);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public static void dbResetAutoIncrement (String column, String table) {
+		try {
+			Statement stmt = DBAccess.conn.createStatement();
+            if (dbGetAutoIncrement(column, table) != -1) stmt.execute("ALTER TABLE " + table + " AUTO_INCREMENT = "+dbGetAutoIncrement(column, table)+"");
+			return;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static boolean checkLogin (String username, String password) {
 
 		checkConnection();
