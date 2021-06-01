@@ -95,9 +95,9 @@ public class Lieferanten extends JPanel{
 				}
 				
 				for (int i = 0; i < l.toArray().length; i++)
-					if (l.get(i).getName() == nameInput) {
+					if (l.get(i).getName().equals(nameInput)) {
 						inputLabel.setForeground(Color.RED);
-						inputLabel.setText("Lieferant bereits vorhanden!");
+						inputLabel.setText("Lieferant bereits vorhanden! (ID: " + l.get(i).getLieferantenID() + ")");
 						return;
 					}
 				
