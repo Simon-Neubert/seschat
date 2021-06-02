@@ -222,6 +222,7 @@ public class Lieferanten extends JPanel{
 				
 				// Nur ID
 				if (idInput.matches("[0-9]+")) {
+					
 					ArrayList<String> list = tableByID(Integer.parseInt(idInput));
 					String [][] array = new String [(list.toArray().length)/2][2];
 					int counter = 0;
@@ -229,7 +230,6 @@ public class Lieferanten extends JPanel{
 					for (int i = 0; i < (list.toArray().length)/2; i++) 
 						for (int j = 0; j < 2; j++) {
 							array[i][j] = "  " + list.get(counter);
-							System.out.println(array[i][j]);
 							counter++;
 						}
 					
@@ -240,6 +240,7 @@ public class Lieferanten extends JPanel{
 				
 				// Nur Name
 				if (nameInput.length() != 0) {
+					
 					ArrayList<String> list = tableByName(nameInput);
 					String [][] array = new String [(list.toArray().length)/2][2];
 					int counter = 0;
