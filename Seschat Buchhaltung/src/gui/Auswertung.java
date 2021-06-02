@@ -50,7 +50,7 @@ public class Auswertung extends JFrame{
 		// Labels
 		JLabel labelEinnahmen = new JLabel("Einnahmen ausgeben nach:");
 		labelEinnahmen.setBounds(171, 60, 286, 32);
-		labelEinnahmen.setFont(new Font("Serif", Font.PLAIN, 25));;
+		labelEinnahmen.setFont(new Font("Serif", Font.PLAIN, 25));
 		getContentPane().add(labelEinnahmen);
 		
 		JLabel labelBestellvolumen = new JLabel("Bestellvolumen ausgeben nach:");

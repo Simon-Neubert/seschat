@@ -13,6 +13,7 @@ public class Main extends JFrame{
 	
 	// Kunden kundenPanel = new Kunden();
 	Lieferanten lieferantenPanel = new Lieferanten();
+	// Auswertung rechnungsPanel = new Rechnungen();
 	// Auswertung auswertungsPanel = new Auswertung();
 	
 	public Main() {
@@ -27,6 +28,7 @@ public class Main extends JFrame{
 		
 		// tabbedPane.add("Kunden", kundenPanel);
 		tabbedPane.add("Lieferanten", lieferantenPanel);
+		// tabbedPane.add("Rechnungen", rechnungsPanel);
 		// tabbedPane.add("Auswertung", auswertungsPanel);
 		
 	}
@@ -46,8 +48,5 @@ public class Main extends JFrame{
 				} catch (Exception e) {e.printStackTrace();}
 			}
 		});
-	
-		
 	}
-	
 }

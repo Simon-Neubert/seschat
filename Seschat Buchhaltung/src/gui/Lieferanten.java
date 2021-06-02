@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.JPanel;
 
 import objects.*;
@@ -27,6 +29,7 @@ import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JTable;
 
@@ -49,13 +52,13 @@ public class Lieferanten extends JPanel{
 		
 		JLabel labelBestellvolumen = new JLabel("Neuer Lieferant:");
 		labelBestellvolumen.setFont(new Font("Serif", Font.PLAIN, 25));
-		labelBestellvolumen.setBounds(101, 83, 395, 32);
+		labelBestellvolumen.setBounds(101, 103, 395, 32);
 		add(labelBestellvolumen);
 		
 		JLabel inputLabel = new JLabel("");
 		inputLabel.setForeground(Color.RED);
 		inputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		inputLabel.setBounds(101, 273, 573, 26);
+		inputLabel.setBounds(1256, 202, 573, 26);
 		add(inputLabel);
 		
 		nameNeuField = new JTextField();
@@ -66,31 +69,34 @@ public class Lieferanten extends JPanel{
 		nameNeuField.setBorder(new LineBorder(Color.BLACK, 1));
 		add(nameNeuField);
 		nameNeuField.setColumns(10);
+		nameNeuField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+				nameNeuField.setText("");
+			}
+			public void focusLost(FocusEvent e) {}
+		});
+		
 		
 		generiertField = new JTextField();
-		generiertField.setText("  Generierte ID erscheint hier");
+		generiertField.setText(" Generierte ID erscheint hier");
 		generiertField.setEditable(false);
 		generiertField.setHorizontalAlignment(SwingConstants.CENTER);
 		generiertField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		generiertField.setColumns(10);
 		generiertField.setBorder(new LineBorder(Color.BLACK, 1));
-		generiertField.setBounds(455, 188, 219, 53);
+		generiertField.setBounds(518, 188, 219, 53);
 		add(generiertField);
-		nameNeuField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				nameNeuField.setText("");
-				generiertField.setText("  Generierte ID erscheint hier");
-			}
-			public void focusLost(FocusEvent e) {}
-		});
 		
 		JButton speichernButton = new JButton("Speichern");
 		speichernButton.setBackground(new Color(30, 144, 255));
-		speichernButton.setBounds(852, 191, 170, 50);
+		speichernButton.setForeground(new Color(30, 144, 255));
+		speichernButton.setBounds(936, 191, 170, 50);
 		speichernButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
 				String nameInput = nameNeuField.getText();
+				nameNeuField.setText("   Bitte Name eingeben...");
+				
 				if (nameInput.equals("") || nameInput.equals("   Bitte Name eingeben...")) {
 					inputLabel.setForeground(Color.RED);
 					inputLabel.setText("Bitte Eingabe prüfen.");
@@ -118,6 +124,149 @@ public class Lieferanten extends JPanel{
 		});
 		add(speichernButton);
 		
+		nameSuchenField = new JTextField();
+		nameSuchenField.setText("   Bitte Name eingeben...");
+		nameSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
+		nameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		nameSuchenField.setColumns(10);
+		nameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
+		nameSuchenField.setBounds(101, 417, 219, 53);
+		add(nameSuchenField);
+		nameSuchenField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+				nameSuchenField.setText("");
+			}
+			public void focusLost(FocusEvent e) {}
+		});
+		
+		
+		idSuchenField = new JTextField();
+		idSuchenField.setText("   Bitte ID eingeben...");
+		idSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
+		idSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		idSuchenField.setColumns(10);
+		idSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
+		idSuchenField.setBounds(518, 417, 219, 53);
+		add(idSuchenField);
+		idSuchenField.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+				idSuchenField.setText("");
+			}
+			public void focusLost(FocusEvent e) {}
+		});
+		
+		JLabel inputLabel2 = new JLabel("");
+		inputLabel2.setForeground(Color.RED);
+		inputLabel2.setFont(new Font("Serif", Font.ITALIC, 18));
+		inputLabel2.setBounds(1256, 435, 573, 26);
+		add(inputLabel2);
+		
+		table = new JTable();
+		table.setBounds(101, 535, 1310, 420);
+		table.setEnabled(false);
+		table.setBorder(new LineBorder(Color.BLACK, 2));
+		table.setFillsViewportHeight(true);
+		table.setShowHorizontalLines(true);
+		table.setShowVerticalLines(true);
+		table.setGridColor(Color.LIGHT_GRAY);
+		table.setRowHeight(30);
+		add(table);
+		
+		JButton suchenButton = new JButton("Suchen");
+		suchenButton.setForeground(new Color(30, 144, 255));
+		suchenButton.setBackground(new Color(30, 144, 255));
+		suchenButton.setBounds(936, 420, 170, 50);
+		add(suchenButton);
+		suchenButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				
+				String nameInput = nameSuchenField.getText();
+				String idInput = idSuchenField.getText();
+				nameSuchenField.setText("   Bitte Name eingeben...");
+				idSuchenField.setText("   Bitte ID eingeben...");
+				
+				// Check User Input
+				if (!idInput.matches("[0-9]+") && !idInput.equals("   Bitte ID eingeben...")) {
+					inputLabel2.setForeground(Color.RED);
+					inputLabel2.setText("Bitte Eingabe prüfen.");
+					return;
+				}
+				
+				// Keine Eingabe
+				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("   Bitte Name eingeben...") || nameInput.equals(""))) {
+					
+					ArrayList<String> list = tableOfAll();
+					String [][] array = new String [(list.toArray().length)/2][2];
+					int counter = 0;
+					
+					for (int i = 0; i < (list.toArray().length)/2; i++) 
+						for (int j = 0; j < 2; j++) {
+							array[i][j] = "  " + list.get(counter);
+							counter++;
+						}
+					
+					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
+					table.setModel(tableModel);
+					return;
+				}
+				
+				// ID und Name eingegeben
+				if (idInput.matches("[0-9]+") && !nameInput.equals("") && !nameInput.equals("   Bitte Name eingeben...")) {
+					
+					ArrayList<String> list = tableByNameAndID(Integer.parseInt(idInput), nameInput);
+					String [][] array = new String [(list.toArray().length)/2][2];
+					int counter = 0;
+					
+					for (int i = 0; i < (list.toArray().length)/2; i++) 
+						for (int j = 0; j < 2; j++) {
+							array[i][j] = "  " + list.get(counter);
+							counter++;
+						}
+					
+					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
+					table.setModel(tableModel);
+					return;
+				}
+				
+				// Nur ID
+				if (idInput.matches("[0-9]+")) {
+					ArrayList<String> list = tableByID(Integer.parseInt(idInput));
+					String [][] array = new String [(list.toArray().length)/2][2];
+					int counter = 0;
+					
+					for (int i = 0; i < (list.toArray().length)/2; i++) 
+						for (int j = 0; j < 2; j++) {
+							array[i][j] = "  " + list.get(counter);
+							System.out.println(array[i][j]);
+							counter++;
+						}
+					
+					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
+					table.setModel(tableModel);
+					return;
+				}
+				
+				// Nur Name
+				if (nameInput.length() != 0) {
+					ArrayList<String> list = tableByName(nameInput);
+					String [][] array = new String [(list.toArray().length)/2][2];
+					int counter = 0;
+					
+					for (int i = 0; i < (list.toArray().length)/2; i++) 
+						for (int j = 0; j < 2; j++) {
+							array[i][j] = "  " + list.get(counter);
+							counter++;
+						}
+					
+					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
+					table.setModel(tableModel);
+					
+				}
+				
+				return;
+			}
+		});
+		
 	}
 	
 	private JTextField idField;
@@ -127,6 +276,9 @@ public class Lieferanten extends JPanel{
 	private JTextField neuNameField;
 	private JTextField nameNeuField;
 	private JTextField generiertField;
+	private JTextField nameSuchenField;
+	private JTextField idSuchenField;
+	private JTable table;
 	
 	// Lieferanten in ArrayList aendern
 	private static void lieferantAufnehmen (String name) {	
@@ -193,18 +345,61 @@ public class Lieferanten extends JPanel{
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
-	
-	public static void main(String[] args) {
-		// Test
-		//dbAddLieferant("Boser");
-		System.out.println(DBAccess.dbGetAutoIncrement("LieferantenID", "lieferanten"));
-		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
+	// Tabelle erstellen
+	private static ArrayList<String> tableByName (String name) {
+
+		ArrayList<String> table = new ArrayList<String>();
+		String [] spalten = {"Lieferanten-ID", "Name"};
+		table.addAll(Arrays.asList(spalten));
 		
-		try {
-			DBAccess.conn.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		l.stream().filter(x -> x.getName().contains(name)).forEach(x -> {
+			table.add(String.valueOf(x.getLieferantenID()));
+			table.add(x.getName());
+		});
 		
+		return table;
 	}
+
+	private static ArrayList<String> tableByID (int id) {
+
+		ArrayList<String> table = new ArrayList<String>();
+		String [] spalten = {"Lieferanten-ID", "Name"};
+		table.addAll(Arrays.asList(spalten));
+		
+		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> {
+			table.add(String.valueOf(x.getLieferantenID()));
+			table.add(x.getName());
+		});
+		
+		return table;
+	}
+
+	private static ArrayList<String> tableByNameAndID (int id, String name) {
+
+		ArrayList<String> table = new ArrayList<String>();
+		String [] spalten = {"Lieferanten-ID", "Name"};
+		table.addAll(Arrays.asList(spalten));
+		
+		l.stream().filter(x -> x.getName().contains(name) && x.getLieferantenID() == id).forEach(x -> {
+			table.add(String.valueOf(x.getLieferantenID()));
+			table.add(x.getName());
+		});
+		
+		return table;
+	}
+
+	private static ArrayList<String> tableOfAll () {
+
+		ArrayList<String> table = new ArrayList<String>();
+		String [] spalten = {"Lieferanten-ID", "Name"};
+		table.addAll(Arrays.asList(spalten));
+		
+		l.stream().forEach(x -> {
+			table.add(String.valueOf(x.getLieferantenID()));
+			table.add(x.getName());
+		});
+		
+		return table;
+	}
+
 }

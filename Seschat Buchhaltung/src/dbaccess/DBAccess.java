@@ -29,7 +29,7 @@ public class DBAccess {
 	public static void dbResetAutoIncrement (String column, String table) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
-            if (dbGetAutoIncrement(column, table) != -1) stmt.execute("ALTER TABLE " + table + " AUTO_INCREMENT = "+dbGetAutoIncrement(column, table)+"");
+            if (dbGetAutoIncrement(column, table) != -1) stmt.execute("ALTER TABLE " + table + " AUTO_INCREMENT = " + dbGetAutoIncrement(column, table)+"");
 			return;
 			
 		} catch (SQLException e) {
