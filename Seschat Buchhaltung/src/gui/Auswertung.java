@@ -8,7 +8,6 @@ import javax.swing.JFrame;
 import dbaccess.*;
 import objects.*;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.FocusEvent;
@@ -16,8 +15,6 @@ import java.awt.event.FocusListener;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
