@@ -87,11 +87,11 @@ public class LieferantenRechnungenNeu extends JDialog {
 			
 			formatLabel = new JLabel("Format: xxx.xx");
 			formatLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			formatLabel.setFont(new Font("Serif", Font.PLAIN, 12));
+			formatLabel.setFont(new Font("Serif", Font.PLAIN, 14));
 			formatLabel.setBounds(34, 306, 153, 29);
 			getContentPane().add(formatLabel);
 			
-			inputLabel = new JLabel("DadaDASDADAD");
+			inputLabel = new JLabel("");
 			inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			inputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
 			inputLabel.setBounds(6, 403, 388, 29);
@@ -134,19 +134,23 @@ public class LieferantenRechnungenNeu extends JDialog {
 			speichernButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					
+					boolean status = statusRadio.isSelected();
+					int monat = monatDropdown.getSelectedIndex();
 					String bestellvolumen = bestellvolumenField.getText();
-
-					// Check User Input
 					/*
-					 * Alles muss ausgefuellt sein!
+					 * Stringerino muss ein double sein; vielleicht JFormattedTextField?
 					 */
-					if (bestellvolumen.equals("")) {
+					// Check User Input
+
+					if (bestellvolumen.equals("") || monat < 1 || monat > 12 || jahrDropdown.getSelectedIndex() == 0) {
 						inputLabel.setForeground(Color.RED);
-						inputLabel.setText("Bitte Eingabe prüfen.");
+						inputLabel.setText("Bitte alle Felder ausfüllen.");
 						return;
 					}
 					
-					gui.Lieferanten.rechnungAufnehmen(idAlt, rechnungsID, idAlt, rechnungsID, rootPaneCheckingEnabled);
+					int jahr = Integer.parseInt(monate[jahrDropdown.getSelectedIndex()]);
+					
+					gui.Lieferanten.rechnungAufnehmen(idAlt, monat, jahr, 0.0, status);
 					dispose();
 				}
 			});
