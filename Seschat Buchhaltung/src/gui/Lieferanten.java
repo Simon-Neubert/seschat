@@ -37,6 +37,7 @@ public class Lieferanten extends JPanel{
 	static ArrayList <objects.Lieferant> l = dbaccess.DBAccess.createLieferanten();
 	static ArrayList <objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
 	public static String lieferant = "";
+	public static boolean abgebrochen = true;
 	
 	public Lieferanten () {
 		
@@ -309,6 +310,12 @@ public class Lieferanten extends JPanel{
 					return;
 				}	
 				
+				if (Integer.parseInt(idInput) > l.toArray().length) {
+					inputLabel3.setForeground(Color.RED);
+					inputLabel3.setText("ID existiert nicht.");
+					return;
+				}
+				
 				int id = Integer.parseInt(idInput);
 				
 				try {
@@ -318,7 +325,7 @@ public class Lieferanten extends JPanel{
 			        dialog.addWindowListener(new WindowAdapter() {
 			        	public void windowClosed(WindowEvent e) {
 			        		inputLabel3.setForeground(Color.BLACK);
-			        		inputLabel3.setText("Lieferant bearbeitet.");
+			        		if (!abgebrochen) inputLabel3.setText("Lieferant bearbeitet.");
 			            }
 			        });
 				} catch (Exception e1) {e1.printStackTrace();}
@@ -330,6 +337,40 @@ public class Lieferanten extends JPanel{
 		addRechnungButton.setForeground(new Color(30, 144, 255));
 		addRechnungButton.setBackground(new Color(30, 144, 255));
 		addRechnungButton.setBounds(1315, 389, 170, 50);
+		addRechnungButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+
+				String idInput = idBearbeitenFeld.getText();
+				idBearbeitenFeld.setText("   Bitte ID eingeben...");
+				
+				// Check User Input
+				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
+					inputLabel3.setForeground(Color.RED);
+					inputLabel3.setText("Bitte Eingabe prüfen.");
+					return;
+				}	
+
+				if (Integer.parseInt(idInput) > l.toArray().length) {
+					inputLabel3.setForeground(Color.RED);
+					inputLabel3.setText("ID existiert nicht.");
+					return;
+				}
+				
+				int id = Integer.parseInt(idInput);
+				
+				try {
+			        popups.LieferantenRechnungenNeu dialog = new popups.LieferantenRechnungenNeu (id, getName(id), (lr.toArray().length + 1));
+			        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			        dialog.setVisible(true);
+			        dialog.addWindowListener(new WindowAdapter() {
+			        	public void windowClosed(WindowEvent e) {
+			        		inputLabel3.setForeground(Color.BLACK);
+			        		if (!abgebrochen) inputLabel3.setText("Rechnung aufgenommen.");
+			            }
+			        });
+				} catch (Exception e1) {e1.printStackTrace();}
+			}
+		});
 		add(addRechnungButton);
 		
 	}
@@ -373,7 +414,7 @@ public class Lieferanten extends JPanel{
 
 	
 	// Neue Rechnung anlegen
-	private static void rechnungAufnehmen (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
+	public static void rechnungAufnehmen (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
 		int newID = lr.toArray().length + 1;
 		lr.add(new Lieferantenrechnung(newID, monat, jahr, bestellvolumen, status, lieferantenID));
 		dbAddRechnung(lieferantenID, monat, jahr, bestellvolumen, status);

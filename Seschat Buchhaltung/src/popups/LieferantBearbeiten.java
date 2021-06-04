@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 
 public class LieferantBearbeiten extends JDialog {
+	
 	private JTextField textField;
 	private JTextField neuField;
 	private JButton speichernButton;
@@ -78,6 +79,7 @@ public class LieferantBearbeiten extends JDialog {
 				}
 				
 				gui.Lieferanten.lieferantBearbeiten(idAlt, input);
+				gui.Lieferanten.abgebrochen = false;
 				dispose();
 			}
 		});
