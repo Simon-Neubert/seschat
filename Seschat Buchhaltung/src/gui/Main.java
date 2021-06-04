@@ -19,7 +19,7 @@ public class Main extends JFrame{
 	public Main() {
 		
 		getContentPane().setLayout(null);
-		getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());;
+		getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
 	    setSize(Toolkit.getDefaultToolkit().getScreenSize());
 	    
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

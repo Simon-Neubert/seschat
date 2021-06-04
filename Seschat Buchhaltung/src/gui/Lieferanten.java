@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import objects.*;
 import dbaccess.*;
+import popups.*;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -16,6 +17,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -23,43 +26,46 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JTable;
+import java.awt.Component;
+import javax.swing.Box;
 
 public class Lieferanten extends JPanel{
 
 	// Auslesen DB
 	static ArrayList <objects.Lieferant> l = dbaccess.DBAccess.createLieferanten();
 	static ArrayList <objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
-	static String lieferant = "";
+	public static String lieferant = "";
 	
 	public Lieferanten () {
 		
 		setLayout(null);
 		setBounds(2000, 2000, 2000, 2000);
 
-		JLabel bestehendLabel = new JLabel("Bestehender Lieferant:");
-		bestehendLabel.setBounds(101, 336, 277, 26);
+		JLabel bestehendLabel = new JLabel("Lieferant suchen:");
+		bestehendLabel.setBounds(101, 308, 277, 26);
 		bestehendLabel.setFont(new Font("Serif", Font.PLAIN, 25));
 		add(bestehendLabel);
 		
 		JLabel labelBestellvolumen = new JLabel("Neuer Lieferant:");
 		labelBestellvolumen.setFont(new Font("Serif", Font.PLAIN, 25));
-		labelBestellvolumen.setBounds(101, 103, 395, 32);
+		labelBestellvolumen.setBounds(101, 75, 395, 32);
 		add(labelBestellvolumen);
 		
 		JLabel inputLabel = new JLabel("");
 		inputLabel.setForeground(Color.RED);
 		inputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		inputLabel.setBounds(1256, 202, 573, 26);
+		inputLabel.setBounds(101, 253, 573, 26);
 		add(inputLabel);
 		
 		nameNeuField = new JTextField();
 		nameNeuField.setHorizontalAlignment(SwingConstants.CENTER);
-		nameNeuField.setText("   Bitte Name eingeben...");
 		nameNeuField.setFont(new Font("Sans", Font.PLAIN, 14));
-		nameNeuField.setBounds(101, 188, 219, 53);
+		nameNeuField.setBounds(101, 160, 219, 53);
 		nameNeuField.setBorder(new LineBorder(Color.BLACK, 1));
 		add(nameNeuField);
+		nameNeuField.setText("   Bitte Name eingeben...");
 		nameNeuField.setColumns(10);
 		nameNeuField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
@@ -68,7 +74,6 @@ public class Lieferanten extends JPanel{
 			public void focusLost(FocusEvent e) {}
 		});
 		
-		
 		generiertField = new JTextField();
 		generiertField.setText(" Generierte ID erscheint hier");
 		generiertField.setEditable(false);
@@ -76,13 +81,13 @@ public class Lieferanten extends JPanel{
 		generiertField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		generiertField.setColumns(10);
 		generiertField.setBorder(new LineBorder(Color.BLACK, 1));
-		generiertField.setBounds(518, 188, 219, 53);
+		generiertField.setBounds(518, 160, 219, 53);
 		add(generiertField);
 		
 		JButton speichernButton = new JButton("Speichern");
 		speichernButton.setBackground(new Color(30, 144, 255));
 		speichernButton.setForeground(new Color(30, 144, 255));
-		speichernButton.setBounds(936, 191, 170, 50);
+		speichernButton.setBounds(936, 163, 170, 50);
 		speichernButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
@@ -122,7 +127,7 @@ public class Lieferanten extends JPanel{
 		nameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		nameSuchenField.setColumns(10);
 		nameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		nameSuchenField.setBounds(101, 417, 219, 53);
+		nameSuchenField.setBounds(101, 389, 219, 53);
 		add(nameSuchenField);
 		nameSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
@@ -131,14 +136,13 @@ public class Lieferanten extends JPanel{
 			public void focusLost(FocusEvent e) {}
 		});
 		
-		
 		idSuchenField = new JTextField();
 		idSuchenField.setText("   Bitte ID eingeben...");
 		idSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
 		idSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		idSuchenField.setColumns(10);
 		idSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		idSuchenField.setBounds(518, 417, 219, 53);
+		idSuchenField.setBounds(518, 389, 219, 53);
 		add(idSuchenField);
 		idSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
@@ -147,10 +151,10 @@ public class Lieferanten extends JPanel{
 			public void focusLost(FocusEvent e) {}
 		});
 		
-		JLabel inputLabel2 = new JLabel("");
-		inputLabel2.setForeground(Color.RED);
+		JLabel inputLabel2 = new JLabel("Ohne Eingabe suchen um alle Lieferanten auszugeben.");
+		inputLabel2.setForeground(Color.DARK_GRAY);
 		inputLabel2.setFont(new Font("Serif", Font.ITALIC, 18));
-		inputLabel2.setBounds(1256, 435, 573, 26);
+		inputLabel2.setBounds(101, 469, 573, 26);
 		add(inputLabel2);
 		
 		table = new JTable();
@@ -167,8 +171,7 @@ public class Lieferanten extends JPanel{
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.setForeground(new Color(30, 144, 255));
 		suchenButton.setBackground(new Color(30, 144, 255));
-		suchenButton.setBounds(936, 420, 170, 50);
-		add(suchenButton);
+		suchenButton.setBounds(936, 392, 170, 50);
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
@@ -259,19 +262,84 @@ public class Lieferanten extends JPanel{
 				return;
 			}
 		});
+		add(suchenButton);
+		
+		JLabel bearbeitenLabel = new JLabel("Lieferant bearbeiten:");
+		bearbeitenLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		bearbeitenLabel.setBounds(1304, 84, 277, 26);
+		add(bearbeitenLabel);
+		
+		JLabel inputLabel3 = new JLabel("");
+		inputLabel3.setEnabled(false);
+		inputLabel3.setHorizontalAlignment(SwingConstants.CENTER);
+		inputLabel3.setForeground(Color.RED);
+		inputLabel3.setFont(new Font("Serif", Font.ITALIC, 18));
+		inputLabel3.setBounds(1293, 469, 210, 26);
+		add(inputLabel3);
+		
+		idBearbeitenFeld = new JTextField();
+		idBearbeitenFeld.setText("   Bitte ID eingeben...");
+		idBearbeitenFeld.setHorizontalAlignment(SwingConstants.CENTER);
+		idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
+		idBearbeitenFeld.setColumns(10);
+		idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
+		idBearbeitenFeld.setBounds(1293, 160, 219, 53);
+		add(idBearbeitenFeld);
+		idBearbeitenFeld.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+				idBearbeitenFeld.setText("");
+			}
+			public void focusLost(FocusEvent e) {}
+		});
+		
+		JButton bearbeitenButton = new JButton("Bearbeiten");
+		bearbeitenButton.setForeground(new Color(30, 144, 255));
+		bearbeitenButton.setBackground(new Color(30, 144, 255));
+		bearbeitenButton.setBounds(1315, 278, 170, 50);
+		bearbeitenButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+
+				String idInput = idBearbeitenFeld.getText();
+				idBearbeitenFeld.setText("   Bitte ID eingeben...");
+				
+				// Check User Input
+				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
+					inputLabel3.setForeground(Color.RED);
+					inputLabel3.setText("Bitte Eingabe prüfen.");
+					return;
+				}	
+				
+				int id = Integer.parseInt(idInput);
+				
+				try {
+			        popups.LieferantBearbeiten dialog = new popups.LieferantBearbeiten(id, getName(id));
+			        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			        dialog.setVisible(true);
+			        dialog.addWindowListener(new WindowAdapter() {
+			        	public void windowClosed(WindowEvent e) {
+			        		inputLabel3.setForeground(Color.BLACK);
+			        		inputLabel3.setText("Lieferant bearbeitet.");
+			            }
+			        });
+				} catch (Exception e1) {e1.printStackTrace();}
+			}
+		});
+		add(bearbeitenButton);
+		
+		JButton addRechnungButton = new JButton("Neue Rechnung");
+		addRechnungButton.setForeground(new Color(30, 144, 255));
+		addRechnungButton.setBackground(new Color(30, 144, 255));
+		addRechnungButton.setBounds(1315, 389, 170, 50);
+		add(addRechnungButton);
 		
 	}
-	
-	private JTextField idField;
-	private JTextField nameField;
-	private JTable lieferantenTable;
-	private JTextField generierteIDField;
-	private JTextField neuNameField;
+
 	private JTextField nameNeuField;
 	private JTextField generiertField;
 	private JTextField nameSuchenField;
 	private JTextField idSuchenField;
 	private JTable table;
+	private JTextField idBearbeitenFeld;
 	
 	// Lieferanten in ArrayList aendern
 	private static void lieferantAufnehmen (String name) {	
@@ -281,36 +349,18 @@ public class Lieferanten extends JPanel{
 		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
 	}
 	
-	private static void lieferantLoeschen (int id) {
-		l.remove(id);
-		dbDeleteLieferant(id);
-		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
-	}
-	
-	private static void lieferantBearbeiten (int id, String name) {
+	public static void lieferantBearbeiten (int id, String name) {
 		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> x.setName(name));
 		dbChangeLieferant(id, name);
 		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
 	}
+	
 	
 	// Lieferanten in DB aendern
 	public static void dbAddLieferant (String name) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
 			stmt.execute(" INSERT INTO lieferanten (Name) VALUES ('"+name+"')");
-		} catch (Exception e) {e.printStackTrace();}
-	}
-	
-	public static void dbDeleteLieferant (int id) {
-		try {
-			Statement stmt = DBAccess.conn.createStatement();
-			stmt.execute("DELETE FROM lieferanten WHERE LieferantenID = '"+id+"'");
-	        /* Backup:
-			PreparedStatement ps = DBAccess.conn.prepareStatement("DELETE FROM lieferanten WHERE LieferantenID = ?");
-	        ps.setInt(?);
-	        ps.executeUpdate();
-	        */
-			DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
 		} catch (Exception e) {e.printStackTrace();}
 	}
 	
@@ -334,10 +384,15 @@ public class Lieferanten extends JPanel{
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
 			stmt.execute("INSERT INTO lieferantenrechnungen (LieferantenID, Monat, Jahr, Bestellvolumen, Status) VALUES ('"+lieferantenID+"', '"+monat+"', '"+jahr+"', '"+bestellvolumen+"', '"+status+"')");
-			// Autoincrement should handle ID
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
+	// Hilfsfunktinoen
+	private static String getName (int id) {
+		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> lieferant = x.getName());
+		return lieferant;
+	}
+	
 	// Tabelle erstellen
 	private static ArrayList<String> tableByName (String name) {
 
@@ -394,5 +449,4 @@ public class Lieferanten extends JPanel{
 		
 		return table;
 	}
-
 }
