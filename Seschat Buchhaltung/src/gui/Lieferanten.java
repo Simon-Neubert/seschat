@@ -176,7 +176,7 @@ public class Lieferanten extends JPanel{
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
-				String nameInput = nameSuchenField.getText();
+				String nameInput = nameSuchenField.getText().toLowerCase();
 				String idInput = idSuchenField.getText();
 				nameSuchenField.setText("   Bitte Name eingeben...");
 				idSuchenField.setText("   Bitte ID eingeben...");
@@ -382,6 +382,7 @@ public class Lieferanten extends JPanel{
 	private JTable table;
 	private JTextField idBearbeitenFeld;
 	
+	
 	// Lieferanten in ArrayList aendern
 	private static void lieferantAufnehmen (String name) {	
 		int newID = l.toArray().length + 1;
@@ -430,11 +431,13 @@ public class Lieferanten extends JPanel{
 		} catch (Exception e) {e.printStackTrace();}
 	}
 
+	
 	// Hilfsfunktinoen
 	private static String getName (int id) {
 		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> lieferant = x.getName());
 		return lieferant;
 	}
+	
 	
 	// Tabelle erstellen
 	private static ArrayList<String> tableByName (String name) {
@@ -443,7 +446,7 @@ public class Lieferanten extends JPanel{
 		String [] spalten = {"Lieferanten-ID", "Name"};
 		table.addAll(Arrays.asList(spalten));
 		
-		l.stream().filter(x -> x.getName().contains(name)).forEach(x -> {
+		l.stream().filter(x -> x.getName().toLowerCase().contains(name)).forEach(x -> {
 			table.add(String.valueOf(x.getLieferantenID()));
 			table.add(x.getName());
 		});
@@ -471,7 +474,7 @@ public class Lieferanten extends JPanel{
 		String [] spalten = {"Lieferanten-ID", "Name"};
 		table.addAll(Arrays.asList(spalten));
 		
-		l.stream().filter(x -> x.getName().contains(name) && x.getLieferantenID() == id).forEach(x -> {
+		l.stream().filter(x -> x.getName().toLowerCase().contains(name) && x.getLieferantenID() == id).forEach(x -> {
 			table.add(String.valueOf(x.getLieferantenID()));
 			table.add(x.getName());
 		});
