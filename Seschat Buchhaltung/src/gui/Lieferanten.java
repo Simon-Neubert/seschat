@@ -31,14 +31,28 @@ import javax.swing.JTable;
 
 public class Lieferanten extends JPanel{
 
-	// Auslesen DB
+// Read from DB and add data to objects
 	static ArrayList <objects.Lieferant> l = dbaccess.DBAccess.createLieferanten();
 	static ArrayList <objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
 	public static String lieferant = "";
 	public static boolean abgebrochen = true;
+
+	
+// Components for GUI
+	
+	private JTextField nameNeuField;
+	private JTextField generiertField;
+	private JTextField nameSuchenField;
+	private JTextField idSuchenField;
+	private JTable table;
+	private JTextField idBearbeitenFeld;
+	
+	
+// Constructor for JPanel
 	
 	public Lieferanten () {
 		
+		// Define Panel
 		setLayout(null);
 		setBounds(2000, 2000, 2000, 2000);
 
@@ -57,6 +71,7 @@ public class Lieferanten extends JPanel{
 		neuLabel.setFont(new Font("Serif", Font.ITALIC, 18));
 		neuLabel.setBounds(101, 253, 573, 26);
 		add(neuLabel);
+		
 		
 		nameNeuField = new JTextField();
 		nameNeuField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -383,15 +398,10 @@ public class Lieferanten extends JPanel{
 		
 	}
 
-	private JTextField nameNeuField;
-	private JTextField generiertField;
-	private JTextField nameSuchenField;
-	private JTextField idSuchenField;
-	private JTable table;
-	private JTextField idBearbeitenFeld;
 	
+// Edit Lieferanten
 	
-	// Lieferanten in ArrayList aendern
+	// Add Lieferant to objects and call dbAddLieferant
 	private static void lieferantAufnehmen (String name) {	
 		int newID = l.toArray().length + 1;
 		l.add(new Lieferant(newID, name));
@@ -399,14 +409,14 @@ public class Lieferanten extends JPanel{
 		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
 	}
 	
+	// Change Lieferant in objects and call dbChangeLieferant
 	public static void lieferantBearbeiten (int id, String name) {
 		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> x.setName(name));
 		dbChangeLieferant(id, name);
 		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
 	}
-	
-	
-	// Lieferanten in DB aendern
+
+	// Add Lieferant in mySQL database
 	public static void dbAddLieferant (String name) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
@@ -414,6 +424,7 @@ public class Lieferanten extends JPanel{
 		} catch (Exception e) {e.printStackTrace();}
 	}
 	
+	// Change Lieferant in mySQL database
 	public static void dbChangeLieferant (int id, String name) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
@@ -422,7 +433,9 @@ public class Lieferanten extends JPanel{
 	}
 
 	
-	// Neue Rechnung anlegen
+// Add invoice
+	
+	// Add invoive to objects and call dbAddRechnung
 	public static void rechnungAufnehmen (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
 		int newID = lr.toArray().length + 1;
 		lr.add(new Lieferantenrechnung(newID, monat, jahr, bestellvolumen, status, lieferantenID));
@@ -430,6 +443,7 @@ public class Lieferanten extends JPanel{
 		DBAccess.dbResetAutoIncrement("RechnungsID", "lieferantenrechnungen");
 	}
 	
+	// Add invoice in mySQL database
 	public static void dbAddRechnung (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
@@ -440,17 +454,23 @@ public class Lieferanten extends JPanel{
 	}
 
 	
-	// Hilfsfunktinoen
+// Auxiliary functions
+	
+	// Get name from object
 	private static String getName (int id) {
 		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> lieferant = x.getName());
 		return lieferant;
 	}
 	
+	// Set label to empty String
 	private static void resetLabel (JLabel label) {
 		label.setText("");
 	}
 	
-	// Tabelle erstellen
+	
+// Tabellen erstellen
+	
+	// Create table if user only inputs name
 	private static ArrayList<String> tableByName (String name) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -462,7 +482,8 @@ public class Lieferanten extends JPanel{
 		
 		return table;
 	}
-
+	
+	// Create table if user only inputs id
 	private static ArrayList<String> tableByID (int id) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -474,7 +495,8 @@ public class Lieferanten extends JPanel{
 		
 		return table;
 	}
-
+	
+	// Create table if user inputs name and id
 	private static ArrayList<String> tableByNameAndID (int id, String name) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -486,7 +508,8 @@ public class Lieferanten extends JPanel{
 		
 		return table;
 	}
-
+	
+	// // Create table if user doesnt input anything
 	private static ArrayList<String> tableOfAll () {
 
 		ArrayList<String> table = new ArrayList<String>();
