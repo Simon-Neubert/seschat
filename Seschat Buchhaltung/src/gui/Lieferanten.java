@@ -447,8 +447,6 @@ public class Lieferanten extends JPanel{
 	private static ArrayList<String> tableByName (String name) {
 
 		ArrayList<String> table = new ArrayList<String>();
-		String [] spalten = {"Lieferanten-ID", "Name"};
-		table.addAll(Arrays.asList(spalten));
 		
 		l.stream().filter(x -> x.getName().toLowerCase().contains(name)).forEach(x -> {
 			table.add(String.valueOf(x.getLieferantenID()));
@@ -461,8 +459,6 @@ public class Lieferanten extends JPanel{
 	private static ArrayList<String> tableByID (int id) {
 
 		ArrayList<String> table = new ArrayList<String>();
-		String [] spalten = {"Lieferanten-ID", "Name"};
-		table.addAll(Arrays.asList(spalten));
 		
 		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> {
 			table.add(String.valueOf(x.getLieferantenID()));
@@ -475,8 +471,6 @@ public class Lieferanten extends JPanel{
 	private static ArrayList<String> tableByNameAndID (int id, String name) {
 
 		ArrayList<String> table = new ArrayList<String>();
-		String [] spalten = {"Lieferanten-ID", "Name"};
-		table.addAll(Arrays.asList(spalten));
 		
 		l.stream().filter(x -> x.getName().toLowerCase().contains(name) && x.getLieferantenID() == id).forEach(x -> {
 			table.add(String.valueOf(x.getLieferantenID()));
