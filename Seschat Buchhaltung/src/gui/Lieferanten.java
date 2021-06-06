@@ -2,7 +2,6 @@ package gui;
 
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -29,8 +28,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTable;
-import java.awt.Component;
-import javax.swing.Box;
 
 public class Lieferanten extends JPanel{
 
@@ -55,11 +52,11 @@ public class Lieferanten extends JPanel{
 		labelBestellvolumen.setBounds(101, 75, 395, 32);
 		add(labelBestellvolumen);
 		
-		JLabel inputLabel = new JLabel("");
-		inputLabel.setForeground(Color.RED);
-		inputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		inputLabel.setBounds(101, 253, 573, 26);
-		add(inputLabel);
+		JLabel neuLabel = new JLabel("");
+		neuLabel.setForeground(Color.RED);
+		neuLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		neuLabel.setBounds(101, 253, 573, 26);
+		add(neuLabel);
 		
 		nameNeuField = new JTextField();
 		nameNeuField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -97,23 +94,23 @@ public class Lieferanten extends JPanel{
 				nameNeuField.setText("   Bitte Name eingeben...");
 				
 				if (nameInput.equals("") || nameInput.equals("   Bitte Name eingeben...")) {
-					inputLabel.setForeground(Color.RED);
-					inputLabel.setText("Bitte Eingabe prüfen.");
+					neuLabel.setForeground(Color.RED);
+					neuLabel.setText("Bitte Eingabe prüfen.");
 					return;
 				}
 				
 				for (int i = 0; i < l.toArray().length; i++)
 					if (l.get(i).getName().equals(nameInput)) {
-						inputLabel.setForeground(Color.RED);
-						inputLabel.setText("Lieferant bereits vorhanden! (ID: " + l.get(i).getLieferantenID() + ")");
+						neuLabel.setForeground(Color.RED);
+						neuLabel.setText("Lieferant bereits vorhanden! (ID: " + l.get(i).getLieferantenID() + ")");
 						return;
 					}
 				
 				DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
-				inputLabel.setText("");
-				inputLabel.setForeground(Color.BLACK);
+				neuLabel.setText("");
+				neuLabel.setForeground(Color.BLACK);
 				lieferantAufnehmen(nameInput);
-				inputLabel.setText(nameInput + " erfolgreich aufgenommen.");
+				neuLabel.setText(nameInput + " erfolgreich aufgenommen.");
 				DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
 				
 				generiertField.setText(String.valueOf(l.toArray().length));
@@ -153,11 +150,11 @@ public class Lieferanten extends JPanel{
 			public void focusLost(FocusEvent e) {}
 		});
 		
-		JLabel inputLabel2 = new JLabel("Ohne Eingabe suchen um alle Lieferanten auszugeben.");
-		inputLabel2.setForeground(Color.DARK_GRAY);
-		inputLabel2.setFont(new Font("Serif", Font.ITALIC, 18));
-		inputLabel2.setBounds(101, 469, 573, 26);
-		add(inputLabel2);
+		JLabel suchenLabel = new JLabel("Ohne Eingabe suchen um alle Lieferanten auszugeben.");
+		suchenLabel.setForeground(Color.DARK_GRAY);
+		suchenLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		suchenLabel.setBounds(101, 469, 573, 26);
+		add(suchenLabel);
 		
 		table = new JTable();
 		table.setBounds(101, 535, 1310, 420);
@@ -187,8 +184,8 @@ public class Lieferanten extends JPanel{
 				
 				// Check User Input
 				if (!idInput.matches("[0-9]+") && !idInput.equals("   Bitte ID eingeben...")) {
-					inputLabel2.setForeground(Color.RED);
-					inputLabel2.setText("Bitte Eingabe prüfen.");
+					suchenLabel.setForeground(Color.RED);
+					suchenLabel.setText("Bitte Eingabe prüfen.");
 					return;
 				}
 				
@@ -207,6 +204,7 @@ public class Lieferanten extends JPanel{
 					
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
 					table.setModel(tableModel);
+					resetLabel(suchenLabel);
 					return;
 				}
 				
@@ -225,6 +223,7 @@ public class Lieferanten extends JPanel{
 					
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
 					table.setModel(tableModel);
+					resetLabel(suchenLabel);
 					return;
 				}
 				
@@ -243,6 +242,7 @@ public class Lieferanten extends JPanel{
 					
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
 					table.setModel(tableModel);
+					resetLabel(suchenLabel);
 					return;
 				}
 				
@@ -263,7 +263,7 @@ public class Lieferanten extends JPanel{
 					table.setModel(tableModel);
 					
 				}
-				
+				resetLabel(suchenLabel);
 				return;
 			}
 		});
@@ -274,13 +274,13 @@ public class Lieferanten extends JPanel{
 		bearbeitenLabel.setBounds(1304, 84, 277, 26);
 		add(bearbeitenLabel);
 		
-		JLabel inputLabel3 = new JLabel("");
-		inputLabel3.setEnabled(false);
-		inputLabel3.setHorizontalAlignment(SwingConstants.CENTER);
-		inputLabel3.setForeground(Color.RED);
-		inputLabel3.setFont(new Font("Serif", Font.ITALIC, 18));
-		inputLabel3.setBounds(1293, 469, 210, 26);
-		add(inputLabel3);
+		JLabel changeLabel = new JLabel("");
+		changeLabel.setEnabled(false);
+		changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		changeLabel.setForeground(Color.RED);
+		changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		changeLabel.setBounds(1293, 469, 210, 26);
+		add(changeLabel);
 		
 		idBearbeitenFeld = new JTextField();
 		idBearbeitenFeld.setText("   Bitte ID eingeben...");
@@ -309,14 +309,14 @@ public class Lieferanten extends JPanel{
 				
 				// Check User Input
 				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
-					inputLabel3.setForeground(Color.RED);
-					inputLabel3.setText("Bitte Eingabe prüfen.");
+					changeLabel.setForeground(Color.RED);
+					changeLabel.setText("Bitte Eingabe prüfen.");
 					return;
 				}	
 				
 				if (Integer.parseInt(idInput) > l.toArray().length) {
-					inputLabel3.setForeground(Color.RED);
-					inputLabel3.setText("ID existiert nicht.");
+					changeLabel.setForeground(Color.RED);
+					changeLabel.setText("ID existiert nicht.");
 					return;
 				}
 				
@@ -328,11 +328,13 @@ public class Lieferanten extends JPanel{
 			        dialog.setVisible(true);
 			        dialog.addWindowListener(new WindowAdapter() {
 			        	public void windowClosed(WindowEvent e) {
-			        		inputLabel3.setForeground(Color.BLACK);
-			        		if (!abgebrochen) inputLabel3.setText("Lieferant bearbeitet.");
+			        		changeLabel.setForeground(Color.BLACK);
+			        		if (!abgebrochen) changeLabel.setText("Lieferant bearbeitet.");
 			            }
 			        });
 				} catch (Exception e1) {e1.printStackTrace();}
+				
+				resetLabel(changeLabel);
 			}
 		});
 		add(bearbeitenButton);
@@ -349,14 +351,14 @@ public class Lieferanten extends JPanel{
 				
 				// Check User Input
 				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
-					inputLabel3.setForeground(Color.RED);
-					inputLabel3.setText("Bitte Eingabe prüfen.");
+					changeLabel.setForeground(Color.RED);
+					changeLabel.setText("Bitte Eingabe prüfen.");
 					return;
 				}	
 
 				if (Integer.parseInt(idInput) > l.toArray().length) {
-					inputLabel3.setForeground(Color.RED);
-					inputLabel3.setText("ID existiert nicht.");
+					changeLabel.setForeground(Color.RED);
+					changeLabel.setText("ID existiert nicht.");
 					return;
 				}
 				
@@ -368,11 +370,13 @@ public class Lieferanten extends JPanel{
 			        dialog.setVisible(true);
 			        dialog.addWindowListener(new WindowAdapter() {
 			        	public void windowClosed(WindowEvent e) {
-			        		inputLabel3.setForeground(Color.BLACK);
-			        		if (!abgebrochen) inputLabel3.setText("Rechnung aufgenommen.");
+			        		changeLabel.setForeground(Color.BLACK);
+			        		if (!abgebrochen) changeLabel.setText("Rechnung aufgenommen.");
 			            }
 			        });
 				} catch (Exception e1) {e1.printStackTrace();}
+				
+				resetLabel(neuLabel);
 			}
 		});
 		add(addRechnungButton);
@@ -442,13 +446,16 @@ public class Lieferanten extends JPanel{
 		return lieferant;
 	}
 	
+	private static void resetLabel (JLabel label) {
+		label.setText("");
+	}
 	
 	// Tabelle erstellen
 	private static ArrayList<String> tableByName (String name) {
 
 		ArrayList<String> table = new ArrayList<String>();
 		
-		l.stream().filter(x -> x.getName().toLowerCase().contains(name)).forEach(x -> {
+		l.stream().filter(x -> x.getName().toLowerCase().contains(name.toLowerCase())).forEach(x -> {
 			table.add(String.valueOf(x.getLieferantenID()));
 			table.add(x.getName());
 		});
@@ -472,7 +479,7 @@ public class Lieferanten extends JPanel{
 
 		ArrayList<String> table = new ArrayList<String>();
 		
-		l.stream().filter(x -> x.getName().toLowerCase().contains(name) && x.getLieferantenID() == id).forEach(x -> {
+		l.stream().filter(x -> x.getName().toLowerCase().contains(name.toLowerCase()) && x.getLieferantenID() == id).forEach(x -> {
 			table.add(String.valueOf(x.getLieferantenID()));
 			table.add(x.getName());
 		});
