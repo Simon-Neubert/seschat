@@ -149,24 +149,23 @@ public class LieferantenRechnungenNeu extends JDialog {
 					
 					temp [temp.length - 3] = '0';
 					
-					for (int i = 0; i < temp.length; i++) {
+					for (int i = 0; i < temp.length; i++)
 						if(!Character.isDigit(temp[i])) {
 							setErrMessage(inputLabel);
 							return;
 						}
-					}
+					
 
 					// Check User Input everywhere else
 					if (monat < 1 || jahrDropdown.getSelectedIndex() == 0) {
-						inputLabel.setForeground(Color.RED);
-						inputLabel.setText("Bitte alle Felder korrekt ausfüllen.");
+						setErrMessage(inputLabel);
 						return;
 					}
 					
 					int jahr = Integer.parseInt(lastTenYears[jahrDropdown.getSelectedIndex()]);
 					double wert = Double.parseDouble(bestellvolumen);
 
-					// gui.Lieferanten.rechnungAufnehmen(idAlt, monat, jahr, wert, status);
+					gui.Lieferanten.rechnungAufnehmen(idAlt, monat, jahr, wert, status);
 					dispose();
 				}
 			});

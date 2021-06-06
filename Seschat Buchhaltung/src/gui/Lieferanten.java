@@ -424,7 +424,9 @@ public class Lieferanten extends JPanel{
 	public static void dbAddRechnung (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
-			stmt.execute("INSERT INTO lieferantenrechnungen (LieferantenID, Monat, Jahr, Bestellvolumen, Status) VALUES ('"+lieferantenID+"', '"+monat+"', '"+jahr+"', '"+bestellvolumen+"', '"+status+"')");
+			int tinyInt = 0;
+			if (status) tinyInt = 1;
+			stmt.execute("INSERT INTO lieferantenrechnungen (LieferantenID, Monat, Jahr, Bestellvolumen, Status) VALUES ('"+lieferantenID+"', '"+monat+"', '"+jahr+"', '"+bestellvolumen+"', '"+tinyInt+"')");
 		} catch (Exception e) {e.printStackTrace();}
 	}
 

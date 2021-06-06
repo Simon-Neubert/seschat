@@ -6,12 +6,16 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
 
 import dbaccess.DBAccess;
 
@@ -201,6 +205,28 @@ public class ablage {
 		});
 		add(bearbeitenButton);
 
+	 */
+	
+	/*
+	 
+			MaskFormatter mask = null;
+			try {
+				mask = new MaskFormatter("#0.##");
+				mask.setValidCharacters("0123456789");
+				mask.setPlaceholderCharacter('0');
+				mask.setAllowsInvalid(false);
+			
+			} catch (Exception e) {e.printStackTrace();}
+			
+			NumberFormat money = NumberFormat.getCurrencyInstance();
+			money.setMinimumFractionDigits(2);
+			money.setMaximumFractionDigits(2);
+			money.setMinimumIntegerDigits(1);
+			
+			DecimalFormatSymbols dot = new DecimalFormatSymbols();
+			dot.setDecimalSeparator('.'); 
+			DecimalFormat format = new DecimalFormat ("#0.##", dot);
+			
 	 */
 	
 }
