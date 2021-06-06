@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import objects.*;
 import dbaccess.*;
@@ -168,6 +169,10 @@ public class Lieferanten extends JPanel{
 		table.setGridColor(Color.LIGHT_GRAY);
 		table.setRowHeight(30);
 		add(table);
+		
+		JScrollPane pane = new JScrollPane(table);
+		pane.setBounds(101, 535, 1310, 420);
+		add(pane);
 		
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.setForeground(new Color(30, 144, 255));
