@@ -6,21 +6,26 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Calendar;
 
 import javax.swing.JDialog;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.text.MaskFormatter;
+import javax.swing.text.NumberFormatter;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 
 public class LieferantenRechnungenNeu extends JDialog {
 
-	private JTextField textField;
-	private JTextField bestellvolumenField;
 	private JButton speichernButton;
 	private JLabel lieferantLabel2;
 	private JLabel inputLabel;
@@ -113,20 +118,16 @@ public class LieferantenRechnungenNeu extends JDialog {
 			statusRadio.setBounds(257, 268, 87, 37);
 			getContentPane().add(statusRadio);
 			
-			bestellvolumenField = new JTextField();
-			bestellvolumenField.setHorizontalAlignment(SwingConstants.CENTER);
-			bestellvolumenField.setFont(new Font("Dialog", Font.PLAIN, 14));
-			bestellvolumenField.setColumns(10);
-			bestellvolumenField.setBorder(new LineBorder(Color.BLACK, 1));
-			bestellvolumenField.setBounds(34, 268, 153, 37);
-			getContentPane().add(bestellvolumenField);
-			bestellvolumenField.addFocusListener(new FocusListener() {
-				public void focusGained(FocusEvent e) {
-					bestellvolumenField.setText("");
-				}
-				public void focusLost(FocusEvent e) {}
-			});
-
+			JTextField bestellvolumenTextfield = new JTextField("");
+			bestellvolumenTextfield.setBounds(34, 268, 153, 37);
+			bestellvolumenTextfield.setColumns(10);
+			bestellvolumenTextfield.setBorder(new LineBorder(Color.BLACK, 1));
+			bestellvolumenTextfield.setHorizontalAlignment(SwingConstants.CENTER);
+			bestellvolumenTextfield.setFont(new Font("Serif", Font.PLAIN, 14));
+	
+			
+			getContentPane().add(bestellvolumenTextfield);
+			
 			speichernButton = new JButton("Speichern");
 			speichernButton.setBounds(143, 341, 117, 45);
 			speichernButton.setForeground(new Color(30, 144, 255));
@@ -136,21 +137,36 @@ public class LieferantenRechnungenNeu extends JDialog {
 					
 					boolean status = statusRadio.isSelected();
 					int monat = monatDropdown.getSelectedIndex();
-					String bestellvolumen = bestellvolumenField.getText();
-					/*
-					 * Stringerino muss ein double sein; vielleicht JFormattedTextField?
-					 */
-					// Check User Input
-
-					if (bestellvolumen.equals("") || monat < 1 || monat > 12 || jahrDropdown.getSelectedIndex() == 0) {
-						inputLabel.setForeground(Color.RED);
-						inputLabel.setText("Bitte alle Felder ausfüllen.");
+					String bestellvolumen = bestellvolumenTextfield.getText();
+					
+					// Check Bestellvolumen
+					char temp [] = bestellvolumen.toCharArray();
+					
+					if (temp[temp.length - 3] != '.') {
+						setErrMessage(inputLabel);
 						return;
 					}
 					
-					int jahr = Integer.parseInt(monate[jahrDropdown.getSelectedIndex()]);
+					temp [temp.length - 3] = '0';
 					
-					gui.Lieferanten.rechnungAufnehmen(idAlt, monat, jahr, 0.0, status);
+					for (int i = 0; i < temp.length; i++) {
+						if(!Character.isDigit(temp[i])) {
+							setErrMessage(inputLabel);
+							return;
+						}
+					}
+
+					// Check User Input everywhere else
+					if (monat < 1 || jahrDropdown.getSelectedIndex() == 0) {
+						inputLabel.setForeground(Color.RED);
+						inputLabel.setText("Bitte alle Felder korrekt ausfüllen.");
+						return;
+					}
+					
+					int jahr = Integer.parseInt(lastTenYears[jahrDropdown.getSelectedIndex()]);
+					double wert = Double.parseDouble(bestellvolumen);
+
+					// gui.Lieferanten.rechnungAufnehmen(idAlt, monat, jahr, wert, status);
 					dispose();
 				}
 			});
@@ -161,5 +177,11 @@ public class LieferantenRechnungenNeu extends JDialog {
 	private static void fillYears () {
 		lastTenYears[0] = "Jahr auswählen ...";
 		for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
+	}
+	
+	private static void setErrMessage (JLabel inputLabel) {
+		inputLabel.setForeground(Color.RED);
+		inputLabel.setText("Bitte alle Felder korrekt ausfüllen.");
+		return;
 	}
 }
