@@ -168,7 +168,6 @@ public class Lieferanten extends JPanel{
 		table.setShowVerticalLines(true);
 		table.setGridColor(Color.LIGHT_GRAY);
 		table.setRowHeight(30);
-		add(table);
 		
 		JScrollPane pane = new JScrollPane(table);
 		pane.setBounds(101, 535, 1310, 420);
@@ -181,7 +180,7 @@ public class Lieferanten extends JPanel{
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
-				String nameInput = nameSuchenField.getText().toLowerCase();
+				String nameInput = nameSuchenField.getText();
 				String idInput = idSuchenField.getText();
 				nameSuchenField.setText("   Bitte Name eingeben...");
 				idSuchenField.setText("   Bitte ID eingeben...");
@@ -197,14 +196,31 @@ public class Lieferanten extends JPanel{
 				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("   Bitte Name eingeben...") || nameInput.equals(""))) {
 					
 					ArrayList<String> list = tableOfAll();
-					String [][] array = new String [(list.toArray().length)/2][2];
+					String [][] tempArray = new String [(list.toArray().length)/2][2];
 					int counter = 0;
 					
 					for (int i = 0; i < (list.toArray().length)/2; i++) 
 						for (int j = 0; j < 2; j++) {
-							array[i][j] = "  " + list.get(counter);
+							tempArray[i][j] = "  " + list.get(counter);
 							counter++;
 						}
+					
+					// Fix formatting
+					tempArray [0][0] = null;
+					
+					for (int i = 0; i < (list.toArray().length)/2 - 1; i++) {
+						for (int j = 0; j < 2; j++) {
+							tempArray[i][j] = tempArray[i+1][j];
+						}
+					}
+					
+					String [][] array = new String [(tempArray.length - 1)][2];
+					
+					for (int i = 0; i < array.length; i++) {
+						for (int j = 0; j < 2; j++) {
+							array [i][j] = tempArray[i][j];
+						}
+					}
 					
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
 					table.setModel(tableModel);
