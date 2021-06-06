@@ -196,31 +196,14 @@ public class Lieferanten extends JPanel{
 				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("   Bitte Name eingeben...") || nameInput.equals(""))) {
 					
 					ArrayList<String> list = tableOfAll();
-					String [][] tempArray = new String [(list.toArray().length)/2][2];
+					String [][] array = new String [(list.toArray().length)/2][2];
 					int counter = 0;
 					
 					for (int i = 0; i < (list.toArray().length)/2; i++) 
 						for (int j = 0; j < 2; j++) {
-							tempArray[i][j] = "  " + list.get(counter);
+							array[i][j] = "  " + list.get(counter);
 							counter++;
 						}
-					
-					// Fix formatting
-					tempArray [0][0] = null;
-					
-					for (int i = 0; i < (list.toArray().length)/2 - 1; i++) {
-						for (int j = 0; j < 2; j++) {
-							tempArray[i][j] = tempArray[i+1][j];
-						}
-					}
-					
-					String [][] array = new String [(tempArray.length - 1)][2];
-					
-					for (int i = 0; i < array.length; i++) {
-						for (int j = 0; j < 2; j++) {
-							array [i][j] = tempArray[i][j];
-						}
-					}
 					
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
 					table.setModel(tableModel);
@@ -506,8 +489,6 @@ public class Lieferanten extends JPanel{
 	private static ArrayList<String> tableOfAll () {
 
 		ArrayList<String> table = new ArrayList<String>();
-		String [] spalten = {"Lieferanten-ID", "Name"};
-		table.addAll(Arrays.asList(spalten));
 		
 		l.stream().forEach(x -> {
 			table.add(String.valueOf(x.getLieferantenID()));
