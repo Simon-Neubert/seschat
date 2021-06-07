@@ -409,13 +409,6 @@ public class Lieferanten extends JPanel{
 		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
 	}
 	
-	// Change Lieferant in objects and call dbChangeLieferant
-	public static void lieferantBearbeiten (int id, String name) {
-		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> x.setName(name));
-		dbChangeLieferant(id, name);
-		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
-	}
-
 	// Add Lieferant in mySQL database
 	public static void dbAddLieferant (String name) {
 		try {
@@ -424,6 +417,13 @@ public class Lieferanten extends JPanel{
 		} catch (Exception e) {e.printStackTrace();}
 	}
 	
+	// Change Lieferant in objects and call dbChangeLieferant
+	public static void lieferantBearbeiten (int id, String name) {
+		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> x.setName(name));
+		dbChangeLieferant(id, name);
+		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
+	}
+
 	// Change Lieferant in mySQL database
 	public static void dbChangeLieferant (int id, String name) {
 		try {

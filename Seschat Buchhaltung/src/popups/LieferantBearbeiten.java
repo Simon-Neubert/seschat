@@ -16,7 +16,6 @@ import javax.swing.JButton;
 
 public class LieferantBearbeiten extends JDialog {
 	
-	private JTextField textField;
 	private JTextField neuField;
 	private JButton speichernButton;
 	private JLabel altLabel;

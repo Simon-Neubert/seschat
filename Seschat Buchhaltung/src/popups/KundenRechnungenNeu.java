@@ -2,32 +2,24 @@ package popups;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.NumberFormat;
 import java.util.Calendar;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
-import javax.swing.text.MaskFormatter;
-import javax.swing.text.NumberFormatter;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JRadioButton;
 
-public class LieferantenRechnungenNeu extends JDialog {
+public class KundenRechnungenNeu extends JDialog{
+
 
 	private JButton speichernButton;
-	private JLabel lieferantLabel2;
+	private JLabel kundeLabel2;
 	private JLabel inputLabel;
 	private JLabel idLabel;
 	private JLabel rechnungsIDLabel;
@@ -40,25 +32,25 @@ public class LieferantenRechnungenNeu extends JDialog {
 	private JLabel formatLabel;
 	
 	
-	public LieferantenRechnungenNeu (int idAlt, String lieferantAlt, int rechnungsID) {
+	public KundenRechnungenNeu (int idAlt, String vornameAlt, String nachnameAlt, int plzAlt, int rechnungsID) {
 			
 			setBounds(800, 200, 400, 500);
 			getContentPane().setLayout(null);
 			
 			//Label
-			JLabel lieferantLabel = new JLabel("Lieferant:");
-			lieferantLabel.setBounds(34, 35, 87, 29);
-			lieferantLabel.setEnabled(false);
-			lieferantLabel.setHorizontalAlignment(SwingConstants.LEFT);
-			lieferantLabel.setFont(new Font("Serif", Font.BOLD, 18));
-			lieferantLabel.setForeground(Color.BLACK);
-			getContentPane().add(lieferantLabel);
+			JLabel kundeLabel = new JLabel("Kunde:");
+			kundeLabel.setBounds(34, 35, 87, 29);
+			kundeLabel.setEnabled(false);
+			kundeLabel.setHorizontalAlignment(SwingConstants.LEFT);
+			kundeLabel.setFont(new Font("Serif", Font.BOLD, 18));
+			kundeLabel.setForeground(Color.BLACK);
+			getContentPane().add(kundeLabel);
 			
-			lieferantLabel2 = new JLabel(lieferantAlt + " (ID: " + idAlt + ")");
-			lieferantLabel2.setHorizontalAlignment(SwingConstants.CENTER);
-			lieferantLabel2.setBounds(133, 35, 261, 29);
-			lieferantLabel2.setFont(new Font("Serif", Font.ITALIC, 18));
-			getContentPane().add(lieferantLabel2);
+			kundeLabel2 = new JLabel(vornameAlt + " " + nachnameAlt + " (ID: " + idAlt + ")");
+			kundeLabel2.setHorizontalAlignment(SwingConstants.CENTER);
+			kundeLabel2.setBounds(133, 35, 261, 29);
+			kundeLabel2.setFont(new Font("Serif", Font.ITALIC, 18));
+			getContentPane().add(kundeLabel2);
 			
 			idLabel = new JLabel("Rechnungs-ID:");
 			idLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -159,7 +151,6 @@ public class LieferantenRechnungenNeu extends JDialog {
 							setErrMessage(inputLabel);
 							return;
 						}
-					
 
 					// Check User Input everywhere else
 					if (monat < 1 || jahrDropdown.getSelectedIndex() == 0) {
@@ -170,7 +161,7 @@ public class LieferantenRechnungenNeu extends JDialog {
 					int jahr = Integer.parseInt(lastTenYears[jahrDropdown.getSelectedIndex()]);
 					double wert = Double.parseDouble(bestellvolumen);
 
-					gui.Lieferanten.rechnungAufnehmen(idAlt, monat, jahr, wert, status);
+					gui.Kunden.rechnungAufnehmen(idAlt, monat, jahr, wert, status);
 					dispose();
 				}
 			});
@@ -189,4 +180,5 @@ public class LieferantenRechnungenNeu extends JDialog {
 		return;
 	}
 
+	
 }

@@ -11,9 +11,9 @@ import javax.swing.JPanel;
 
 public class Main extends JFrame{
 	
-	// Kunden kundenPanel = new Kunden();
+	Kunden kundenPanel = new Kunden();
 	Lieferanten lieferantenPanel = new Lieferanten();
-	// Auswertung rechnungsPanel = new Rechnungen();
+	// Rechnung rechnungsPanel = new Rechnungen();
 	// Auswertung auswertungsPanel = new Auswertung();
 	
 	public Main() {
@@ -26,7 +26,7 @@ public class Main extends JFrame{
 		tabbedPane.setBounds(0, 6, 1786, 1065);
 		getContentPane().add(tabbedPane);
 		
-		// tabbedPane.add("Kunden", kundenPanel);
+		tabbedPane.add("Kunden", kundenPanel);
 		tabbedPane.add("Lieferanten", lieferantenPanel);
 		// tabbedPane.add("Rechnungen", rechnungsPanel);
 		// tabbedPane.add("Auswertung", auswertungsPanel);
