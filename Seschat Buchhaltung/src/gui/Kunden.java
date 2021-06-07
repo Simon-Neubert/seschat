@@ -131,7 +131,7 @@ public class Kunden extends JPanel {
 		neuLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		neuLabel.setForeground(Color.RED);
 		neuLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		neuLabel.setBounds(378, 212, 573, 26);
+		neuLabel.setBounds(378, 212, 490, 26);
 		add(neuLabel);
 		
 		JButton speichernButton = new JButton("Speichern");
