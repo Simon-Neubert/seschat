@@ -140,6 +140,11 @@ public class LieferantenRechnungenNeu extends JDialog {
 					String bestellvolumen = bestellvolumenTextfield.getText();
 					
 					// Check Bestellvolumen
+					if (bestellvolumen.equals("") || bestellvolumen.length() < 4 ) {
+						setErrMessage(inputLabel);
+						return;
+					}
+					
 					char temp [] = bestellvolumen.toCharArray();
 					
 					if (temp[temp.length - 3] != '.') {
