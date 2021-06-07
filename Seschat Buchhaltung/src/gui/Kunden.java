@@ -283,11 +283,6 @@ public class Kunden extends JPanel {
 				String nachnameInput = nachnameSuchenField.getText();
 				String plzInput = plzSuchenField.getText();
 				String idInput = idSuchenField.getText();
-				vornameSuchenField.setText("   Vorname eingeben...");
-				nachnameSuchenField.setText("   Nachname eingeben...");
-				plzSuchenField.setText("   PLZ eingeben...");
-				idSuchenField.setText("   Bitte ID eingeben...");
-
 				
 				// Keine Eingabe
 				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (vornameInput.equals("   Vorname eingeben...") || vornameInput.equals("")) && (nachname.equals("   Nachname eingeben...") || nachname.equals("")) && (plzInput.equals("   PLZ eingeben...") || plzInput.equals(""))) {
@@ -309,7 +304,6 @@ public class Kunden extends JPanel {
 					return;
 				}
 
-				
 				// Check ID Input
 				if ((!idInput.matches("[0-9]+") && !idInput.equals("   Bitte ID eingeben...")) && !idInput.equals("")) {
 					setErrMessage(suchenLabel);
@@ -332,6 +326,7 @@ public class Kunden extends JPanel {
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ"});
 					table.setModel(tableModel);
 					resetLabel(suchenLabel);
+					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
 					return;
 				}
 				
@@ -369,6 +364,7 @@ public class Kunden extends JPanel {
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Lieferanten-ID", "Vorname", "Nachname", "PLZ"});
 					table.setModel(tableModel);
 					resetLabel(suchenLabel);
+					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
 					return;
 				}
 				
@@ -388,6 +384,7 @@ public class Kunden extends JPanel {
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
 					table.setModel(tableModel);
 					resetLabel(suchenLabel);
+					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
 					return;
 				}
 				
@@ -407,6 +404,7 @@ public class Kunden extends JPanel {
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
 					table.setModel(tableModel);
 					resetLabel(suchenLabel);
+					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
 					return;
 				}
 
@@ -426,12 +424,12 @@ public class Kunden extends JPanel {
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
 					table.setModel(tableModel);
 					resetLabel(suchenLabel);
+					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
 					return;
 				}
 				
 				// Nur Vorname
 				if (vornameInput.matches("[a-zA-Z]+")) {
-					
 					ArrayList<String> list = tableByVorname(vornameInput);
 					String[][] array = new String[(list.toArray().length)/4][4];
 					int counter = 0;
@@ -444,30 +442,13 @@ public class Kunden extends JPanel {
 
 					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
 					table.setModel(tableModel);
-
-				}
-				
-				// Nur Nachname
-				if (nachnameInput.matches("[a-zA-Z]+")) {
-					
-					ArrayList<String> list = tableByNachname(nachnameInput);
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
-					table.setModel(tableModel);
-
+					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
+					return;
 				}
 				
 				// Nur PLZ
 				if (plzInput.length() == 5) {
-					
+
 					ArrayList<String> list = tableByPLZ(Integer.parseInt(plzInput));
 					String[][] array = new String[(list.toArray().length)/4][4];
 					int counter = 0;
@@ -481,7 +462,26 @@ public class Kunden extends JPanel {
 					DefaultTableModel tableModel = new DefaultTableModel(array,
 							new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
 					table.setModel(tableModel);
+					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
+					return;
+				}
+				
+				// Nur Nachname
+				if (nachnameInput.matches("[a-zA-Z]+")) {
+					ArrayList<String> list = tableByNachname(nachnameInput);
+					String[][] array = new String[(list.toArray().length)/4][4];
+					int counter = 0;
 
+					for (int i = 0; i < (list.toArray().length)/4; i++)
+						for (int j = 0; j < 4; j++) {
+							array[i][j] = "  " + list.get(counter);
+							counter++;
+						}
+
+					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
+					table.setModel(tableModel);
+					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
+					return;
 				}
 				
 				resetLabel(suchenLabel);
@@ -721,6 +721,13 @@ public class Kunden extends JPanel {
 		return;
 	}
 
+	// Reset input fields
+	private static void resetFields (JTextField vornameSuchenField, JTextField nachnameSuchenField, JTextField plzSuchenField, JTextField idSuchenField) {
+		vornameSuchenField.setText("   Vorname eingeben...");
+		nachnameSuchenField.setText("   Nachname eingeben...");
+		plzSuchenField.setText("   PLZ eingeben...");
+		idSuchenField.setText("   Bitte ID eingeben...");
+	}
 	
 // Tabellen erstellen (suchen)
 
