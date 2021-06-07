@@ -33,13 +33,13 @@ import java.awt.event.ActionEvent;
 
 public class Kunden extends JPanel {
 
-	// Read from DB and add data to objects
+// Read from DB and add data to objects
 	static ArrayList<objects.Kunde> k = dbaccess.DBAccess.createKunden();
 	static ArrayList<objects.Kundenrechnung> kr = dbaccess.DBAccess.createKundenrechnungen();
 	static String vorname = "", nachname = ""; static int plz = 0;
 	public static boolean abgebrochen = true;
 
-	// Components for GUI
+// Components for GUI
 
 	private JTextField vornameNeuField;
 	private JTextField generiertField;
@@ -128,6 +128,7 @@ public class Kunden extends JPanel {
 		add(generiertField);
 	
 		JLabel neuLabel = new JLabel("");
+		neuLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		neuLabel.setForeground(Color.RED);
 		neuLabel.setFont(new Font("Serif", Font.ITALIC, 18));
 		neuLabel.setBounds(378, 212, 573, 26);
@@ -208,7 +209,7 @@ public class Kunden extends JPanel {
 		nachnameSuchenField.setBounds(378, 346, 219, 53);
 		nachnameSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
-				vornameSuchenField.setText("");
+				nachnameSuchenField.setText("");
 			}
 
 			public void focusLost(FocusEvent e) {
@@ -226,13 +227,12 @@ public class Kunden extends JPanel {
 		plzSuchenField.setBounds(649, 346, 219, 53);
 		plzSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
-				vornameSuchenField.setText("");
+				plzSuchenField.setText("");
 			}
 
 			public void focusLost(FocusEvent e) {
 			}
 		});
-		
 		add(plzSuchenField);
 		
 		idSuchenField = new JTextField();
@@ -246,7 +246,6 @@ public class Kunden extends JPanel {
 			public void focusGained(FocusEvent e) {
 				idSuchenField.setText("");
 			}
-
 			public void focusLost(FocusEvent e) {
 			}
 		});
@@ -291,7 +290,7 @@ public class Kunden extends JPanel {
 
 				
 				// Keine Eingabe
-				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (vornameInput.equals("   Vorname eingeben...") || vornameInput.equals("")) && (nachname.equals("   Vorname eingeben...") || nachname.equals("")) && (plzInput.equals("   PLZ eingeben...") || plzInput.equals(""))) {
+				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (vornameInput.equals("   Vorname eingeben...") || vornameInput.equals("")) && (nachname.equals("   Nachname eingeben...") || nachname.equals("")) && (plzInput.equals("   PLZ eingeben...") || plzInput.equals(""))) {
 
 					ArrayList<String> list = tableOfAll();
 					String[][] array = new String[(list.toArray().length)/4][4];
@@ -341,14 +340,21 @@ public class Kunden extends JPanel {
 					setErrMessage(suchenLabel);
 					return;
 				}
-				// Check names Input
-				if (!vorname.equals("   Vorname eingeben...") && !vorname.equals("") && !nachname.equals("   Nachname eingeben...") && !nachname.equals("") &&  !vorname.matches("[a-z]+") &&  !nachname.matches("[a-z]+")) {
+				
+				// Check Vorname Input
+				if (!vorname.equals("   Vorname eingeben...") && !vorname.equals("") && !vorname.matches("[a-zA-Z]+")) {
+					setErrMessage(suchenLabel);
+					return;
+				}
+				
+				// Check Nachname Input
+				if (!nachname.equals("   Vorname eingeben...") && !nachname.equals("") && !nachname.matches("[a-zA-Z]+")) {
 					setErrMessage(suchenLabel);
 					return;
 				}
 				
 				// Vor- und Nachname + PLZ eingegeben
-				if (vornameInput.length() > 0 && nachnameInput.length() > 0 && plzInput.length() == 5 && !vorname.equals("   Vorname eingeben...") && !vorname.equals("") && !nachname.equals("   Nachname eingeben...") && !nachname.equals("") && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
+				if (vornameInput.matches("[a-zA-Z]+") && nachnameInput.matches("[a-zA-Z]+") && plzInput.length() == 5 && (!idInput.equals("") || !idInput.equals("   Bitte ID eingeben..."))) {
 
 					ArrayList<String> list = tableByVorUndNachnameUndPLZ(vornameInput, nachnameInput, Integer.parseInt(plzInput));
 					String[][] array = new String[(list.toArray().length)/4][4];
@@ -367,28 +373,9 @@ public class Kunden extends JPanel {
 				}
 				
 				// Vor- und Nachname eingegeben
-				if (vornameInput.length() > 0 && nachnameInput.length() > 0 && !vorname.equals("   Vorname eingeben...") && !vorname.equals("") && !nachname.equals("   Nachname eingeben...") && !nachname.equals("") && (plzInput.equals("   PLZ eingeben...") || plzInput.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
+				if (vornameInput.matches("[a-zA-Z]+") && nachnameInput.matches("[a-zA-Z]+") && (plzInput.equals("   PLZ eingeben...") || plzInput.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
 
 					ArrayList<String> list = tableByVorUndNachname(vornameInput, nachnameInput);
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
-					return;
-				}
-
-				// Nachname und PLZ eingegeben
-				if (nachnameInput.length() > 0 && !nachname.equals("   Nachname eingeben...") && plzInput.length() == 5 &&  (vorname.equals("   Vorname eingeben...") || vorname.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
-
-					ArrayList<String> list = tableByVornameUndPLZ(vornameInput, Integer.parseInt(plzInput));
 					String[][] array = new String[(list.toArray().length)/4][4];
 					int counter = 0;
 
@@ -405,9 +392,28 @@ public class Kunden extends JPanel {
 				}
 				
 				// Vorname und PLZ eingegeben
-				if (vornameInput.length() > 0 && !vorname.equals("   Vorname eingeben...") && !vorname.equals("") && (nachname.equals("   Nachname eingeben...") || !nachname.equals("")) && (plzInput.equals("   PLZ eingeben...") || plzInput.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
+				if (vornameInput.matches("[a-zA-Z]+") && plzInput.matches("[0-9]+") && (nachname.equals("   Nachname eingeben...") || nachname.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
+					
+					ArrayList<String> list = tableByVornameUndPLZ(vornameInput, Integer.parseInt(plzInput));
+					String[][] array = new String[(list.toArray().length)/4][4];
+					int counter = 0;
 
-					ArrayList<String> list = tableByVorUndNachname(vornameInput, nachnameInput);
+					for (int i = 0; i < (list.toArray().length)/4; i++)
+						for (int j = 0; j < 4; j++) {
+							array[i][j] = "  " + list.get(counter);
+							counter++;
+						}
+
+					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
+					table.setModel(tableModel);
+					resetLabel(suchenLabel);
+					return;
+				}
+
+				// Nachname und PLZ eingegeben
+				if (nachnameInput.matches("[a-zA-Z]+") && plzInput.matches("[0-9]+") && (vorname.equals("   Vorname eingeben...") || vorname.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
+
+					ArrayList<String> list = tableByNachnameUndPLZ(nachnameInput, Integer.parseInt(plzInput));
 					String[][] array = new String[(list.toArray().length)/4][4];
 					int counter = 0;
 
@@ -424,7 +430,7 @@ public class Kunden extends JPanel {
 				}
 				
 				// Nur Vorname
-				if (vornameInput.length() != 0) {
+				if (vornameInput.matches("[a-zA-Z]+")) {
 					
 					ArrayList<String> list = tableByVorname(vornameInput);
 					String[][] array = new String[(list.toArray().length)/4][4];
@@ -442,7 +448,7 @@ public class Kunden extends JPanel {
 				}
 				
 				// Nur Nachname
-				if (nachnameInput.length() != 0) {
+				if (nachnameInput.matches("[a-zA-Z]+")) {
 					
 					ArrayList<String> list = tableByNachname(nachnameInput);
 					String[][] array = new String[(list.toArray().length)/4][4];
@@ -596,15 +602,12 @@ public class Kunden extends JPanel {
 					dialog.addWindowListener(new WindowAdapter() {
 						public void windowClosed(WindowEvent e) {
 							changeLabel.setForeground(Color.BLACK);
-							if (!abgebrochen)
-								changeLabel.setText("Rechnung aufgenommen.");
+							if (!abgebrochen) changeLabel.setText("Rechnung aufgenommen.");
 						}
 					});
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-
-				resetLabel(neuLabel);
 			}
 		});
 		add(addRechnungButton);
@@ -623,6 +626,7 @@ public class Kunden extends JPanel {
 
 	// Add Kunde in mySQL database
 	public static void dbAddKunde(String vorname, String nachname, int plz) {
+		DBAccess.dbResetAutoIncrement("KundenID", "kunden");
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
 			stmt.execute(" INSERT INTO kunden (Vorname, Nachname, PLZ) VALUES ('" + vorname + "', '" + nachname + "', '" + plz + "')");
@@ -633,10 +637,11 @@ public class Kunden extends JPanel {
 
 	// Change Kunde in objects and call dbChangeLieferant
 	public static void kundeBearbeiten(int id, String vorname, String nachname, int plz) {
+		DBAccess.dbResetAutoIncrement("KundenID", "kunden");
 		k.stream().filter(x -> x.getKundenID() == id).forEach(x -> {
 			x.setKundenID(id);
 			x.setVorname(vorname);
-			x.setNachname(vorname);
+			x.setNachname(nachname);
 			x.setPlz(plz);
 		});
 		dbChangeKunde(id, vorname, nachname, plz);
