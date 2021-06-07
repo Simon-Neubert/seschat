@@ -342,7 +342,7 @@ public class Kunden extends JPanel {
 				}
 				
 				// Check Nachname Input
-				if (!nachnameInput.equals("   Vorname eingeben...") && !nachnameInput.equals("") && !nachnameInput.matches("[a-zA-Z]+")) {
+				if (!nachnameInput.equals("   Nachname eingeben...") && !nachnameInput.equals("") && !nachnameInput.matches("[a-zA-Z]+")) {
 					setErrMessage(suchenLabel);
 					return;
 				}
