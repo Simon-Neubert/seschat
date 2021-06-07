@@ -43,19 +43,13 @@ public class KundeBearbeiten extends JDialog{
 		altLabel.setFont(new Font("Serif", Font.ITALIC, 18));
 		getContentPane().add(altLabel);
 		
-		vornameField = new JTextField();
+		vornameField = new JTextField(vornameAlt);
 		vornameField.setHorizontalAlignment(SwingConstants.CENTER);
 		vornameField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		vornameField.setColumns(10);
 		vornameField.setBorder(new LineBorder(Color.BLACK, 1));
 		vornameField.setBounds(176, 95, 153, 37);
 		getContentPane().add(vornameField);
-		vornameField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				vornameField.setText("");
-			}
-			public void focusLost(FocusEvent e) {}
-		});
 		
 		vornameLabel = new JLabel("Vorname:");
 		vornameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -81,7 +75,7 @@ public class KundeBearbeiten extends JDialog{
 		plzLabel.setBounds(21, 257, 102, 29);
 		getContentPane().add(plzLabel);
 		
-		nachnameField = new JTextField();
+		nachnameField = new JTextField(nachnameAlt);
 		nachnameField.setHorizontalAlignment(SwingConstants.CENTER);
 		nachnameField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		nachnameField.setColumns(10);
@@ -89,7 +83,7 @@ public class KundeBearbeiten extends JDialog{
 		nachnameField.setBounds(176, 171, 153, 37);
 		getContentPane().add(nachnameField);
 		
-		plzField = new JTextField();
+		plzField = new JTextField(String.valueOf(plz));
 		plzField.setHorizontalAlignment(SwingConstants.CENTER);
 		plzField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		plzField.setColumns(10);
@@ -111,8 +105,8 @@ public class KundeBearbeiten extends JDialog{
 			public void mouseClicked(MouseEvent e) {
 				
 				String vornameInput = vornameField.getText();
-				String nachnameInput = vornameField.getText();
-				String plzInput = vornameField.getText();
+				String nachnameInput = nachnameField.getText();
+				String plzInput = plzField.getText();
 				
 				// Check User Input
 				if (vornameInput.equals("") || !vornameInput.toLowerCase().matches("[a-z]+") || nachnameInput.equals("") || !nachnameInput.toLowerCase().matches("[a-z]+") || !plzInput.matches("[0-9]+") || plzInput.equals("") || plzInput.length() != 5) {
