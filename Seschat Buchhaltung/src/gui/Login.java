@@ -126,10 +126,9 @@ public class Login extends JFrame{
 		username = usernameField.getText();
 		password = String.valueOf(passwordField.getPassword());
 		if (DBAccess.checkLogin(username, password)) {
-			
+			gui.Main.abgebrochen = false;
 			dispose();
 		}
-		// Access main program
 	}
 	
 }
