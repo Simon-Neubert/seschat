@@ -37,6 +37,15 @@ public class Main extends JFrame{
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				
+				try {
+					Login login = new Login();
+					login.setVisible(true);
+					login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					login.setTitle("Seschat Buchhaltung");
+					login.pack();
+				} catch (Exception e) {e.printStackTrace();}
+				
 				try {
 					Main program = new Main();
 					program.setVisible(true);

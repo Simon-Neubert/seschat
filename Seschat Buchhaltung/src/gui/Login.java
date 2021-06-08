@@ -135,7 +135,7 @@ public class Login extends JFrame{
 		username = usernameField.getText();
 		password = String.valueOf(passwordField.getPassword());
 		if (DBAccess.checkLogin(username, password)) {
-			System.out.println("Login successful");
+			
 			dispose();
 		}
 		// Access main program
