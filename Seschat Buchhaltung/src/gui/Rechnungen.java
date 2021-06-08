@@ -1,5 +1,9 @@
 package gui;
 
-public class Rechnungen {
+import javax.swing.JDialog;
 
+public class Rechnungen extends JDialog{
+
+	
+	
 }

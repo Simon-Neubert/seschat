@@ -42,32 +42,28 @@ public class Main extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 
-				Login login = new Login();
-				login.setVisible(true);
-				login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				login.setTitle("Seschat Buchhaltung");
-				login.setAlwaysOnTop(true);
 				
 				Main program = new Main();
 				program.setVisible(false);
 				program.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				program.setTitle("Seschat Buchhaltung");
 				program.pack();
-
+				
+				Login login = new Login();
+				login.setVisible(true);
+				login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				login.setTitle("Seschat Buchhaltung");
+				login.setAlwaysOnTop(true);
 				login.addWindowListener(new WindowAdapter() {
 					public void windowClosed(WindowEvent e) {
 						if (abgebrochen) program.dispose();;
-						setVisible(program);
+						program.setVisible(true);
 					}
 				});
+				
 			}
-			
 		});
+		
 	}
-
-	private static void setVisible (Main program) {
-		program.setVisible(true);
-	}
-	
 	
 }
