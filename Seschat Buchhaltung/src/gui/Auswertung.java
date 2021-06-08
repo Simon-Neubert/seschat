@@ -30,7 +30,7 @@ import java.io.FileWriter;
 import javax.swing.SwingConstants;
 import javax.swing.JTable;
 
-public class Auswertung extends JFrame{
+public class Auswertung extends JPanel{
 	
 	// Auslesen DB
 	static ArrayList<objects.Kunde> k = dbaccess.DBAccess.createKunden();
@@ -42,23 +42,25 @@ public class Auswertung extends JFrame{
 		
 		// Set Frame
 		setBounds(2000, 2000, 2000, 2000);
-		getContentPane().setLayout(null);
+		setLayout(null);
+		
+		fillYears();
 		
 		// Labels
 		JLabel labelEinnahmen = new JLabel("Einnahmen ausgeben nach:");
 		labelEinnahmen.setBounds(171, 60, 286, 32);
 		labelEinnahmen.setFont(new Font("Serif", Font.PLAIN, 25));
-		getContentPane().add(labelEinnahmen);
+		add(labelEinnahmen);
 		
 		JLabel labelBestellvolumen = new JLabel("Bestellvolumen ausgeben nach:");
 		labelBestellvolumen.setFont(new Font("Serif", Font.PLAIN, 25));
 		labelBestellvolumen.setBounds(1104, 60, 395, 32);
-		getContentPane().add(labelBestellvolumen);
+		add(labelBestellvolumen);
 		
 		JLabel labelJahresabschluss = new JLabel("Jahresabschluss:");
 		labelJahresabschluss.setFont(new Font("Serif", Font.PLAIN, 25));
-		labelJahresabschluss.setBounds(171, 450, 286, 32);
-		getContentPane().add(labelJahresabschluss);
+		labelJahresabschluss.setBounds(171, 416, 286, 32);
+		add(labelJahresabschluss);
 		
 		// Textfelder Ausgabe
 		einnahmenResultField = new JTextField();
@@ -66,8 +68,8 @@ public class Auswertung extends JFrame{
 		einnahmenResultField.setHorizontalAlignment(SwingConstants.CENTER);
 		einnahmenResultField.setBounds(171, 318, 587, 53);
 		einnahmenResultField.setBorder(new LineBorder(Color.BLACK, 1));
-		getContentPane().add(einnahmenResultField);
 		einnahmenResultField.setColumns(10);
+		add(einnahmenResultField);
 		
 		bestellvolumenResultField = new JTextField();
 		bestellvolumenResultField.setEditable(false);
@@ -75,8 +77,8 @@ public class Auswertung extends JFrame{
 		bestellvolumenResultField.setColumns(10);
 		bestellvolumenResultField.setBounds(1104, 318, 587, 53);
 		bestellvolumenResultField.setBorder(new LineBorder(Color.BLACK, 1));
-		getContentPane().add(bestellvolumenResultField);
-		
+		add(bestellvolumenResultField);
+
 		
 		// Einnahmen Komponenten
 		plzField = new JTextField();
@@ -90,23 +92,25 @@ public class Auswertung extends JFrame{
 			public void focusGained(FocusEvent e) {plzField.setText("");}
 			public void focusLost(FocusEvent e) {}
 		});
-		getContentPane().add(plzField);
+		add(plzField);
 		
 		JComboBox monatDropdownEinnahmen = new JComboBox(monate);
 		monatDropdownEinnahmen.setMaximumRowCount(14);
 		monatDropdownEinnahmen.setBounds(171, 118, 219, 78);
-		getContentPane().add(monatDropdownEinnahmen);
+		add(monatDropdownEinnahmen);
 		
 		JComboBox jahrDropdownEinnahmen = new JComboBox(lastTenYears);
 		jahrDropdownEinnahmen.setMaximumRowCount(14);
 		jahrDropdownEinnahmen.setBounds(539, 118, 219, 78);
-		getContentPane().add(jahrDropdownEinnahmen);
+		add(jahrDropdownEinnahmen);
 		
 		JButton einnahmenButton = new JButton("Ausgeben");
 		einnahmenButton.addMouseListener(new MouseAdapter() {
 			// Ausgabe Einnahmen		
 			public void mouseClicked(MouseEvent e) {
-
+				
+				fillYears();
+				
 				// Make sure input is valid
 				String plzText = plzField.getText();
 				if (plzText.equals("   Bitte PLZ eingeben...")) plzText = "0";
@@ -171,7 +175,7 @@ public class Auswertung extends JFrame{
 		});
 		einnahmenButton.setBackground(new Color(30, 144, 255));
 		einnahmenButton.setBounds(561, 220, 170, 50);
-		getContentPane().add(einnahmenButton);
+		add(einnahmenButton);
 		
 		
 		//Bestellvolumen Komponenten
@@ -183,17 +187,17 @@ public class Auswertung extends JFrame{
 		JComboBox monatDropdownBestellvolumen = new JComboBox(monate);
 		monatDropdownBestellvolumen.setMaximumRowCount(14);
 		monatDropdownBestellvolumen.setBounds(1104, 118, 219, 78);
-		getContentPane().add(monatDropdownBestellvolumen);
+		add(monatDropdownBestellvolumen);
 		
 		JComboBox jahrDropdownBestellvolumen = new JComboBox(lastTenYears);
 		jahrDropdownBestellvolumen.setMaximumRowCount(14);
 		jahrDropdownBestellvolumen.setBounds(1472, 118, 219, 78);
-		getContentPane().add(jahrDropdownBestellvolumen);
+		add(jahrDropdownBestellvolumen);
 		
 		JComboBox lieferantDropdown = new JComboBox(lieferanten);
 		lieferantDropdown.setMaximumRowCount(l.toArray().length + 1);
 		lieferantDropdown.setBounds(1104, 206, 250, 78);
-		getContentPane().add(lieferantDropdown);
+		add(lieferantDropdown);
 		
 		JButton bestellVolumenButton = new JButton("Ausgeben");
 		bestellVolumenButton.setBackground(new Color(30, 144, 255));
@@ -236,14 +240,14 @@ public class Auswertung extends JFrame{
 				return;
 			}
 		});
-		getContentPane().add(bestellVolumenButton);
+		add(bestellVolumenButton);
 		
 		
 		//Jahresabschluss Komponenten
 		JComboBox jahrDropdownJahresabschluss = new JComboBox(lastTenYears);
 		jahrDropdownJahresabschluss.setMaximumRowCount(14);
-		jahrDropdownJahresabschluss.setBounds(172, 494, 219, 78);
-		getContentPane().add(jahrDropdownJahresabschluss);
+		jahrDropdownJahresabschluss.setBounds(172, 460, 219, 78);
+		add(jahrDropdownJahresabschluss);
 		
 		JButton abchlussJahrButton = new JButton("Ausgeben");
 		abchlussJahrButton.addActionListener(new ActionListener() {
@@ -266,12 +270,12 @@ public class Auswertung extends JFrame{
 			}
 		});
 		abchlussJahrButton.setBackground(new Color(30, 144, 255));
-		abchlussJahrButton.setBounds(471, 508, 170, 50);
-		getContentPane().add(abchlussJahrButton);
+		abchlussJahrButton.setBounds(471, 474, 170, 50);
+		add(abchlussJahrButton);
 		
 		JButton speichernButton = new JButton("Speichern");
 		speichernButton.setBackground(new Color(30, 144, 255));
-		speichernButton.setBounds(740, 508, 170, 50);
+		speichernButton.setBounds(740, 474, 170, 50);
 		speichernButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String jahr = String.valueOf(jahrDropdownJahresabschluss.getSelectedItem());
@@ -280,18 +284,18 @@ public class Auswertung extends JFrame{
 				}
 			}
 		});
-		getContentPane().add(speichernButton);
+		add(speichernButton);
 
 		jahresAbschlussTable = new JTable();
 		jahresAbschlussTable.setEnabled(false);
-		jahresAbschlussTable.setBounds(171, 582, 1519, 420);
+		jahresAbschlussTable.setBounds(171, 550, 1519, 420);
 		jahresAbschlussTable.setBorder(new LineBorder(Color.BLACK, 2));
 		jahresAbschlussTable.setFillsViewportHeight(true);
 		jahresAbschlussTable.setShowHorizontalLines(true);
 		jahresAbschlussTable.setShowVerticalLines(true);
 		jahresAbschlussTable.setGridColor(Color.LIGHT_GRAY);
 		jahresAbschlussTable.setRowHeight(30);
-		getContentPane().add(jahresAbschlussTable);
+		add(jahresAbschlussTable);
 		
 	}
 
@@ -311,25 +315,6 @@ public class Auswertung extends JFrame{
 	private JTextField einnahmenResultField;
 	private JTextField bestellvolumenResultField;
 	private JTable jahresAbschlussTable;
-	
-	
-	// Run
-	public static void main(String[] args) {
-		
-		fillYears();
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Auswertung auswertungFrame = new Auswertung();
-					auswertungFrame.setVisible(true);
-					auswertungFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-					auswertungFrame.setTitle("Seschat Buchhaltung");
-				} catch (Exception e) {e.printStackTrace();}
-			}
-		});
-	}
-	
 	
 	// Hilfsfunktionen
 	private static void resetSumme () {
