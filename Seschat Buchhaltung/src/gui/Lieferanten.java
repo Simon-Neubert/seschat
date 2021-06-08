@@ -286,7 +286,7 @@ public class Lieferanten extends JPanel{
 		
 		JLabel bearbeitenLabel = new JLabel("Lieferant bearbeiten:");
 		bearbeitenLabel.setFont(new Font("Serif", Font.PLAIN, 25));
-		bearbeitenLabel.setBounds(1304, 84, 277, 26);
+		bearbeitenLabel.setBounds(1508, 75, 277, 26);
 		add(bearbeitenLabel);
 		
 		JLabel changeLabel = new JLabel("");
@@ -294,7 +294,7 @@ public class Lieferanten extends JPanel{
 		changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		changeLabel.setForeground(Color.RED);
 		changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		changeLabel.setBounds(1293, 469, 210, 26);
+		changeLabel.setBounds(1497, 460, 210, 26);
 		add(changeLabel);
 		
 		idBearbeitenFeld = new JTextField();
@@ -303,7 +303,7 @@ public class Lieferanten extends JPanel{
 		idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
 		idBearbeitenFeld.setColumns(10);
 		idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
-		idBearbeitenFeld.setBounds(1293, 160, 219, 53);
+		idBearbeitenFeld.setBounds(1497, 151, 219, 53);
 		add(idBearbeitenFeld);
 		idBearbeitenFeld.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
@@ -315,7 +315,7 @@ public class Lieferanten extends JPanel{
 		JButton bearbeitenButton = new JButton("Bearbeiten");
 		bearbeitenButton.setForeground(new Color(30, 144, 255));
 		bearbeitenButton.setBackground(new Color(30, 144, 255));
-		bearbeitenButton.setBounds(1315, 278, 170, 50);
+		bearbeitenButton.setBounds(1519, 269, 170, 50);
 		bearbeitenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -357,7 +357,7 @@ public class Lieferanten extends JPanel{
 		JButton addRechnungButton = new JButton("Neue Rechnung");
 		addRechnungButton.setForeground(new Color(30, 144, 255));
 		addRechnungButton.setBackground(new Color(30, 144, 255));
-		addRechnungButton.setBounds(1315, 389, 170, 50);
+		addRechnungButton.setBounds(1519, 380, 170, 50);
 		addRechnungButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 

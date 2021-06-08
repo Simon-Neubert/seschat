@@ -23,7 +23,7 @@ public class Main extends JFrame{
 	    setSize(Toolkit.getDefaultToolkit().getScreenSize());
 	    
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 6, 1786, 1065);
+		tabbedPane.setBounds(0, 0, 1914, 1025);
 		getContentPane().add(tabbedPane);
 		
 		tabbedPane.add("Kunden", kundenPanel);
@@ -38,7 +38,6 @@ public class Main extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
 					Main program = new Main();
 					program.setVisible(true);
 					program.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

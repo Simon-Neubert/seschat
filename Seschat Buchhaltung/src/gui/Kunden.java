@@ -492,7 +492,7 @@ public class Kunden extends JPanel {
 		
 		JLabel bearbeitenLabel = new JLabel("Kunde bearbeiten:");
 		bearbeitenLabel.setFont(new Font("Serif", Font.PLAIN, 25));
-		bearbeitenLabel.setBounds(1293, 93, 277, 26);
+		bearbeitenLabel.setBounds(1532, 90, 277, 26);
 		add(bearbeitenLabel);
 
 		idBearbeitenFeld = new JTextField();
@@ -501,7 +501,7 @@ public class Kunden extends JPanel {
 		idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
 		idBearbeitenFeld.setColumns(10);
 		idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
-		idBearbeitenFeld.setBounds(1281, 134, 219, 53);
+		idBearbeitenFeld.setBounds(1520, 131, 219, 53);
 		idBearbeitenFeld.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				idBearbeitenFeld.setText("");
@@ -517,7 +517,7 @@ public class Kunden extends JPanel {
 		changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		changeLabel.setForeground(Color.RED);
 		changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		changeLabel.setBounds(1281, 456, 210, 26);
+		changeLabel.setBounds(1520, 453, 210, 26);
 		add(changeLabel);
 		
 		JButton bearbeitenButton = new JButton("Bearbeiten");
@@ -527,7 +527,7 @@ public class Kunden extends JPanel {
 		});
 		bearbeitenButton.setForeground(new Color(30, 144, 255));
 		bearbeitenButton.setBackground(new Color(30, 144, 255));
-		bearbeitenButton.setBounds(1305, 239, 170, 50);
+		bearbeitenButton.setBounds(1544, 236, 170, 50);
 		bearbeitenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -571,7 +571,7 @@ public class Kunden extends JPanel {
 		JButton addRechnungButton = new JButton("Neue Rechnung");
 		addRechnungButton.setForeground(new Color(30, 144, 255));
 		addRechnungButton.setBackground(new Color(30, 144, 255));
-		addRechnungButton.setBounds(1305, 349, 170, 50);
+		addRechnungButton.setBounds(1544, 346, 170, 50);
 		addRechnungButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
