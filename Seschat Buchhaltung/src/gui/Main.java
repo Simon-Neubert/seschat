@@ -43,7 +43,7 @@ public class Main extends JFrame{
 					login.setVisible(true);
 					login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					login.setTitle("Seschat Buchhaltung");
-					login.pack();
+					login.setAlwaysOnTop(true);
 				} catch (Exception e) {e.printStackTrace();}
 				
 				try {
