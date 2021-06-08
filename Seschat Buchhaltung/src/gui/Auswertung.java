@@ -120,32 +120,49 @@ public class Auswertung extends JFrame{
 				int zeitraumIndex = monatDropdownEinnahmen.getSelectedIndex();
 				String zeitraum = String.valueOf(monatDropdownEinnahmen.getSelectedItem());
 				String pending = "€  (Davon ausstehend: ";
-
+				resetSumme();
+				
 				if (!checkIfTimeframeInputIsValid(zeitraumIndex, jahrDropdownEinnahmen.getSelectedIndex())) {
 					einnahmenResultField.setText("Bitte Monat nur in Kombination mit Jahr auswählen");
 					return;
 				}
+				
 				int jahrIndex = jahrDropdownEinnahmen.getSelectedIndex();
 				String jahr = lastTenYears[jahrIndex];
+				
 				// PLZ + Monat
 				if (plzLength == 5 && zeitraumIndex > 0 && jahrIndex > 0) {
 					einnahmenResultField.setText("Gesamteinnahmen im " + zeitraum + ", " + jahr + " aus " + plz + ": " + (double)einnahmenAusPLZInMonat(plz, zeitraumIndex, Integer.parseInt(jahr))/100 + pending + (double)ausstehend/100 + "€)");
 					plzField.setText("   Bitte PLZ eingeben...");
+					resetKunden();
 					return;
 				}
 				// PLZ + Jahr (ohne Monat)
 				if (plzLength == 5 && jahrIndex > 0 && zeitraumIndex == 0) {
 					einnahmenResultField.setText("Gesamteinnahmen in " + jahr + " aus " + plz + ": " + (double)einnahmenAusPLZImJahr(plz, Integer.parseInt(jahr))/100 + (pending) + (double)ausstehend/100 + "€)");
 					plzField.setText("   Bitte PLZ eingeben...");
+					resetKunden();
 					return;
 				}
 				
 				// Monat und Jahr ohne PLZ
-				if (plzLength != 5 && zeitraumIndex > 0 && jahrIndex > 0) einnahmenResultField.setText("Gesamteinnahmen im " + zeitraum + ", " + jahr + ": " + (double) einnahmenImMonat(zeitraumIndex, Integer.parseInt(jahr))/100 + pending + (double)ausstehend/100 + "€)");
+				if (plzLength != 5 && zeitraumIndex > 0 && jahrIndex > 0) {
+					einnahmenResultField.setText("Gesamteinnahmen im " + zeitraum + ", " + jahr + ": " + (double) einnahmenImMonat(zeitraumIndex, Integer.parseInt(jahr))/100 + pending + (double)ausstehend/100 + "€)");
+					resetKunden();
+					return;
+				}
 				// Jahr ohne Monat
-				if (plzLength != 5 && jahrIndex > 0 && zeitraumIndex == 0) einnahmenResultField.setText("Gesamteinnahmen in " + jahr + ": " + (double)einnahmenImJahr(Integer.parseInt(jahr))/100 + pending + (double)ausstehend/100 + "€)");
+				if (plzLength != 5 && jahrIndex > 0 && zeitraumIndex == 0) {
+					einnahmenResultField.setText("Gesamteinnahmen in " + jahr + ": " + (double)einnahmenImJahr(Integer.parseInt(jahr))/100 + pending + (double)ausstehend/100 + "€)");
+					resetKunden();
+					return;
+				}
 				// Nur PLZ
-				if (plzLength == 5 && jahrIndex == 0 && zeitraumIndex == 0) einnahmenResultField.setText("Gesamteinnahmen aus " + plz + ": " + (double)einnahmenAusPLZ(plz)/100 + pending + (double)ausstehend/100 + "€)");
+				if (plzLength == 5 && jahrIndex == 0 && zeitraumIndex == 0) {
+					einnahmenResultField.setText("Gesamteinnahmen aus " + plz + ": " + (double)einnahmenAusPLZ(plz)/100 + pending + (double)ausstehend/100 + "€)");
+					resetKunden();
+					return;
+				}
 				// Invalide Eingabe
 				if (plzLength != 5 && zeitraumIndex == 0 && jahrIndex == 0) einnahmenResultField.setText("Bitte Auswahl prüfen");
 				plzField.setText("   Bitte PLZ eingeben...");
@@ -323,6 +340,9 @@ public class Auswertung extends JFrame{
 	}
 	private static void resetAusstehend () {
 		ausstehend = 0;
+	}
+	private static void resetKunden () {
+		Arrays.fill(kunden, 0);
 	}
 	private static void fillYears () {
 		lastTenYears[0] = "Bitte Jahr auswählen ...";
