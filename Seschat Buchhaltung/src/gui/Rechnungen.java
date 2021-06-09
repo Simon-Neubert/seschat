@@ -248,7 +248,7 @@ public class Rechnungen extends JPanel{
 			changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			changeLabel.setForeground(Color.RED);
 			changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-			changeLabel.setBounds(1365, 453, 210, 26);
+			changeLabel.setBounds(1219, 453, 500, 26);
 			add(changeLabel);
 			
 			JRadioButton kundeRadioBearbeiten = new JRadioButton("Kunde");
@@ -338,7 +338,7 @@ public class Rechnungen extends JPanel{
 
 	// Edit invoice
 
-		// Add invoive to objects and call dbAddRechnung
+		// Add invoice to objects and call dbEditRechnung
 		public static void rechnungBearbeitenLieferant(int rechnungsID, int monat, int jahr, double bestellvolumen, boolean status) {
 			lr.stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x -> {
 				x.setMonat(monat);
@@ -355,13 +355,13 @@ public class Rechnungen extends JPanel{
 				Statement stmt = DBAccess.conn.createStatement();
 				int tinyInt = 0;
 				if (status) tinyInt = 1;
-				stmt.execute("UPDATE kundenrechnungen  SET monat = '" + monat + "', jahr = '" + jahr + "', summe = '" + bestellvolumen + "', status = '"+ tinyInt + "' WHERE RechnungsID = '" + rechnungsID + "'");
+				stmt.execute("UPDATE lieferantenrechnungen  SET monat = '" + monat + "', jahr = '" + jahr + "', bestellvolumen = '" + bestellvolumen + "', status = '"+ tinyInt + "' WHERE RechnungsID = '" + rechnungsID + "'");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 
-		// Add invoive to objects and call dbAddRechnung
+		// Add invoice to objects and call dbEditRechnung
 		public static void rechnungBearbeitenKunde(int rechnungsID, int monat, int jahr, double bestellvolumen, boolean status) {
 			kr.stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x -> {
 				x.setMonat(monat);
@@ -379,7 +379,7 @@ public class Rechnungen extends JPanel{
 				int tinyInt = 0;
 				if (status)
 					tinyInt = 1;
-				stmt.execute("UPDATE lieferantenrechnungen  SET monat = '" + monat + "', jahr = '" + jahr + "', summe = '" + bestellvolumen + "', status = '" + tinyInt + "' WHERE RechnungsID = '" + rechnungsID + "'");
+				stmt.execute("UPDATE kundenrechnungen SET monat = '" + monat + "', jahr = '" + jahr + "', summe = '" + bestellvolumen + "', status = '" + tinyInt + "' WHERE RechnungsID = '" + rechnungsID + "'");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
