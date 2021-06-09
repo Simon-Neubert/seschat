@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -61,7 +62,6 @@ public class Rechnungen extends JPanel{
 		private JTextField idBearbeitenFeld;
 		private final ButtonGroup buttonGroup = new ButtonGroup();
 		private final ButtonGroup buttonGroup_1 = new ButtonGroup();
-		private final ButtonGroup buttonGroup_2 = new ButtonGroup();
 		private final ButtonGroup buttonGroup_3 = new ButtonGroup();
 		private final ButtonGroup buttonGroup_4 = new ButtonGroup();
 
@@ -98,24 +98,19 @@ public class Rechnungen extends JPanel{
 			
 			JRadioButton summeRadio = new JRadioButton("Summe");
 			buttonGroup_3.add(summeRadio);
-			summeRadio.setBounds(636, 385, 78, 23);
+			summeRadio.setBounds(432, 386, 78, 23);
 			add(summeRadio);
 			
 			JRadioButton zeitraumRadio = new JRadioButton("Zeitraum");
 			buttonGroup_3.add(zeitraumRadio);
-			zeitraumRadio.setBounds(636, 436, 92, 23);
+			zeitraumRadio.setBounds(585, 386, 92, 23);
 			add(zeitraumRadio);
 			
 			String sortier [] = {"aufsteigend", "absteigend"};
 			JComboBox sortierenBox = new JComboBox(sortier);
 			sortierenBox.setMaximumRowCount(2);
-			sortierenBox.setBounds(1026, 386, 181, 27);
+			sortierenBox.setBounds(432, 436, 181, 27);
 			add(sortierenBox);
-			
-			JRadioButton statusRadioSuchenBezahlt = new JRadioButton("Bezahlt");
-			buttonGroup_2.add(statusRadioSuchenBezahlt);
-			statusRadioSuchenBezahlt.setBounds(419, 385, 92, 26);
-			add(statusRadioSuchenBezahlt);
 			
 			JRadioButton bezahltRadio = new JRadioButton("Bezahlt");
 			buttonGroup_1.add(bezahltRadio);
@@ -124,23 +119,18 @@ public class Rechnungen extends JPanel{
 			
 			JRadioButton rechnungsIDRadio = new JRadioButton("Rechnungs-ID");
 			buttonGroup_3.add(rechnungsIDRadio);
-			rechnungsIDRadio.setBounds(809, 435, 132, 23);
+			rechnungsIDRadio.setBounds(873, 386, 132, 23);
 			add(rechnungsIDRadio);
 			
 			JRadioButton kundenIDRadio = new JRadioButton("Kunden-ID");
 			buttonGroup_3.add(kundenIDRadio);
-			kundenIDRadio.setBounds(809, 385, 119, 23);
+			kundenIDRadio.setBounds(725, 386, 119, 23);
 			add(kundenIDRadio);
 			
 			JRadioButton unbezahltRadio = new JRadioButton("Unbezahlt");
 			buttonGroup_1.add(unbezahltRadio);
 			unbezahltRadio.setBounds(873, 268, 141, 23);
 			add(unbezahltRadio);
-			
-			JRadioButton statusRadioSuchenUnbezahlt = new JRadioButton("Unbezahlt");
-			buttonGroup_2.add(statusRadioSuchenUnbezahlt);
-			statusRadioSuchenUnbezahlt.setBounds(419, 436, 119, 26);
-			add(statusRadioSuchenUnbezahlt);
 			
 			JRadioButton kundeRadio = new JRadioButton("Kunde");
 			buttonGroup.add(kundeRadio);
@@ -209,12 +199,13 @@ public class Rechnungen extends JPanel{
 			JButton suchenButton = new JButton("Suchen");
 			suchenButton.setForeground(new Color(30, 144, 255));
 			suchenButton.setBackground(new Color(30, 144, 255));
-			suchenButton.setBounds(1026, 424, 181, 50);
+			suchenButton.setBounds(873, 424, 181, 50);
 			suchenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					
 					ArrayList <String> list = new ArrayList<String> ();
-					
+				
+					// Filtern
 					boolean isKunde = kundeRadio.isSelected();
 					boolean isLieferant = lieferantRadio.isSelected();
 					boolean skip = false;
@@ -522,7 +513,7 @@ public class Rechnungen extends JPanel{
 		
 	// Tabellen erstellen (suchen)
 
-		// Create table if user only inputs first name
+		// Create tables
 		private static ArrayList<String> tableByrechnungsID(int id, boolean kunde) {
 
 			ArrayList<String> table = new ArrayList<String>();
@@ -554,7 +545,6 @@ public class Rechnungen extends JPanel{
 			return table;
 		}
 
-		// Create table if user doesnt input anything
 		private static ArrayList<String> tableOfAll(boolean kunde, boolean bezahlt, boolean unbezahlt) {
 
 			ArrayList<String> table = new ArrayList<String>();
@@ -885,5 +875,5 @@ public class Rechnungen extends JPanel{
 			}
 			return table;			
 		}
-
+	
 }

@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -332,5 +333,56 @@ public class ablage {
 			
 	 */
 	
+	/*
+	 					
+					// Sortieren
+					ArrayList <String> liste = new ArrayList<String> ();
+					
+					int sort = sortierenBox.getSelectedIndex();
+					
+					boolean zeitraum = zeitraumRadio.isSelected();
+					boolean summe = summeRadio.isSelected();
+					boolean rechnung = rechnungsIDRadio.isSelected();
+					boolean kunde = kundenIDRadio.isSelected();
+					boolean skip2;
+					
+					
+					
+					 * Comparator<Double> bySumme = (Double s1, Double s2) -> s1.compareTo(s2);
+					
+					Comparator<Integer, Integer> byZeitraum = (p1, p2) -> {
+						return Integer.compare(p1.getMonat(),p2.getMonat()); 
+					};
+					
+					Comparator<Rechnung> byRechnung = (p1, p2) -> {
+						return Integer.compare(p1.getMonat(),p2.getMonat()); 
+					};
+					
+					Comparator<Rechnung> byKunde = (p1, p2) -> {
+						return Integer.compare(p1.getMonat(),p2.getMonat()); 
+					};
+					
+					if (zeitraum) {
+						list.stream().sorted(byZeitraum).forEach(x -> liste.add(x));
+						skip2 = true;
+					}
+					
+					if (summe) {
+						list.stream().sorted(list, bySumme).forEach(list);
+						skip2 = true;
+					}
+					
+					if (rechnung) {
+						list.stream().sorted(byRechnung).forEach(list);
+						skip2 = true;
+					}
+					
+					if (kunde) {
+						list.stream().sorted(byKunde).forEach(list);
+						skip2 = true;
+					}
+					
+					if (!skip2) liste = list;
+	 */
 	
 }
