@@ -1,9 +1,10 @@
 package gui;
 
+import dbaccess.DBAccess;
+import objects.*;
+
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -27,9 +28,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import dbaccess.DBAccess;
-import objects.Kunde;
-import objects.Kundenrechnung;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
