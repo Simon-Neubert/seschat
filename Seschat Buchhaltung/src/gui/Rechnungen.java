@@ -131,6 +131,7 @@ public class Rechnungen extends JPanel{
 			add(unbezahltRadio);
 			
 			JRadioButton kundeRadio = new JRadioButton("Kunde");
+			kundeRadio.setSelected(true);
 			buttonGroup.add(kundeRadio);
 			kundeRadio.setBounds(585, 98, 141, 23);
 			add(kundeRadio);
@@ -421,6 +422,7 @@ public class Rechnungen extends JPanel{
 			loeschenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					sortierenGroup.clearSelection();
+					ausgebenGroup.clearSelection();
 				}
 			});
 			loeschenButton.setBounds(656, 435, 163, 29);
@@ -428,7 +430,8 @@ public class Rechnungen extends JPanel{
 
 		}
 
-
+		
+		// Rechnungsbearbeitung in Objects und DB
 	// Edit invoice
 
 		// Add invoice to objects and call dbEditRechnung
@@ -479,6 +482,8 @@ public class Rechnungen extends JPanel{
 		}
 		
 		
+		
+		// Hilfsfunktionen
 	// Auxiliary functions
 		
 		// Get vorname
@@ -524,7 +529,6 @@ public class Rechnungen extends JPanel{
 			for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
 		}
 
-		
 		// Set label to empty String
 		private static void resetLabel(JLabel label) {
 			label.setText("");
@@ -538,10 +542,10 @@ public class Rechnungen extends JPanel{
 		}
 
 		// Reset input fields
-		private static void resetFields () {
-		}
+
 
 		
+		// Tabellen erstellen
 	// Tabellen erstellen (suchen)
 
 		// Create tables
@@ -1073,6 +1077,8 @@ public class Rechnungen extends JPanel{
 		}
 	
 		
+		
+		// Rechnungen-Objekte sortieren
 	// ArrayListen sortieren
 		
 		private static void sortRechnungen (int sort, boolean zeitraum, boolean summe, boolean rechnung, boolean kunde, boolean isKunde, boolean isLieferant) {
