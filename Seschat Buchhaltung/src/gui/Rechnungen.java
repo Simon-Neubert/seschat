@@ -49,6 +49,9 @@ public class Rechnungen extends JPanel{
 		private static String[] lastTenYears = new String[11];
 		
 		public static String lieferant = "";
+		public static int kundeID = 0;
+		public static int lieferantID = 0;
+		
 		
 	// Components for GUI
 
@@ -259,10 +262,6 @@ public class Rechnungen extends JPanel{
 			add(lieferantRadioBearbeiten);
 			
 			JButton bearbeitenButton = new JButton("Bearbeiten");
-			bearbeitenButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
 			bearbeitenButton.setForeground(new Color(30, 144, 255));
 			bearbeitenButton.setBackground(new Color(30, 144, 255));
 			bearbeitenButton.setBounds(1382, 339, 170, 50);
@@ -272,25 +271,28 @@ public class Rechnungen extends JPanel{
 					String idInput = idBearbeitenFeld.getText();
 					idBearbeitenFeld.setText("   Bitte ID eingeben...");
 
+					boolean lieferant = lieferantRadioBearbeiten.isSelected();
+					boolean kunde = kundeRadioBearbeiten.isSelected();
+					
 					// Check User Input
 					if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
 						setErrMessage(changeLabel);
 						return;
 					}
 
-					if (kundeRadioBearbeiten.isSelected() && Integer.parseInt(idInput) > kr.toArray().length) {
+					if (kunde && Integer.parseInt(idInput) > kr.toArray().length) {
 						changeLabel.setForeground(Color.RED);
 						changeLabel.setText("ID existiert nicht.");
 						return;
 					}
 
-					if (lieferantRadioBearbeiten.isSelected() && Integer.parseInt(idInput) > lr.toArray().length) {
+					if (lieferant && Integer.parseInt(idInput) > lr.toArray().length) {
 						changeLabel.setForeground(Color.RED);
 						changeLabel.setText("ID existiert nicht.");
 						return;
 					}
 					
-					if (!lieferantRadioBearbeiten.isSelected() && !kundeRadioBearbeiten.isSelected()) {
+					if (!lieferant && !kunde) {
 						changeLabel.setForeground(Color.RED);
 						changeLabel.setText("Bitte Rechnungstyp angeben.");
 						return;
@@ -299,8 +301,8 @@ public class Rechnungen extends JPanel{
 					int id = Integer.parseInt(idInput);
 
 					try {
-						if (kundeRadioBearbeiten.isSelected()) {
-							popups.KundenRechnungBearbeiten dialog = new popups.KundenRechnungBearbeiten(kr.get(id).getKundenID(), getVorname(id), getNachname(id), getPLZ(id), id);
+						if (kunde) {
+							popups.KundenRechnungBearbeiten dialog = new popups.KundenRechnungBearbeiten(getKundenID(id), getVorname(id), getNachname(id), getPLZ(id), id);
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 							dialog.setVisible(true);
 							dialog.addWindowListener(new WindowAdapter() {
@@ -311,8 +313,8 @@ public class Rechnungen extends JPanel{
 							});
 						}
 						
-						if (lieferantRadioBearbeiten.isSelected()) {
-							popups.LieferantenRechnungBearbeiten dialog = new popups.LieferantenRechnungBearbeiten(lr.get(id).getLieferantenID(), getName(lr.get(id).getLieferantenID()), id);
+						if (lieferant) {
+							popups.LieferantenRechnungBearbeiten dialog = new popups.LieferantenRechnungBearbeiten(getLieferantenID(id), getName(getLieferantenID(id)), id);
 							dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 							dialog.setVisible(true);
 							dialog.addWindowListener(new WindowAdapter() {
@@ -338,7 +340,6 @@ public class Rechnungen extends JPanel{
 
 		// Add invoive to objects and call dbAddRechnung
 		public static void rechnungBearbeitenLieferant(int rechnungsID, int monat, int jahr, double bestellvolumen, boolean status) {
-			
 			lr.stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x -> {
 				x.setMonat(monat);
 				x.setJahr(jahr);
@@ -362,7 +363,6 @@ public class Rechnungen extends JPanel{
 
 		// Add invoive to objects and call dbAddRechnung
 		public static void rechnungBearbeitenKunde(int rechnungsID, int monat, int jahr, double bestellvolumen, boolean status) {
-
 			kr.stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x -> {
 				x.setMonat(monat);
 				x.setJahr(jahr);
@@ -414,6 +414,17 @@ public class Rechnungen extends JPanel{
 			l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> lieferant = x.getName());
 			return lieferant;
 		}
+		// Get KundenID
+		private static int getKundenID (int id) {
+			kr.stream().filter(x -> x.getRechnungsID() == id).forEach(x -> kundeID = x.getKundenID());
+			return kundeID;
+		}
+		// Get LieferantenID
+		private static int getLieferantenID (int id) {
+			lr.stream().filter(x -> x.getRechnungsID() == id).forEach(x -> lieferantID = x.getLieferantenID());
+			return lieferantID;
+		}
+		
 		
 		// Set label to empty String
 		private static void resetLabel(JLabel label) {

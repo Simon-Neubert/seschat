@@ -16,7 +16,7 @@ public class Main extends JFrame{
 	
 	Kunden kundenPanel = new Kunden();
 	Lieferanten lieferantenPanel = new Lieferanten();
-	// Rechnung rechnungsPanel = new Rechnungen();
+	Rechnungen rechnungsPanel = new Rechnungen();
 	Auswertung auswertungsPanel = new Auswertung();
 	static boolean abgebrochen = true;
 	
@@ -32,7 +32,7 @@ public class Main extends JFrame{
 		
 		tabbedPane.add("Kunden", kundenPanel);
 		tabbedPane.add("Lieferanten", lieferantenPanel);
-		// tabbedPane.add("Rechnungen", rechnungsPanel);
+		tabbedPane.add("Rechnungen", rechnungsPanel);
 		tabbedPane.add("Auswertung", auswertungsPanel);
 		
 	}

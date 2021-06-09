@@ -60,7 +60,7 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			idLabel.setBounds(34, 88, 117, 29);
 			getContentPane().add(idLabel);
 			
-			rechnungsIDLabel = new JLabel("ID: " + idAlt);
+			rechnungsIDLabel = new JLabel("ID: " + rechnungsID);
 			rechnungsIDLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			rechnungsIDLabel.setFont(new Font("Serif", Font.ITALIC, 18));
 			rechnungsIDLabel.setBounds(163, 88, 231, 29);
