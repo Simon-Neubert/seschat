@@ -12,6 +12,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -336,6 +337,18 @@ public class ablage {
 	/*
 	 					
 					// Sortieren
+					
+					
+					
+					(int)(s2.getSumme()*100 - s1.getSumme()*100)
+					
+					
+					
+					
+					
+					
+					
+					
 					ArrayList <String> liste = new ArrayList<String> ();
 					
 					int sort = sortierenBox.getSelectedIndex();
@@ -346,6 +359,19 @@ public class ablage {
 					boolean kunde = kundenIDRadio.isSelected();
 					boolean skip2;
 					
+					Comparator<objects.Rechnung> bySumme = new Comparator<objects.Rechnung>() {
+
+				    	public int compare(objects.Rechnung s1, objects.Rechnung s2) {
+
+				    	   double v1 = s1.getSumme();
+				    	   double v2 = s2.getSumme();
+
+				    	   if (sort == 1) 
+				    	   return (int) (v1*100 - v2*100);
+
+				    	   return (int) (v2*100 - v1*100);
+				       }};
+
 					
 					
 					 * Comparator<Double> bySumme = (Double s1, Double s2) -> s1.compareTo(s2);

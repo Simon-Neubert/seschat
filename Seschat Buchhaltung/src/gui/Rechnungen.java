@@ -106,7 +106,7 @@ public class Rechnungen extends JPanel{
 			zeitraumRadio.setBounds(585, 386, 92, 23);
 			add(zeitraumRadio);
 			
-			String sortier [] = {"aufsteigend", "absteigend"};
+			String sortier [] = {"absteigend", "aufsteigend"};
 			JComboBox sortierenBox = new JComboBox(sortier);
 			sortierenBox.setMaximumRowCount(2);
 			sortierenBox.setBounds(432, 436, 181, 27);
@@ -119,12 +119,12 @@ public class Rechnungen extends JPanel{
 			
 			JRadioButton rechnungsIDRadio = new JRadioButton("Rechnungs-ID");
 			buttonGroup_3.add(rechnungsIDRadio);
-			rechnungsIDRadio.setBounds(873, 386, 132, 23);
+			rechnungsIDRadio.setBounds(922, 386, 132, 23);
 			add(rechnungsIDRadio);
 			
-			JRadioButton kundenIDRadio = new JRadioButton("Kunden-ID");
+			JRadioButton kundenIDRadio = new JRadioButton("Kunden-/Lieferanten-ID");
 			buttonGroup_3.add(kundenIDRadio);
-			kundenIDRadio.setBounds(725, 386, 119, 23);
+			kundenIDRadio.setBounds(714, 386, 207, 23);
 			add(kundenIDRadio);
 			
 			JRadioButton unbezahltRadio = new JRadioButton("Unbezahlt");
@@ -203,21 +203,33 @@ public class Rechnungen extends JPanel{
 			suchenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					
-					ArrayList <String> list = new ArrayList<String> ();
-				
-					// Filtern
+					// Sortieren
+					
 					boolean isKunde = kundeRadio.isSelected();
 					boolean isLieferant = lieferantRadio.isSelected();
-					boolean skip = false;
 					
 					if (!isKunde && !isLieferant) {
-						suchenLabel.setText("Kunde oder Lieferant?");
+						suchenLabel.setForeground(Color.RED);
+						suchenLabel.setText("Bitte Rechnungstyp angeben.");
 						return;
 					}
-				
+					
+					int sort = sortierenBox.getSelectedIndex();
+					boolean zeitraum = zeitraumRadio.isSelected();
+					boolean summe = summeRadio.isSelected();
+					boolean rechnung = rechnungsIDRadio.isSelected();
+					boolean kunde = kundenIDRadio.isSelected();
+				    
+					sortAL (sort, zeitraum, summe, rechnung, kunde, isKunde, isLieferant);
+					
+					// Filtern
+					
+					ArrayList <String> list = new ArrayList<String> ();
+					
 					String rechnungsID = rechnungsIDField.getText();
 					String id = kundenIDField.getText(); 
-				
+					boolean skip = false;
+					
 					if ((!rechnungsID.matches("[0-9]+") && !rechnungsID.equals("") && !rechnungsID.equals("Rechnungs-ID eingeben...")) || (!id.matches("[0-9]+") && !id.equals("") && !id.equals("Kunden-/Lieferanten-ID..."))) {
 						setErrMessage(suchenLabel);
 						return;
@@ -876,4 +888,55 @@ public class Rechnungen extends JPanel{
 			return table;			
 		}
 	
+		
+	// ArrayListen sortieren
+		
+		private static void sortAL (int sort, boolean zeitraum, boolean summe, boolean rechnung, boolean kunde, boolean isKunde, boolean isLieferant) {
+			
+			Comparator<objects.Rechnung> byZeitraum = (s1, s2) -> {
+				if (sort == 1) return Integer.compare(s1.getJahr(),s2.getJahr()); 
+				return Double.compare(s2.getJahr(),s1.getJahr()); 
+			};
+			
+			if (zeitraum) {
+				if (isLieferant) lr.sort(byZeitraum);
+				if (isKunde) kr.sort(byZeitraum);
+			}
+			
+			Comparator<objects.Rechnung> bySumme = (s1, s2) -> {
+				if (sort == 1) return Double.compare(s1.getSumme(),s2.getSumme()); 
+				return Double.compare(s2.getSumme(),s1.getSumme()); 
+			};
+
+			if (summe) {
+				if (isLieferant) lr.sort(bySumme);
+				if (isKunde) kr.sort(bySumme);
+			}
+		    
+			Comparator<objects.Rechnung> byRechnung = (s1, s2) -> {
+				if (sort == 1) return Integer.compare(s1.getRechnungsID(),s2.getRechnungsID()); 
+				return Double.compare(s2.getRechnungsID(),s1.getRechnungsID()); 
+			};
+			
+			if (rechnung) {
+				if (isLieferant) lr.sort(byRechnung);
+				if (isKunde) kr.sort(byRechnung);
+			}
+			
+			Comparator<objects.Kundenrechnung> byKunde = (s1, s2) -> {
+				if (sort == 1) return Integer.compare(s1.getKundenID(),s2.getKundenID()); 
+				return Double.compare(s2.getKundenID(),s1.getKundenID()); 
+			};
+			
+			Comparator<objects.Lieferantenrechnung> byLieferant = (s1, s2) -> {
+				if (sort == 1) return Integer.compare(s1.getLieferantenID(),s2.getLieferantenID()); 
+				return Double.compare(s2.getLieferantenID(),s1.getLieferantenID()); 
+			};
+			
+			if (kunde) {
+				if (isLieferant) lr.sort(byLieferant);
+				if (isKunde) kr.sort(byKunde);
+			}
+			
+		}
 }
