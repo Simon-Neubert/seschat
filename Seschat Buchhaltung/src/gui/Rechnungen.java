@@ -61,9 +61,9 @@ public class Rechnungen extends JPanel{
 		private JTable table;
 		private JTextField idBearbeitenFeld;
 		private final ButtonGroup buttonGroup = new ButtonGroup();
-		private final ButtonGroup buttonGroup_1 = new ButtonGroup();
-		private final ButtonGroup buttonGroup_3 = new ButtonGroup();
-		private final ButtonGroup buttonGroup_4 = new ButtonGroup();
+		private final ButtonGroup ausgebenGroup = new ButtonGroup();
+		private final ButtonGroup sortierenGroup = new ButtonGroup();
+		private final ButtonGroup bearbeitenGroup = new ButtonGroup();
 
 	// Constructor for JPanel
 
@@ -97,12 +97,12 @@ public class Rechnungen extends JPanel{
 			add(lblNewLabel);
 			
 			JRadioButton summeRadio = new JRadioButton("Summe");
-			buttonGroup_3.add(summeRadio);
+			sortierenGroup.add(summeRadio);
 			summeRadio.setBounds(432, 386, 78, 23);
 			add(summeRadio);
 			
 			JRadioButton zeitraumRadio = new JRadioButton("Zeitraum");
-			buttonGroup_3.add(zeitraumRadio);
+			sortierenGroup.add(zeitraumRadio);
 			zeitraumRadio.setBounds(585, 386, 92, 23);
 			add(zeitraumRadio);
 			
@@ -113,22 +113,22 @@ public class Rechnungen extends JPanel{
 			add(sortierenBox);
 			
 			JRadioButton bezahltRadio = new JRadioButton("Bezahlt");
-			buttonGroup_1.add(bezahltRadio);
+			ausgebenGroup.add(bezahltRadio);
 			bezahltRadio.setBounds(585, 268, 141, 23);
 			add(bezahltRadio);
 			
 			JRadioButton rechnungsIDRadio = new JRadioButton("Rechnungs-ID");
-			buttonGroup_3.add(rechnungsIDRadio);
+			sortierenGroup.add(rechnungsIDRadio);
 			rechnungsIDRadio.setBounds(922, 386, 132, 23);
 			add(rechnungsIDRadio);
 			
 			JRadioButton kundenIDRadio = new JRadioButton("Kunden-/Lieferanten-ID");
-			buttonGroup_3.add(kundenIDRadio);
+			sortierenGroup.add(kundenIDRadio);
 			kundenIDRadio.setBounds(714, 386, 207, 23);
 			add(kundenIDRadio);
 			
 			JRadioButton unbezahltRadio = new JRadioButton("Unbezahlt");
-			buttonGroup_1.add(unbezahltRadio);
+			ausgebenGroup.add(unbezahltRadio);
 			unbezahltRadio.setBounds(873, 268, 141, 23);
 			add(unbezahltRadio);
 			
@@ -220,7 +220,7 @@ public class Rechnungen extends JPanel{
 					boolean rechnung = rechnungsIDRadio.isSelected();
 					boolean kunde = kundenIDRadio.isSelected();
 				    
-					sortAL (sort, zeitraum, summe, rechnung, kunde, isKunde, isLieferant);
+					sortRechnungen (sort, zeitraum, summe, rechnung, kunde, isKunde, isLieferant);
 					
 					// Filtern
 					
@@ -326,12 +326,12 @@ public class Rechnungen extends JPanel{
 			add(changeLabel);
 			
 			JRadioButton kundeRadioBearbeiten = new JRadioButton("Kunde");
-			buttonGroup_4.add(kundeRadioBearbeiten);
+			bearbeitenGroup.add(kundeRadioBearbeiten);
 			kundeRadioBearbeiten.setBounds(1356, 289, 119, 23);
 			add(kundeRadioBearbeiten);
 			
 			JRadioButton lieferantRadioBearbeiten = new JRadioButton("Lieferant");
-			buttonGroup_4.add(lieferantRadioBearbeiten);
+			bearbeitenGroup.add(lieferantRadioBearbeiten);
 			lieferantRadioBearbeiten.setBounds(1484, 289, 91, 23);
 			add(lieferantRadioBearbeiten);
 			
@@ -406,6 +406,15 @@ public class Rechnungen extends JPanel{
 				}
 			});
 			add(bearbeitenButton);
+			
+			JButton loeschenButton = new JButton("Auswahl löschen");
+			loeschenButton.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					sortierenGroup.clearSelection();
+				}
+			});
+			loeschenButton.setBounds(656, 435, 163, 29);
+			add(loeschenButton);
 
 		}
 
@@ -891,7 +900,7 @@ public class Rechnungen extends JPanel{
 		
 	// ArrayListen sortieren
 		
-		private static void sortAL (int sort, boolean zeitraum, boolean summe, boolean rechnung, boolean kunde, boolean isKunde, boolean isLieferant) {
+		private static void sortRechnungen (int sort, boolean zeitraum, boolean summe, boolean rechnung, boolean kunde, boolean isKunde, boolean isLieferant) {
 			
 			Comparator<objects.Rechnung> byZeitraum = (s1, s2) -> {
 				if (sort == 1) return Integer.compare(s1.getJahr(),s2.getJahr()); 
