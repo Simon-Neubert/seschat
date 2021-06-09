@@ -55,13 +55,10 @@ public class Rechnungen extends JPanel{
 		
 	// Components for GUI
 
-		private JTextField vornameNeuField;
-		private JTextField generiertField;
-		private JTextField vornameSuchenField;
-		private JTextField idSuchenField;
+		private JTextField kundenIDField;
+		private JTextField rechnungsIDField;
 		private JTable table;
 		private JTextField idBearbeitenFeld;
-		private JTextField summeNeuField;
 		private final ButtonGroup buttonGroup = new ButtonGroup();
 		private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 		private final ButtonGroup buttonGroup_2 = new ButtonGroup();
@@ -83,13 +80,13 @@ public class Rechnungen extends JPanel{
 			bestehendLabel.setFont(new Font("Serif", Font.PLAIN, 25));
 			add(bestehendLabel);
 
-			
-			JComboBox monatDropdownSuchen = new JComboBox(new Object[]{});
+			fillYears();
+			JComboBox monatDropdownSuchen = new JComboBox(monate);
 			monatDropdownSuchen.setMaximumRowCount(14);
 			monatDropdownSuchen.setBounds(585, 149, 181, 78);
 			add(monatDropdownSuchen);
 			
-			JComboBox jahrDropdownSuchen = new JComboBox(new Object[]{});
+			JComboBox jahrDropdownSuchen = new JComboBox(lastTenYears);
 			jahrDropdownSuchen.setMaximumRowCount(14);
 			jahrDropdownSuchen.setBounds(873, 149, 181, 78);
 			add(jahrDropdownSuchen);
@@ -109,40 +106,41 @@ public class Rechnungen extends JPanel{
 			zeitraumRadio.setBounds(636, 436, 92, 23);
 			add(zeitraumRadio);
 			
-			JComboBox sortierenBox = new JComboBox();
+			String sortier [] = {"aufsteigend", "absteigend"};
+			JComboBox sortierenBox = new JComboBox(sortier);
 			sortierenBox.setMaximumRowCount(2);
 			sortierenBox.setBounds(1026, 386, 181, 27);
 			add(sortierenBox);
 			
-			JRadioButton statusRadioSuchen = new JRadioButton("Bezahlt");
-			buttonGroup_2.add(statusRadioSuchen);
-			statusRadioSuchen.setBounds(419, 385, 92, 26);
-			add(statusRadioSuchen);
+			JRadioButton statusRadioSuchenBezahlt = new JRadioButton("Bezahlt");
+			buttonGroup_2.add(statusRadioSuchenBezahlt);
+			statusRadioSuchenBezahlt.setBounds(419, 385, 92, 26);
+			add(statusRadioSuchenBezahlt);
 			
-			JRadioButton rdbtnNewRadioButton = new JRadioButton("Bezahlt");
-			buttonGroup_1.add(rdbtnNewRadioButton);
-			rdbtnNewRadioButton.setBounds(585, 268, 141, 23);
-			add(rdbtnNewRadioButton);
+			JRadioButton bezahltRadio = new JRadioButton("Bezahlt");
+			buttonGroup_1.add(bezahltRadio);
+			bezahltRadio.setBounds(585, 268, 141, 23);
+			add(bezahltRadio);
 			
-			JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Rechnungs-ID");
-			buttonGroup_3.add(rdbtnNewRadioButton_1);
-			rdbtnNewRadioButton_1.setBounds(809, 435, 132, 23);
-			add(rdbtnNewRadioButton_1);
+			JRadioButton rechnungsIDRadio = new JRadioButton("Rechnungs-ID");
+			buttonGroup_3.add(rechnungsIDRadio);
+			rechnungsIDRadio.setBounds(809, 435, 132, 23);
+			add(rechnungsIDRadio);
 			
-			JRadioButton rdbtnNewRadioButton_1_1 = new JRadioButton("Kunden-ID");
-			buttonGroup_3.add(rdbtnNewRadioButton_1_1);
-			rdbtnNewRadioButton_1_1.setBounds(809, 385, 119, 23);
-			add(rdbtnNewRadioButton_1_1);
+			JRadioButton kundenIDRadio = new JRadioButton("Kunden-ID");
+			buttonGroup_3.add(kundenIDRadio);
+			kundenIDRadio.setBounds(809, 385, 119, 23);
+			add(kundenIDRadio);
 			
-			JRadioButton rdbtnUnbezahlt = new JRadioButton("Unbezahlt");
-			buttonGroup_1.add(rdbtnUnbezahlt);
-			rdbtnUnbezahlt.setBounds(873, 268, 141, 23);
-			add(rdbtnUnbezahlt);
+			JRadioButton unbezahltRadio = new JRadioButton("Unbezahlt");
+			buttonGroup_1.add(unbezahltRadio);
+			unbezahltRadio.setBounds(873, 268, 141, 23);
+			add(unbezahltRadio);
 			
-			JRadioButton rdbtnUezahlt = new JRadioButton("Unbezahlt");
-			buttonGroup_2.add(rdbtnUezahlt);
-			rdbtnUezahlt.setBounds(419, 436, 119, 26);
-			add(rdbtnUezahlt);
+			JRadioButton statusRadioSuchenUnbezahlt = new JRadioButton("Unbezahlt");
+			buttonGroup_2.add(statusRadioSuchenUnbezahlt);
+			statusRadioSuchenUnbezahlt.setBounds(419, 436, 119, 26);
+			add(statusRadioSuchenUnbezahlt);
 			
 			JRadioButton kundeRadio = new JRadioButton("Kunde");
 			buttonGroup.add(kundeRadio);
@@ -154,38 +152,38 @@ public class Rechnungen extends JPanel{
 			lieferantRadio.setBounds(873, 98, 141, 23);
 			add(lieferantRadio);
 			
-			vornameSuchenField = new JTextField();
-			vornameSuchenField.setText("Kunden-ID eingeben...");
-			vornameSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
-			vornameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
-			vornameSuchenField.setColumns(10);
-			vornameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-			vornameSuchenField.setBounds(265, 253, 219, 53);
-			vornameSuchenField.addFocusListener(new FocusListener() {
+			kundenIDField = new JTextField();
+			kundenIDField.setText("Kunden-/Lieferanten-ID...");
+			kundenIDField.setHorizontalAlignment(SwingConstants.CENTER);
+			kundenIDField.setFont(new Font("Dialog", Font.PLAIN, 14));
+			kundenIDField.setColumns(10);
+			kundenIDField.setBorder(new LineBorder(Color.BLACK, 1));
+			kundenIDField.setBounds(265, 253, 219, 53);
+			kundenIDField.addFocusListener(new FocusListener() {
 				public void focusGained(FocusEvent e) {
-					vornameSuchenField.setText("");
+					kundenIDField.setText("");
 				}
 
 				public void focusLost(FocusEvent e) {
 				}
 			});
-			add(vornameSuchenField);
+			add(kundenIDField);
 			
-			idSuchenField = new JTextField();
-			idSuchenField.setText("Rechnungs-ID eingeben...");
-			idSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
-			idSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
-			idSuchenField.setColumns(10);
-			idSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-			idSuchenField.setBounds(265, 160, 219, 53);
-			idSuchenField.addFocusListener(new FocusListener() {
+			rechnungsIDField = new JTextField();
+			rechnungsIDField.setText("Rechnungs-ID eingeben...");
+			rechnungsIDField.setHorizontalAlignment(SwingConstants.CENTER);
+			rechnungsIDField.setFont(new Font("Dialog", Font.PLAIN, 14));
+			rechnungsIDField.setColumns(10);
+			rechnungsIDField.setBorder(new LineBorder(Color.BLACK, 1));
+			rechnungsIDField.setBounds(265, 160, 219, 53);
+			rechnungsIDField.addFocusListener(new FocusListener() {
 				public void focusGained(FocusEvent e) {
-					idSuchenField.setText("");
+					rechnungsIDField.setText("");
 				}
 				public void focusLost(FocusEvent e) {
 				}
 			});
-			add(idSuchenField);
+			add(rechnungsIDField);
 			
 			JLabel suchenLabel = new JLabel("Ohne Eingabe suchen um alle Rechnungen auszugeben.");
 			suchenLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -214,6 +212,79 @@ public class Rechnungen extends JPanel{
 			suchenButton.setBounds(1026, 424, 181, 50);
 			suchenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
+					
+					ArrayList <String> list = new ArrayList<String> ();
+					
+					boolean isKunde = kundeRadio.isSelected();
+					boolean isLieferant = lieferantRadio.isSelected();
+					boolean skip = false;
+					
+					if (!isKunde && !isLieferant) {
+						suchenLabel.setText("Kunde oder Lieferant?");
+						return;
+					}
+				
+					String rechnungsID = rechnungsIDField.getText();
+					String id = kundenIDField.getText(); 
+				
+					if ((!rechnungsID.matches("[0-9]+") && !rechnungsID.equals("") && !rechnungsID.equals("Rechnungs-ID eingeben...")) || (!id.matches("[0-9]+") && !id.equals("") && !id.equals("Kunden-/Lieferanten-ID..."))) {
+						setErrMessage(suchenLabel);
+						return;
+					}
+					
+					// Rechnungs-ID eingegeben
+					if (rechnungsID.matches("[0-9]+")) {
+						list = tableByrechnungsID(Integer.valueOf(rechnungsID), isKunde);
+						skip = true;
+					}
+				
+					int monat = monatDropdownSuchen.getSelectedIndex();
+					String jahr = lastTenYears[jahrDropdownSuchen.getSelectedIndex()];
+					
+					if (monat > 0 && !jahr.matches("[0-9]+")) {
+						suchenLabel.setText("Monat immer mit Jahr auswählen");
+						return;
+					}
+					
+					boolean bezahlt = bezahltRadio.isSelected();
+					boolean unbezahlt = unbezahltRadio.isSelected();
+					
+					// ID und Monat
+					if (id.matches("[1-9]+") && monat > 0 && !skip) {
+						list = tableByIDinMonat(Integer.parseInt(id), isKunde, monat, Integer.parseInt(jahr), bezahlt, unbezahlt);
+						skip = true;
+					}
+					
+					// ID und Jahr
+					if (id.matches("[1-9]+") && jahrDropdownSuchen.getSelectedIndex() > 0 && !skip) {
+						list = tableByIDinJahr(Integer.parseInt(id), isKunde, Integer.parseInt(jahr), bezahlt, unbezahlt);
+						skip = true;
+					}
+					
+					// ID
+					if (id.matches("[1-9]+") && !skip) {
+						list = tableByID(Integer.parseInt(id), isKunde, bezahlt, unbezahlt);
+						skip = true;
+					}
+					
+					if (!skip) list = tableOfAll(isKunde, bezahlt, unbezahlt);
+					
+					// list to table
+					String[][] array = new String[(list.toArray().length)/6][6];
+					int counter = 0;
+					
+					for (int i = 0; i < (list.toArray().length)/6; i++)
+						for (int j = 0; j < 6; j++) {
+							array[i][j] = "  " + list.get(counter);
+							counter++;
+						}
+					
+					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Rechnungs-ID", "Kunden- / Lieferanten-ID", "Monat", "Jahr", "Summe", "Status"});
+					table.setModel(tableModel);
+					resetLabel(suchenLabel);
+					skip = false;
+					return;
+					
 				}
 			});
 			add(suchenButton);
@@ -243,7 +314,7 @@ public class Rechnungen extends JPanel{
 			});
 			add(idBearbeitenFeld);
 
-			JLabel changeLabel = new JLabel("Eingabe pruefen");
+			JLabel changeLabel = new JLabel("");
 			changeLabel.setEnabled(false);
 			changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			changeLabel.setForeground(Color.RED);
@@ -253,18 +324,18 @@ public class Rechnungen extends JPanel{
 			
 			JRadioButton kundeRadioBearbeiten = new JRadioButton("Kunde");
 			buttonGroup_4.add(kundeRadioBearbeiten);
-			kundeRadioBearbeiten.setBounds(1356, 283, 119, 23);
+			kundeRadioBearbeiten.setBounds(1356, 289, 119, 23);
 			add(kundeRadioBearbeiten);
 			
 			JRadioButton lieferantRadioBearbeiten = new JRadioButton("Lieferant");
 			buttonGroup_4.add(lieferantRadioBearbeiten);
-			lieferantRadioBearbeiten.setBounds(1484, 283, 91, 23);
+			lieferantRadioBearbeiten.setBounds(1484, 289, 91, 23);
 			add(lieferantRadioBearbeiten);
 			
 			JButton bearbeitenButton = new JButton("Bearbeiten");
 			bearbeitenButton.setForeground(new Color(30, 144, 255));
 			bearbeitenButton.setBackground(new Color(30, 144, 255));
-			bearbeitenButton.setBounds(1382, 339, 170, 50);
+			bearbeitenButton.setBounds(1382, 361, 170, 50);
 			bearbeitenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 
@@ -308,7 +379,7 @@ public class Rechnungen extends JPanel{
 							dialog.addWindowListener(new WindowAdapter() {
 								public void windowClosed(WindowEvent e) {
 									changeLabel.setForeground(Color.BLACK);
-									if (!abgebrochen) changeLabel.setText("Kunde bearbeitet.");
+									if (!abgebrochen) changeLabel.setText("Rechnung bearbeitet.");
 								}
 							});
 						}
@@ -320,7 +391,7 @@ public class Rechnungen extends JPanel{
 							dialog.addWindowListener(new WindowAdapter() {
 								public void windowClosed(WindowEvent e) {
 									changeLabel.setForeground(Color.BLACK);
-									if (!abgebrochen) changeLabel.setText("Kunde bearbeitet.");
+									if (!abgebrochen) changeLabel.setText("Rechnung bearbeitet.");
 								}
 							});
 						}
@@ -425,6 +496,12 @@ public class Rechnungen extends JPanel{
 			return lieferantID;
 		}
 		
+		// Fill LastTenYears
+		private static void fillYears () {
+			lastTenYears[0] = "Jahr auswählen ...";
+			for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
+		}
+
 		
 		// Set label to empty String
 		private static void resetLabel(JLabel label) {
@@ -439,55 +516,374 @@ public class Rechnungen extends JPanel{
 		}
 
 		// Reset input fields
-		private static void resetFields (JTextField vornameSuchenField, JTextField nachnameSuchenField, JTextField plzSuchenField, JTextField idSuchenField) {
-			vornameSuchenField.setText("   Vorname eingeben...");
-			nachnameSuchenField.setText("   Nachname eingeben...");
-			plzSuchenField.setText("   PLZ eingeben...");
-			idSuchenField.setText("   Bitte ID eingeben...");
+		private static void resetFields () {
 		}
 
 		
 	// Tabellen erstellen (suchen)
 
-		private static void addToTable (ArrayList<String> table, int kundenID, String vorname, String nachname, int plz) {
-			table.add(String.valueOf(kundenID));
-			table.add(vorname);
-			table.add(nachname);
-			table.add(String.valueOf(plz));
-		}
-		
 		// Create table if user only inputs first name
-		private static ArrayList<String> tableBy(String vorname) {
+		private static ArrayList<String> tableByrechnungsID(int id, boolean kunde) {
 
 			ArrayList<String> table = new ArrayList<String>();
-
-			k.stream().filter(x -> x.getVorname().toLowerCase().contains(vorname.toLowerCase())).forEach(x -> {
-				table.add(String.valueOf(x.getKundenID()));
-				table.add(x.getVorname());
-				table.add(x.getNachname());
-				table.add(String.valueOf(x.getPlz()));
-			});
-
+			String bezahlt = "bezahlt";
+			String unbezahlt = "ausstehend";
+			
+			if (kunde) {
+				kr.stream().filter(x -> x.getRechnungsID() == id).forEach(x -> {
+					table.add(String.valueOf(x.getRechnungsID()));
+					table.add(String.valueOf(x.getKundenID()));
+					table.add(monate[x.getMonat()]);
+					table.add(String.valueOf(x.getJahr()));
+					table.add(String.valueOf(x.getSumme()) + "€");
+					if (x.isStatus()) table.add(bezahlt);
+					else table.add(unbezahlt);
+					});
+			}
+			else {
+				lr.stream().filter(x -> x.getRechnungsID() == id).forEach(x -> {
+					table.add(String.valueOf(x.getRechnungsID()));
+					table.add(String.valueOf(x.getLieferantenID()));
+					table.add(monate[x.getMonat()]);
+					table.add(String.valueOf(x.getJahr()));
+					table.add(String.valueOf(x.getSumme()) + "€");
+					if (x.isStatus()) table.add(bezahlt);
+					else table.add(unbezahlt);
+					});
+			}
 			return table;
 		}
 
 		// Create table if user doesnt input anything
-		private static ArrayList<String> tableOfAll() {
+		private static ArrayList<String> tableOfAll(boolean kunde, boolean bezahlt, boolean unbezahlt) {
 
 			ArrayList<String> table = new ArrayList<String>();
+			String bezahltS = "bezahlt";
+			String unbezahltS = "ausstehend";
+			
+			if (kunde) {
+				if (!bezahlt && !unbezahlt) {
+					kr.stream().forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+				
+				if (bezahlt) {
+					kr.stream().filter(x -> x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+				
+				if (unbezahlt) {
+					kr.stream().filter(x -> !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+			}
+			else {
+				if (!bezahlt && !unbezahlt) {
+					lr.stream().forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+				
+				if (bezahlt) {
+					lr.stream().filter(x -> x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+				
+				if (unbezahlt) {
+					lr.stream().filter(x -> !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+			}
+			
+			return table;
+			
+		}
+		
+		private static ArrayList<String> tableByID(int id, boolean kunde, boolean bezahlt, boolean unbezahlt) {
 
-			k.stream().forEach(x -> {
-				table.add(String.valueOf(x.getKundenID()));
-				table.add(x.getVorname());
-				table.add(x.getNachname());
-				table.add(String.valueOf(x.getPlz()));
-			});
+			ArrayList<String> table = new ArrayList<String>();
+			String bezahltS = "bezahlt";
+			String unbezahltS = "ausstehend";
+			
+			if (kunde) {
+				if (!bezahlt && ! unbezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				
+				if (bezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});					
+				}
+				
+				if (unbezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+							});	
+				}
+			}
+			else {
+				
+				if (!bezahlt && ! unbezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+				
+				if (bezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});				
+				}
+				
+				if (unbezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+			}
+			return table;
+		}
+		
+		private static ArrayList<String> tableByIDinJahr(int id, boolean kunde, int jahr, boolean bezahlt, boolean unbezahlt) {
 
+			ArrayList<String> table = new ArrayList<String>();
+			String bezahltS= "bezahlt";
+			String unbezahltS = "ausstehend";
+			
+			if (kunde) {
+				if (!bezahlt && !unbezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id && x.getJahr() == jahr).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				if (bezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				
+				if (unbezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+			}
+			else {
+				if (!bezahlt && !unbezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id && x.getJahr() == jahr).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				if (bezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				
+				if (unbezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+			}
 			return table;
 		}
 
-		private static void fillYears () {
-			lastTenYears[0] = "Jahr auswählen ...";
-			for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
+		private static ArrayList<String> tableByIDinMonat(int id, boolean kunde, int monat, int jahr, boolean bezahlt, boolean unbezahlt) {
+
+			ArrayList<String> table = new ArrayList<String>();
+			String bezahltS= "bezahlt";
+			String unbezahltS = "ausstehend";
+			
+			if (kunde) {
+				if (!bezahlt && !unbezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id && x.getMonat() == monat && x.getJahr() == jahr).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				if (bezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id && x.getMonat() == monat && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				
+				if (unbezahlt) {
+					kr.stream().filter(x -> x.getKundenID() == id && x.getMonat() == monat && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+			}
+			else {
+				if (!bezahlt && !unbezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id && x.getMonat() == monat  && x.getJahr() == jahr).forEach(x -> {
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				if (bezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id && x.getMonat() == monat  && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				
+				if (unbezahlt) {
+					lr.stream().filter(x -> x.getLieferantenID() == id && x.getMonat() == monat && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+			}
+			return table;			
 		}
+
 }
