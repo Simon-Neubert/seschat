@@ -15,7 +15,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
-public class KundenRechnungenNeu extends JDialog{
+public class KundenRechnungBearbeiten extends JDialog{
+
 
 	private JButton speichernButton;
 	private JLabel kundeLabel2;
@@ -30,8 +31,7 @@ public class KundenRechnungenNeu extends JDialog{
 	private static String[] lastTenYears = new String[11];
 	private JLabel formatLabel;
 	
-	
-	public KundenRechnungenNeu (int idAlt, String vornameAlt, String nachnameAlt, int plzAlt, int rechnungsID) {
+	public KundenRechnungBearbeiten (int idAlt, String vornameAlt, String nachnameAlt, int plzAlt, int rechnungsID) {
 			
 			setBounds(800, 200, 400, 500);
 			getContentPane().setLayout(null);
@@ -120,7 +120,7 @@ public class KundenRechnungenNeu extends JDialog{
 			getContentPane().add(bestellvolumenTextfield);
 			
 			speichernButton = new JButton("Speichern");
-			speichernButton.setBounds(143, 341, 117, 45);
+			speichernButton.setBounds(144, 359, 117, 45);
 			speichernButton.setForeground(new Color(30, 144, 255));
 			speichernButton.setBackground(new Color(30, 144, 255));
 			speichernButton.addMouseListener(new MouseAdapter() {
@@ -160,7 +160,7 @@ public class KundenRechnungenNeu extends JDialog{
 					int jahr = Integer.parseInt(lastTenYears[jahrDropdown.getSelectedIndex()]);
 					double wert = Double.parseDouble(bestellvolumen);
 
-					gui.Kunden.rechnungAufnehmen(idAlt, monat, jahr, wert, status);
+					gui.Rechnungen.rechnungBearbeitenKunde(rechnungsID, monat, jahr, wert, status);
 					dispose();
 				}
 			});

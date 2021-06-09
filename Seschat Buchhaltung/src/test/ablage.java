@@ -2,6 +2,8 @@ package test;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
@@ -11,7 +13,9 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -228,5 +232,105 @@ public class ablage {
 			DecimalFormat format = new DecimalFormat ("#0.##", dot);
 			
 	 */
+	
+	
+	
+	/*
+	 		// Neue Rechnung
+			
+			JLabel labelrechnungNeu = new JLabel("Neue Rechnung:");
+			labelrechnungNeu.setFont(new Font("Serif", Font.PLAIN, 25));
+			labelrechnungNeu.setBounds(101, 90, 395, 32);
+			getContentPane().add(labelrechnungNeu);
+			
+			fillYears();
+			JComboBox monatDropdown = new JComboBox(monate);
+			monatDropdown.setMaximumRowCount(14);
+			monatDropdown.setBounds(398, 136, 181, 78);
+			getContentPane().add(monatDropdown);
+			
+			JComboBox jahrDropdown = new JComboBox(lastTenYears);
+			jahrDropdown.setMaximumRowCount(14);
+			jahrDropdown.setBounds(669, 136, 181, 78);
+			getContentPane().add(jahrDropdown);
+			
+			vornameNeuField = new JTextField();
+			vornameNeuField.setHorizontalAlignment(SwingConstants.CENTER);
+			vornameNeuField.setFont(new Font("Sans", Font.PLAIN, 14));
+			vornameNeuField.setBounds(101, 147, 219, 53);
+			vornameNeuField.setBorder(new LineBorder(Color.BLACK, 1));
+			vornameNeuField.setText("ID eingeben...");
+			vornameNeuField.setColumns(10);
+			vornameNeuField.addFocusListener(new FocusListener() {
+				public void focusGained(FocusEvent e) {
+					vornameNeuField.setText("");
+				}
+				public void focusLost(FocusEvent e) {
+				}
+			});
+			getContentPane().add(vornameNeuField);
+			
+			summeNeuField = new JTextField();
+			summeNeuField.setText("Summe eingeben...");
+			summeNeuField.setHorizontalAlignment(SwingConstants.CENTER);
+			summeNeuField.setFont(new Font("Dialog", Font.PLAIN, 14));
+			summeNeuField.setColumns(10);
+			summeNeuField.setBorder(new LineBorder(Color.BLACK, 1));
+			summeNeuField.setBounds(940, 147, 219, 53);
+			summeNeuField.addFocusListener(new FocusListener() {
+				public void focusGained(FocusEvent e) {
+					summeNeuField.setText("");
+				}
+
+				public void focusLost(FocusEvent e) {
+				}
+			});
+			getContentPane().add(summeNeuField);
+			
+			generiertField = new JTextField();
+			generiertField.setText(" Generierte ID erscheint hier");
+			generiertField.setEditable(false);
+			generiertField.setHorizontalAlignment(SwingConstants.CENTER);
+			generiertField.setFont(new Font("Dialog", Font.PLAIN, 14));
+			generiertField.setColumns(10);
+			generiertField.setBorder(new LineBorder(Color.BLACK, 1));
+			generiertField.setBounds(643, 224, 219, 53);
+			getContentPane().add(generiertField);
+		
+			JLabel neuLabel = new JLabel("Eingabe pruefen");
+			neuLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			neuLabel.setForeground(Color.RED);
+			neuLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+			neuLabel.setBounds(940, 238, 471, 26);
+			getContentPane().add(neuLabel);
+			
+			JRadioButton kundeRadio = new JRadioButton("Kunde");
+			buttonGroup.add(kundeRadio);
+			kundeRadio.setSelected(true);
+			kundeRadio.setBounds(101, 224, 127, 53);
+			getContentPane().add(kundeRadio);
+			
+			JRadioButton lieferantRadio = new JRadioButton("Lieferant");
+			buttonGroup.add(lieferantRadio);
+			lieferantRadio.setBounds(222, 224, 92, 53);
+			getContentPane().add(lieferantRadio);
+			
+			JRadioButton statusRadio = new JRadioButton("Bezahlt");
+			statusRadio.setBounds(398, 224, 92, 53);
+			getContentPane().add(statusRadio);
+			
+			JButton speichernButton = new JButton("Speichern");
+			speichernButton.setBackground(new Color(30, 144, 255));
+			speichernButton.setForeground(new Color(30, 144, 255));
+			speichernButton.setBounds(1241, 150, 170, 50);
+			speichernButton.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+				}
+			});
+			getContentPane().add(speichernButton);
+			
+			
+	 */
+	
 	
 }

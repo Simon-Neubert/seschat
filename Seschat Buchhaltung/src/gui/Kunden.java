@@ -70,7 +70,7 @@ public class Kunden extends JPanel {
 		vornameNeuField = new JTextField();
 		vornameNeuField.setHorizontalAlignment(SwingConstants.CENTER);
 		vornameNeuField.setFont(new Font("Sans", Font.PLAIN, 14));
-		vornameNeuField.setBounds(101, 134, 219, 53);
+		vornameNeuField.setBounds(101, 171, 219, 53);
 		vornameNeuField.setBorder(new LineBorder(Color.BLACK, 1));
 		vornameNeuField.setText("   Vorname eingeben...");
 		vornameNeuField.setColumns(10);
@@ -89,7 +89,7 @@ public class Kunden extends JPanel {
 		nachnameNeuField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		nachnameNeuField.setColumns(10);
 		nachnameNeuField.setBorder(new LineBorder(Color.BLACK, 1));
-		nachnameNeuField.setBounds(378, 134, 219, 53);
+		nachnameNeuField.setBounds(378, 171, 219, 53);
 		nachnameNeuField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				nachnameNeuField.setText("");
@@ -106,7 +106,7 @@ public class Kunden extends JPanel {
 		plzNeuField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		plzNeuField.setColumns(10);
 		plzNeuField.setBorder(new LineBorder(Color.BLACK, 1));
-		plzNeuField.setBounds(649, 134, 219, 53);
+		plzNeuField.setBounds(649, 171, 219, 53);
 		plzNeuField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				plzNeuField.setText("");
@@ -124,7 +124,7 @@ public class Kunden extends JPanel {
 		generiertField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		generiertField.setColumns(10);
 		generiertField.setBorder(new LineBorder(Color.BLACK, 1));
-		generiertField.setBounds(101, 199, 219, 53);
+		generiertField.setBounds(944, 171, 219, 53);
 		add(generiertField);
 	
 		JLabel neuLabel = new JLabel("");
@@ -137,7 +137,7 @@ public class Kunden extends JPanel {
 		JButton speichernButton = new JButton("Speichern");
 		speichernButton.setBackground(new Color(30, 144, 255));
 		speichernButton.setForeground(new Color(30, 144, 255));
-		speichernButton.setBounds(936, 137, 170, 50);
+		speichernButton.setBounds(1241, 174, 170, 50);
 		speichernButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -189,7 +189,7 @@ public class Kunden extends JPanel {
 		vornameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		vornameSuchenField.setColumns(10);
 		vornameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		vornameSuchenField.setBounds(101, 346, 219, 53);
+		vornameSuchenField.setBounds(101, 363, 219, 53);
 		vornameSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				vornameSuchenField.setText("");
@@ -206,7 +206,7 @@ public class Kunden extends JPanel {
 		nachnameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		nachnameSuchenField.setColumns(10);
 		nachnameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		nachnameSuchenField.setBounds(378, 346, 219, 53);
+		nachnameSuchenField.setBounds(378, 363, 219, 53);
 		nachnameSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				nachnameSuchenField.setText("");
@@ -223,7 +223,7 @@ public class Kunden extends JPanel {
 		plzSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		plzSuchenField.setColumns(10);
 		plzSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		plzSuchenField.setBounds(649, 346, 219, 53);
+		plzSuchenField.setBounds(649, 363, 219, 53);
 		plzSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				plzSuchenField.setText("");
@@ -240,7 +240,7 @@ public class Kunden extends JPanel {
 		idSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		idSuchenField.setColumns(10);
 		idSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		idSuchenField.setBounds(101, 422, 219, 53);
+		idSuchenField.setBounds(944, 363, 219, 53);
 		idSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				idSuchenField.setText("");
@@ -254,7 +254,7 @@ public class Kunden extends JPanel {
 		suchenLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		suchenLabel.setForeground(Color.DARK_GRAY);
 		suchenLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		suchenLabel.setBounds(378, 436, 490, 26);
+		suchenLabel.setBounds(378, 453, 490, 26);
 		add(suchenLabel);
 
 		table = new JTable();
@@ -274,7 +274,7 @@ public class Kunden extends JPanel {
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.setForeground(new Color(30, 144, 255));
 		suchenButton.setBackground(new Color(30, 144, 255));
-		suchenButton.setBounds(936, 349, 170, 50);
+		suchenButton.setBounds(1241, 366, 170, 50);
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -501,7 +501,7 @@ public class Kunden extends JPanel {
 		idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
 		idBearbeitenFeld.setColumns(10);
 		idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
-		idBearbeitenFeld.setBounds(1520, 131, 219, 53);
+		idBearbeitenFeld.setBounds(1520, 171, 219, 53);
 		idBearbeitenFeld.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				idBearbeitenFeld.setText("");
@@ -527,7 +527,7 @@ public class Kunden extends JPanel {
 		});
 		bearbeitenButton.setForeground(new Color(30, 144, 255));
 		bearbeitenButton.setBackground(new Color(30, 144, 255));
-		bearbeitenButton.setBounds(1544, 236, 170, 50);
+		bearbeitenButton.setBounds(1544, 271, 170, 50);
 		bearbeitenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -571,7 +571,7 @@ public class Kunden extends JPanel {
 		JButton addRechnungButton = new JButton("Neue Rechnung");
 		addRechnungButton.setForeground(new Color(30, 144, 255));
 		addRechnungButton.setBackground(new Color(30, 144, 255));
-		addRechnungButton.setBounds(1544, 346, 170, 50);
+		addRechnungButton.setBounds(1544, 366, 170, 50);
 		addRechnungButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -673,10 +673,7 @@ public class Kunden extends JPanel {
 			Statement stmt = DBAccess.conn.createStatement();
 			int tinyInt = 0;
 			if (status) tinyInt = 1;
-			stmt.execute(
-					"INSERT INTO kundenrechnungen (KundenID, Monat, Jahr, Summe, Status) VALUES ('"
-							+ kundenID + "', '" + monat + "', '" + jahr + "', '" + bestellvolumen + "', '"
-							+ tinyInt + "')");
+			stmt.execute("INSERT INTO kundenrechnungen (KundenID, Monat, Jahr, Summe, Status) VALUES ('" + kundenID + "', '" + monat + "', '" + jahr + "', '" + bestellvolumen + "', '" + tinyInt + "')");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

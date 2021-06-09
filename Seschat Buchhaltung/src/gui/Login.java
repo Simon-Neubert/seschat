@@ -40,7 +40,6 @@ public class Login extends JFrame{
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
-		
 		JLabel wrongInput = new JLabel("");
 		wrongInput.setForeground(Color.RED);
 		GridBagConstraints gbc_wrongInput = new GridBagConstraints();

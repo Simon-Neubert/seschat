@@ -294,7 +294,7 @@ public class Lieferanten extends JPanel{
 		changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		changeLabel.setForeground(Color.RED);
 		changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		changeLabel.setBounds(1497, 460, 210, 26);
+		changeLabel.setBounds(1497, 469, 210, 26);
 		add(changeLabel);
 		
 		idBearbeitenFeld = new JTextField();

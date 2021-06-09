@@ -41,7 +41,6 @@ public class Main extends JFrame{
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-
 				
 				Main program = new Main();
 				program.setVisible(false);
