@@ -192,8 +192,12 @@ public class Lieferanten extends JPanel{
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
+				ArrayList<String> list = new ArrayList<String> ();
+				
 				String nameInput = nameSuchenField.getText();
 				String idInput = idSuchenField.getText();
+				boolean skip = false;
+				
 				nameSuchenField.setText("   Bitte Name eingeben...");
 				idSuchenField.setText("   Bitte ID eingeben...");
 				
@@ -205,79 +209,42 @@ public class Lieferanten extends JPanel{
 				}
 				
 				// Keine Eingabe
-				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("   Bitte Name eingeben...") || nameInput.equals(""))) {
-					
-					ArrayList<String> list = tableOfAll();
-					String [][] array = new String [(list.toArray().length)/2][2];
-					int counter = 0;
-					
-					for (int i = 0; i < (list.toArray().length)/2; i++) 
-						for (int j = 0; j < 2; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-					
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
-					return;
+				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("   Bitte Name eingeben...") || nameInput.equals("")) && !skip) {
+					list = tableOfAll();
+					skip = true;
 				}
 				
 				// ID und Name eingegeben
-				if (idInput.matches("[0-9]+") && !nameInput.equals("") && !nameInput.equals("   Bitte Name eingeben...")) {
-					
-					ArrayList<String> list = tableByNameAndID(Integer.parseInt(idInput), nameInput);
-					String [][] array = new String [(list.toArray().length)/2][2];
-					int counter = 0;
-					
-					for (int i = 0; i < (list.toArray().length)/2; i++) 
-						for (int j = 0; j < 2; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-					
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
-					return;
+				if (idInput.matches("[0-9]+") && !nameInput.equals("") && !nameInput.equals("   Bitte Name eingeben...") && !skip) {
+					list = tableByNameAndID(Integer.parseInt(idInput), nameInput);
+					skip = true;
 				}
 				
 				// Nur ID
-				if (idInput.matches("[0-9]+")) {
-					
-					ArrayList<String> list = tableByID(Integer.parseInt(idInput));
-					String [][] array = new String [(list.toArray().length)/2][2];
-					int counter = 0;
-					
-					for (int i = 0; i < (list.toArray().length)/2; i++) 
-						for (int j = 0; j < 2; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-					
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
-					return;
+				if (idInput.matches("[0-9]+") && !skip) {
+					list = tableByID(Integer.parseInt(idInput));
+					skip = true;
 				}
 				
 				// Nur Name
-				if (nameInput.length() != 0) {
-					
-					ArrayList<String> list = tableByName(nameInput);
-					String [][] array = new String [(list.toArray().length)/2][2];
-					int counter = 0;
-					
-					for (int i = 0; i < (list.toArray().length)/2; i++) 
-						for (int j = 0; j < 2; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-					
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
-					table.setModel(tableModel);
-					
+				if (nameInput.length() != 0 && !skip) {
+					list = tableByName(nameInput);
+					skip = true;
 				}
+				
+				// Set table
+				
+				String [][] array = new String [(list.toArray().length)/2][2];
+				int counter = 0;
+				
+				for (int i = 0; i < (list.toArray().length)/2; i++) 
+					for (int j = 0; j < 2; j++) {
+						array[i][j] = "  " + list.get(counter);
+						counter++;
+					}
+				
+				DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
+				table.setModel(tableModel);
 				resetLabel(suchenLabel);
 				return;
 			}
