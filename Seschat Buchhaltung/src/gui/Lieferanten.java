@@ -69,7 +69,7 @@ public class Lieferanten extends JPanel{
 		JLabel neuLabel = new JLabel("");
 		neuLabel.setForeground(Color.RED);
 		neuLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		neuLabel.setBounds(101, 253, 573, 26);
+		neuLabel.setBounds(101, 253, 1005, 26);
 		add(neuLabel);
 		
 		
@@ -209,7 +209,7 @@ public class Lieferanten extends JPanel{
 				}
 				
 				// Keine Eingabe
-				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("   Bitte Name eingeben...") || nameInput.equals("")) && !skip) {
+				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("   Bitte Name eingeben...") || nameInput.equals(""))) {
 					list = tableOfAll();
 					skip = true;
 				}
@@ -246,6 +246,7 @@ public class Lieferanten extends JPanel{
 				DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
 				table.setModel(tableModel);
 				resetLabel(suchenLabel);
+				skip = false;
 				return;
 			}
 		});

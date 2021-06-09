@@ -278,29 +278,20 @@ public class Kunden extends JPanel {
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
+				ArrayList<String> list = new ArrayList<String> ();
+				
 				String vornameInput = vornameSuchenField.getText();
 				String nachnameInput = nachnameSuchenField.getText();
 				String plzInput = plzSuchenField.getText();
 				String idInput = idSuchenField.getText();
 				
+				boolean skip = false;
+				
 				// Keine Eingabe
 				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (vornameInput.equals("   Vorname eingeben...") || vornameInput.equals("")) && (nachnameInput.equals("   Nachname eingeben...") || nachnameInput.equals("")) && (plzInput.equals("   PLZ eingeben...") || plzInput.equals(""))) {
 
-					ArrayList<String> list = tableOfAll();
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array,
-							new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ"});
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
-					return;
+					list = tableOfAll();
+					skip = true;
 				}
 
 				// Check ID Input
@@ -310,180 +301,97 @@ public class Kunden extends JPanel {
 				}
 				
 				// ID eingegeben
-				if (idInput.matches("[0-9]+")) {
-
-					ArrayList<String> list = tableByID(Integer.parseInt(idInput));
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ"});
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
+				if (idInput.matches("[0-9]+") && !skip) {
+					list = tableByID(Integer.parseInt(idInput));
 					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
-					return;
+					skip = true;
 				}
 				
 				// Check PLZ Input
-				if ((!plzInput.equals("   PLZ eingeben...") && !plzInput.equals("")) && (plzInput.length() != 5 || !plzInput.matches("[0-9]+"))) {
+				if ((!plzInput.equals("   PLZ eingeben...") && !plzInput.equals("")) && (plzInput.length() != 5 || !plzInput.matches("[0-9]+")) && !skip) {
 					setErrMessage(suchenLabel);
 					return;
 				}
 				
 				// Check Vorname Input
-				if (!vornameInput.equals("   Vorname eingeben...") && !vornameInput.equals("") && !vornameInput.matches("[a-zA-Z]+")) {
+				if (!vornameInput.equals("   Vorname eingeben...") && !vornameInput.equals("") && !vornameInput.matches("[a-zA-Z]+") && !skip) {
 					setErrMessage(suchenLabel);
 					return;
 				}
 				
 				// Check Nachname Input
-				if (!nachnameInput.equals("   Nachname eingeben...") && !nachnameInput.equals("") && !nachnameInput.matches("[a-zA-Z]+")) {
+				if (!nachnameInput.equals("   Nachname eingeben...") && !nachnameInput.equals("") && !nachnameInput.matches("[a-zA-Z]+") && !skip) {
 					setErrMessage(suchenLabel);
 					return;
 				}
 				
 				// Vor- und Nachname + PLZ eingegeben
-				if (vornameInput.matches("[a-zA-Z]+") && nachnameInput.matches("[a-zA-Z]+") && plzInput.length() == 5 && (!idInput.equals("") || !idInput.equals("   Bitte ID eingeben..."))) {
+				if (vornameInput.matches("[a-zA-Z]+") && nachnameInput.matches("[a-zA-Z]+") && plzInput.length() == 5 && (!idInput.equals("") || !idInput.equals("   Bitte ID eingeben...")) && !skip) {
 
-					ArrayList<String> list = tableByVorUndNachnameUndPLZ(vornameInput, nachnameInput, Integer.parseInt(plzInput));
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Lieferanten-ID", "Vorname", "Nachname", "PLZ"});
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
+					list = tableByVorUndNachnameUndPLZ(vornameInput, nachnameInput, Integer.parseInt(plzInput));
 					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
-					return;
+					skip = true;
 				}
 				
 				// Vor- und Nachname eingegeben
-				if (vornameInput.matches("[a-zA-Z]+") && nachnameInput.matches("[a-zA-Z]+") && (plzInput.equals("   PLZ eingeben...") || plzInput.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
-
-					ArrayList<String> list = tableByVorUndNachname(vornameInput, nachnameInput);
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
+				if (vornameInput.matches("[a-zA-Z]+") && nachnameInput.matches("[a-zA-Z]+") && (plzInput.equals("   PLZ eingeben...") || plzInput.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben...")) && !skip) {
+					list = tableByVorUndNachname(vornameInput, nachnameInput);
 					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
-					return;
+					skip = true;
 				}
 				
 				// Vorname und PLZ eingegeben
-				if (vornameInput.matches("[a-zA-Z]+") && plzInput.matches("[0-9]+") && (nachname.equals("   Nachname eingeben...") || nachname.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
-					
-					ArrayList<String> list = tableByVornameUndPLZ(vornameInput, Integer.parseInt(plzInput));
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
+				if (vornameInput.matches("[a-zA-Z]+") && plzInput.matches("[0-9]+") && (nachname.equals("   Nachname eingeben...") || nachname.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben...")) && !skip) {
+					list = tableByVornameUndPLZ(vornameInput, Integer.parseInt(plzInput));
 					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
-					return;
+					skip = true;
 				}
 
 				// Nachname und PLZ eingegeben
-				if (nachnameInput.matches("[a-zA-Z]+") && plzInput.matches("[0-9]+") && (vorname.equals("   Vorname eingeben...") || vorname.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben..."))) {
-
-					ArrayList<String> list = tableByNachnameUndPLZ(nachnameInput, Integer.parseInt(plzInput));
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
-					table.setModel(tableModel);
-					resetLabel(suchenLabel);
+				if (nachnameInput.matches("[a-zA-Z]+") && plzInput.matches("[0-9]+") && (vorname.equals("   Vorname eingeben...") || vorname.equals("")) && (idInput.equals("") || idInput.equals("   Bitte ID eingeben...")) && !skip) {
+					list = tableByNachnameUndPLZ(nachnameInput, Integer.parseInt(plzInput));
 					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
-					return;
+					skip = true;
 				}
 
 				// Nur Vorname
-				if (vornameInput.matches("[a-zA-Z]+")) {
-					ArrayList<String> list = tableByVorname(vornameInput);
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
-					table.setModel(tableModel);
+				if (vornameInput.matches("[a-zA-Z]+") && !skip) {
+					list = tableByVorname(vornameInput);
 					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
-					return;
+					skip = true;
 				}
 				
 				// Nur Nachname
-				if (nachnameInput.matches("[a-zA-Z]+")) {
-					ArrayList<String> list = tableByNachname(nachnameInput);
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
-					table.setModel(tableModel);
+				if (nachnameInput.matches("[a-zA-Z]+") && !skip) {
+					list = tableByNachname(nachnameInput);
 					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
-					return;
+					skip = true;
 				}
 				
 				// Nur PLZ
-				if (plzInput.length() == 5) {
-
-					ArrayList<String> list = tableByPLZ(Integer.parseInt(plzInput));
-					String[][] array = new String[(list.toArray().length)/4][4];
-					int counter = 0;
-
-					for (int i = 0; i < (list.toArray().length)/4; i++)
-						for (int j = 0; j < 4; j++) {
-							array[i][j] = "  " + list.get(counter);
-							counter++;
-						}
-
-					DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ" });
-					table.setModel(tableModel);
+				if (plzInput.length() == 5 && !skip) {
+					list = tableByPLZ(Integer.parseInt(plzInput));
 					resetFields(vornameSuchenField, nachnameSuchenField, plzSuchenField, idSuchenField);
-					return;
+					skip = true;
 				}
 				
+				// Set table 
+				
+				String[][] array = new String[(list.toArray().length)/4][4];
+				int counter = 0;
+
+				for (int i = 0; i < (list.toArray().length)/4; i++)
+					for (int j = 0; j < 4; j++) {
+						array[i][j] = "  " + list.get(counter);
+						counter++;
+					}
+
+				DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] { "Kunden-ID", "Vorname", "Nachname", "PLZ"});
+				table.setModel(tableModel);
 				resetLabel(suchenLabel);
+				skip = false;
 				return;
+				
 			}
 		});
 		add(suchenButton);
