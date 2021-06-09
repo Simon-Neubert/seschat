@@ -250,6 +250,18 @@ public class Rechnungen extends JPanel{
 					boolean bezahlt = bezahltRadio.isSelected();
 					boolean unbezahlt = unbezahltRadio.isSelected();
 					
+					// Nur Jahr
+					if (!id.matches("[1-9]+") && jahrDropdownSuchen.getSelectedIndex() != 0 && monat == 0 && !skip) {
+						list = tableByJahr(isKunde, Integer.parseInt(jahr), bezahlt, unbezahlt);
+						skip = true;
+					}
+					
+					// Jahr + Monat
+					if (!id.matches("[1-9]+") && jahrDropdownSuchen.getSelectedIndex() != 0 && monat > 0 && !skip) {
+						list = tableByMonat(isKunde, monat, Integer.parseInt(jahr), bezahlt, unbezahlt);
+						skip = true;
+					}
+					
 					// ID und Monat
 					if (id.matches("[1-9]+") && monat > 0 && !skip) {
 						list = tableByIDinMonat(Integer.parseInt(id), isKunde, monat, Integer.parseInt(jahr), bezahlt, unbezahlt);
@@ -731,6 +743,171 @@ public class Rechnungen extends JPanel{
 				}
 			}
 			return table;
+		}
+		
+		private static ArrayList<String> tableByJahr(boolean kunde, int jahr, boolean bezahlt, boolean unbezahlt) {
+
+			ArrayList<String> table = new ArrayList<String>();
+			String bezahltS = "bezahlt";
+			String unbezahltS = "ausstehend";
+			
+			if (kunde) {
+				if (!bezahlt && ! unbezahlt) {
+					kr.stream().filter(x -> x.getJahr() == jahr).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				
+				if (bezahlt) {
+					kr.stream().filter(x -> x.getJahr() == jahr && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});					
+				}
+				
+				if (unbezahlt) {
+					kr.stream().filter(x -> x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+							});	
+				}
+			}
+			else {
+				
+				if (!bezahlt && ! unbezahlt) {
+					lr.stream().filter(x -> x.getJahr() == jahr).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+				
+				if (bezahlt) {
+					lr.stream().filter(x -> x.getJahr() == jahr && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});				
+				}
+				
+				if (unbezahlt) {
+					lr.stream().filter(x -> x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+						});
+				}
+			}
+			return table;
+		}
+
+		private static ArrayList<String> tableByMonat(boolean kunde, int monat, int jahr, boolean bezahlt, boolean unbezahlt) {
+
+			ArrayList<String> table = new ArrayList<String>();
+			String bezahltS= "bezahlt";
+			String unbezahltS = "ausstehend";
+			
+			if (kunde) {
+				if (!bezahlt && !unbezahlt) {
+					kr.stream().filter(x -> x.getMonat() == monat && x.getJahr() == jahr).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				if (bezahlt) {
+					kr.stream().filter(x -> x.getMonat() == monat && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				
+				if (unbezahlt) {
+					kr.stream().filter(x -> x.getMonat() == monat && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getKundenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+			}
+			else {
+				if (!bezahlt && !unbezahlt) {
+					lr.stream().filter(x -> x.getMonat() == monat  && x.getJahr() == jahr).forEach(x -> {
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				if (bezahlt) {
+					lr.stream().filter(x -> x.getMonat() == monat  && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+				
+				if (unbezahlt) {
+					lr.stream().filter(x -> x.getMonat() == monat && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
+						table.add(String.valueOf(x.getRechnungsID()));
+						table.add(String.valueOf(x.getLieferantenID()));
+						table.add(monate[x.getMonat()]);
+						table.add(String.valueOf(x.getJahr()));
+						table.add(String.valueOf(x.getSumme()) + "€");
+						if (x.isStatus()) table.add(bezahltS);
+						else table.add(unbezahltS);
+					});
+				}
+			}
+			return table;			
 		}
 		
 		private static ArrayList<String> tableByIDinJahr(int id, boolean kunde, int jahr, boolean bezahlt, boolean unbezahlt) {
