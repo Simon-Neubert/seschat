@@ -63,6 +63,7 @@ public class Rechnungen extends JPanel{
 		private final ButtonGroup sortierenGroup = new ButtonGroup();
 		private final ButtonGroup bearbeitenGroup = new ButtonGroup();
 		private JTextField statusField;
+		private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 
 	// Constructor for JPanel
 
@@ -334,7 +335,7 @@ public class Rechnungen extends JPanel{
 			changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			changeLabel.setForeground(Color.RED);
 			changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-			changeLabel.setBounds(1219, 453, 500, 26);
+			changeLabel.setBounds(1219, 437, 219, 26);
 			add(changeLabel);
 			
 			JRadioButton kundeRadioBearbeiten = new JRadioButton("Kunde");
@@ -413,7 +414,6 @@ public class Rechnungen extends JPanel{
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
-
 					resetLabel(changeLabel);
 				}
 			});
@@ -430,25 +430,70 @@ public class Rechnungen extends JPanel{
 			add(loeschenButton);
 			
 			statusField = new JTextField();
-			statusField.setText("ID's auf bezahlt setzen...");
+			statusField.setText("ID auf bezahlt setzen...");
 			statusField.setHorizontalAlignment(SwingConstants.CENTER);
 			statusField.setFont(new Font("Dialog", Font.PLAIN, 14));
 			statusField.setColumns(10);
 			statusField.setBorder(new LineBorder(Color.BLACK, 1));
 			statusField.setBounds(1511, 186, 219, 53);
+			statusField.addFocusListener(new FocusListener() {
+				public void focusGained(FocusEvent e) {
+					statusField.setText("");
+				}
+				public void focusLost(FocusEvent e) {
+				}
+			});
 			add(statusField);
+			
+
+			JLabel formatLabel = new JLabel("");
+			formatLabel.setForeground(Color.DARK_GRAY);
+			formatLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+			formatLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			formatLabel.setBounds(1511, 436, 219, 27);
+			add(formatLabel);
+			
+			JRadioButton kundeIDRadio = new JRadioButton("Kunde");
+			buttonGroup_1.add(kundeIDRadio);
+			kundeIDRadio.setBounds(1511, 290, 84, 23);
+			add(kundeIDRadio);
+			
+			JRadioButton lieferantIDRadio = new JRadioButton("Lieferant");
+			buttonGroup_1.add(lieferantIDRadio);
+			lieferantIDRadio.setBounds(1638, 290, 92, 23);
+			add(lieferantIDRadio);
 			
 			JButton setzenButton = new JButton("Setzen");
 			setzenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
+
+					String zahl = statusField.getText();
+					boolean kunde = kundeIDRadio.isSelected();
+					boolean lieferant = lieferantIDRadio.isSelected();
 					
+					
+					if (!kunde && !lieferant) {
+						formatLabel.setForeground(Color.RED);
+						formatLabel.setText("Kunde oder Lieferant auswählen");
+						return;
+					}
+					
+					if (!zahl.matches("[1-9]+")) {
+						setErrMessage(formatLabel);
+						return;
+					}
+					
+					statusSetzen(Integer.parseInt(zahl), kunde);
+					statusField.setText("ID auf bezahlt setzen...");
+					formatLabel.setText("Status geändert");
+					return;
 				}
 			});
 			setzenButton.setForeground(new Color(30, 144, 255));
 			setzenButton.setBackground(new Color(30, 144, 255));
 			setzenButton.setBounds(1534, 362, 170, 50);
 			add(setzenButton);
-
+			
 		}
 
 		
@@ -497,14 +542,38 @@ public class Rechnungen extends JPanel{
 				if (status)
 					tinyInt = 1;
 				stmt.execute("UPDATE kundenrechnungen SET monat = '" + monat + "', jahr = '" + jahr + "', summe = '" + bestellvolumen + "', status = '" + tinyInt + "' WHERE RechnungsID = '" + rechnungsID + "'");
-			} catch (Exception e) {
-				e.printStackTrace();
+			} catch (Exception e) {e.printStackTrace();}
+		}
+		
+		// Set invoice to bezahlt
+		public static void statusSetzen (int rechnungsID, boolean kunde) {
+			if (kunde) {
+				kr.stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x -> x.setStatus(true));
+				dbStatusSetzenKunde(rechnungsID);
+			}
+			else {
+				lr.stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x -> x.setStatus(true));
+				dbStatusSetzenLieferant(rechnungsID);
 			}
 		}
 		
+		// Set invoice to bezahlt in DB
+		public static void dbStatusSetzenKunde (int rechnungsID) {
+			try {
+				Statement stmt = DBAccess.conn.createStatement();
+				int tinyInt = 1;
+				stmt.execute("UPDATE kundenrechnungen SET status = '" + tinyInt + "' WHERE RechnungsID = '" + rechnungsID + "'");
+			} catch (Exception e) {e.printStackTrace();}
+		}
 		
+		public static void dbStatusSetzenLieferant (int rechnungsID) {
+			try {
+				Statement stmt = DBAccess.conn.createStatement();
+				int tinyInt = 1;
+				stmt.execute("UPDATE lieferantenrechnungen SET status = '" + tinyInt + "' WHERE RechnungsID = '" + rechnungsID + "'");
+			} catch (Exception e) {e.printStackTrace();}
+		}
 		
-		// Hilfsfunktionen
 	// Auxiliary functions
 		
 		// Get vorname
@@ -1095,10 +1164,7 @@ public class Rechnungen extends JPanel{
 		}
 	
 		
-		
 		// Rechnungen-Objekte sortieren
-	// ArrayListen sortieren
-		
 		private static void sortRechnungen (int sort, boolean zeitraum, boolean summe, boolean rechnung, boolean kunde, boolean isKunde, boolean isLieferant) {
 			
 			Comparator<objects.Rechnung> byZeitraum = (s1, s2) -> {
