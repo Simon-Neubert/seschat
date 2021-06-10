@@ -31,7 +31,8 @@ public class Login extends JFrame{
 	public Login() {
 		
 		// Window
-		setBounds(825, 275, 300, 450);
+		setBounds(0, 0, 300, 450);
+		setLocationRelativeTo(null);
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{20, 260, 20, 0};
