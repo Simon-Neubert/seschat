@@ -18,13 +18,11 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.MaskFormatter;
 
 import dbaccess.DBAccess;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFormattedTextField;
 
 import objects.*;
 import popups.KundenRechnungenNeu;
@@ -50,9 +48,9 @@ public class Kunden extends JPanel {
 	private JTable table;
 	private JTextField idBearbeitenFeld;
 	private JTextField nachnameNeuField;
-	private JFormattedTextField plzNeuField;
+	private JTextField plzNeuField;
 	private JTextField nachnameSuchenField;
-	private JFormattedTextField plzSuchenField;
+	private JTextField plzSuchenField;
 
 // Constructor for JPanel
 
@@ -102,21 +100,18 @@ public class Kunden extends JPanel {
 		});
 		add(nachnameNeuField);
 		
-		plzNeuField = new JFormattedTextField();
-		plzNeuField.setText("");
+		plzNeuField = new JTextField();
+		plzNeuField.setText("   PLZ eingeben...");
 		plzNeuField.setHorizontalAlignment(SwingConstants.CENTER);
 		plzNeuField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		plzNeuField.setColumns(10);
 		plzNeuField.setBorder(new LineBorder(Color.BLACK, 1));
 		plzNeuField.setBounds(649, 171, 219, 53);
-		try {
-			MaskFormatter plzMask = new MaskFormatter("#####");
-			plzMask.install(plzNeuField);
-	    } catch (Exception e) { e.printStackTrace();}
-		plzNeuField.setColumns(5);
 		plzNeuField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				plzNeuField.setText("");
 			}
+
 			public void focusLost(FocusEvent e) {
 			}
 		});
@@ -194,7 +189,7 @@ public class Kunden extends JPanel {
 		vornameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		vornameSuchenField.setColumns(10);
 		vornameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		vornameSuchenField.setBounds(101, 393, 219, 53);
+		vornameSuchenField.setBounds(101, 363, 219, 53);
 		vornameSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				vornameSuchenField.setText("");
@@ -211,7 +206,7 @@ public class Kunden extends JPanel {
 		nachnameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		nachnameSuchenField.setColumns(10);
 		nachnameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		nachnameSuchenField.setBounds(378, 393, 219, 53);
+		nachnameSuchenField.setBounds(378, 363, 219, 53);
 		nachnameSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				nachnameSuchenField.setText("");
@@ -222,17 +217,13 @@ public class Kunden extends JPanel {
 		});
 		add(nachnameSuchenField);
 		
-		plzSuchenField = new JFormattedTextField();
-		plzSuchenField.setText("");
+		plzSuchenField = new JTextField();
+		plzSuchenField.setText("   PLZ eingeben...");
 		plzSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
 		plzSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		plzSuchenField.setColumns(10);
 		plzSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		plzSuchenField.setBounds(649, 393, 219, 53);
-		try {
-			MaskFormatter plzMask = new MaskFormatter("#####");
-			plzMask.install(plzSuchenField);
-	    } catch (Exception e) { e.printStackTrace();}
-		plzSuchenField.setColumns(5);
+		plzSuchenField.setBounds(649, 363, 219, 53);
 		plzSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				plzSuchenField.setText("");
@@ -249,7 +240,7 @@ public class Kunden extends JPanel {
 		idSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		idSuchenField.setColumns(10);
 		idSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		idSuchenField.setBounds(944, 393, 219, 53);
+		idSuchenField.setBounds(944, 363, 219, 53);
 		idSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				idSuchenField.setText("");
@@ -263,7 +254,7 @@ public class Kunden extends JPanel {
 		suchenLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		suchenLabel.setForeground(Color.DARK_GRAY);
 		suchenLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		suchenLabel.setBounds(378, 483, 490, 26);
+		suchenLabel.setBounds(378, 453, 490, 26);
 		add(suchenLabel);
 
 		table = new JTable();
@@ -283,7 +274,7 @@ public class Kunden extends JPanel {
 		JButton suchenButton = new JButton("Suchen");
 		suchenButton.setForeground(new Color(30, 144, 255));
 		suchenButton.setBackground(new Color(30, 144, 255));
-		suchenButton.setBounds(1241, 396, 170, 50);
+		suchenButton.setBounds(1241, 366, 170, 50);
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 
@@ -526,38 +517,6 @@ public class Kunden extends JPanel {
 			}
 		});
 		add(addRechnungButton);
-		
-		JLabel lblNewLabel = new JLabel("Vorname:");
-		lblNewLabel.setBounds(101, 365, 61, 16);
-		add(lblNewLabel);
-		
-		JLabel lblNachname = new JLabel("Nachname:");
-		lblNachname.setBounds(378, 365, 88, 16);
-		add(lblNachname);
-		
-		JLabel lblPlz = new JLabel("PLZ:");
-		lblPlz.setBounds(649, 366, 88, 16);
-		add(lblPlz);
-		
-		JLabel lblKundenid = new JLabel("Kunden-ID:");
-		lblKundenid.setBounds(944, 366, 88, 16);
-		add(lblKundenid);
-		
-		JLabel lblNewLabel_1 = new JLabel("Vorname:");
-		lblNewLabel_1.setBounds(101, 142, 61, 16);
-		add(lblNewLabel_1);
-		
-		JLabel lblNachname_1 = new JLabel("Nachname:");
-		lblNachname_1.setBounds(378, 142, 88, 16);
-		add(lblNachname_1);
-		
-		JLabel lblPlz_1 = new JLabel("PLZ:");
-		lblPlz_1.setBounds(649, 143, 88, 16);
-		add(lblPlz_1);
-		
-		JLabel lblKundenid_1 = new JLabel("Kunden-ID:");
-		lblKundenid_1.setBounds(944, 143, 88, 16);
-		add(lblKundenid_1);
 		
 	}
 

@@ -15,11 +15,10 @@ import java.awt.event.FocusListener;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.MaskFormatter;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -82,26 +81,16 @@ public class Auswertung extends JPanel{
 
 		
 		// Einnahmen Komponenten
-		plzField = new JFormattedTextField();
+		plzField = new JTextField();
 		plzField.setHorizontalAlignment(SwingConstants.CENTER);
+		plzField.setText("   Bitte PLZ eingeben...");
 		plzField.setFont(new Font("Sans", Font.PLAIN, 14));
 		plzField.setBounds(171, 217, 219, 53);
 		plzField.setBorder(new LineBorder(Color.BLACK, 1));
+		plzField.setColumns(10);
 		plzField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {plzField.setText("");}
 			public void focusLost(FocusEvent e) {}
-		});
-		try {
-			MaskFormatter plzMask = new MaskFormatter("#####");
-			plzMask.install(plzField);
-	    } catch (Exception e) { e.printStackTrace();}
-		plzField.setColumns(5);
-		plzField.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				plzField.setText("");
-			}
-			public void focusLost(FocusEvent e) {
-			}
 		});
 		add(plzField);
 		
@@ -124,7 +113,7 @@ public class Auswertung extends JPanel{
 				
 				// Make sure input is valid
 				String plzText = plzField.getText();
-				if (plzText.length() != 5) plzText = "";
+				if (plzText.equals("   Bitte PLZ eingeben...")) plzText = "0";
 				if (!isInputValidPLZ(plzText) && !plzText.equals("0")) {
 					einnahmenResultField.setText("Bitte Eingabe prüfen");
 					return;
@@ -308,18 +297,6 @@ public class Auswertung extends JPanel{
 		jahresAbschlussTable.setRowHeight(30);
 		add(jahresAbschlussTable);
 		
-		JLabel lblNewLabel = new JLabel("PLZ:");
-		lblNewLabel.setBounds(171, 189, 61, 16);
-		add(lblNewLabel);
-		
-		JLabel lblErgebnis = new JLabel("Ergebnis:");
-		lblErgebnis.setBounds(171, 290, 61, 16);
-		add(lblErgebnis);
-		
-		JLabel lblErgebnis_1 = new JLabel("Ergebnis:");
-		lblErgebnis_1.setBounds(1104, 290, 61, 16);
-		add(lblErgebnis_1);
-		
 	}
 
 	// Globale Hilfsvariablen
@@ -334,7 +311,7 @@ public class Auswertung extends JPanel{
 	private static String[] lastTenYears = new String[11];
 	
 	// Textfelder
-	private JFormattedTextField plzField;
+	private JTextField plzField;
 	private JTextField einnahmenResultField;
 	private JTextField bestellvolumenResultField;
 	private JTable jahresAbschlussTable;
