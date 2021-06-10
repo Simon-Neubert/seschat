@@ -62,6 +62,7 @@ public class Rechnungen extends JPanel{
 		private final ButtonGroup ausgebenGroup = new ButtonGroup();
 		private final ButtonGroup sortierenGroup = new ButtonGroup();
 		private final ButtonGroup bearbeitenGroup = new ButtonGroup();
+		private JTextField statusField;
 
 	// Constructor for JPanel
 
@@ -91,17 +92,17 @@ public class Rechnungen extends JPanel{
 			
 			JLabel lblNewLabel = new JLabel("Sortieren nach:");
 			lblNewLabel.setFont(new Font("Serif", Font.PLAIN, 18));
-			lblNewLabel.setBounds(265, 385, 132, 26);
+			lblNewLabel.setBounds(265, 379, 132, 26);
 			add(lblNewLabel);
 			
 			JRadioButton summeRadio = new JRadioButton("Summe");
 			sortierenGroup.add(summeRadio);
-			summeRadio.setBounds(432, 386, 78, 23);
+			summeRadio.setBounds(432, 380, 78, 23);
 			add(summeRadio);
 			
 			JRadioButton zeitraumRadio = new JRadioButton("Zeitraum");
 			sortierenGroup.add(zeitraumRadio);
-			zeitraumRadio.setBounds(585, 386, 92, 23);
+			zeitraumRadio.setBounds(585, 380, 92, 23);
 			add(zeitraumRadio);
 			
 			String sortier [] = {"absteigend", "aufsteigend"};
@@ -117,12 +118,12 @@ public class Rechnungen extends JPanel{
 			
 			JRadioButton rechnungsIDRadio = new JRadioButton("Rechnungs-ID");
 			sortierenGroup.add(rechnungsIDRadio);
-			rechnungsIDRadio.setBounds(922, 386, 132, 23);
+			rechnungsIDRadio.setBounds(922, 380, 132, 23);
 			add(rechnungsIDRadio);
 			
 			JRadioButton kundenIDRadio = new JRadioButton("Kunden-/Lieferanten-ID");
 			sortierenGroup.add(kundenIDRadio);
-			kundenIDRadio.setBounds(714, 386, 207, 23);
+			kundenIDRadio.setBounds(714, 380, 207, 23);
 			add(kundenIDRadio);
 			
 			JRadioButton unbezahltRadio = new JRadioButton("Unbezahlt");
@@ -317,7 +318,7 @@ public class Rechnungen extends JPanel{
 			idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
 			idBearbeitenFeld.setColumns(10);
 			idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
-			idBearbeitenFeld.setBounds(1356, 185, 219, 53);
+			idBearbeitenFeld.setBounds(1219, 186, 219, 53);
 			idBearbeitenFeld.addFocusListener(new FocusListener() {
 				public void focusGained(FocusEvent e) {
 					idBearbeitenFeld.setText("");
@@ -338,18 +339,18 @@ public class Rechnungen extends JPanel{
 			
 			JRadioButton kundeRadioBearbeiten = new JRadioButton("Kunde");
 			bearbeitenGroup.add(kundeRadioBearbeiten);
-			kundeRadioBearbeiten.setBounds(1356, 289, 119, 23);
+			kundeRadioBearbeiten.setBounds(1219, 290, 119, 23);
 			add(kundeRadioBearbeiten);
 			
 			JRadioButton lieferantRadioBearbeiten = new JRadioButton("Lieferant");
 			bearbeitenGroup.add(lieferantRadioBearbeiten);
-			lieferantRadioBearbeiten.setBounds(1484, 289, 91, 23);
+			lieferantRadioBearbeiten.setBounds(1347, 290, 91, 23);
 			add(lieferantRadioBearbeiten);
 			
 			JButton bearbeitenButton = new JButton("Bearbeiten");
 			bearbeitenButton.setForeground(new Color(30, 144, 255));
 			bearbeitenButton.setBackground(new Color(30, 144, 255));
-			bearbeitenButton.setBounds(1382, 361, 170, 50);
+			bearbeitenButton.setBounds(1245, 362, 170, 50);
 			bearbeitenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 
@@ -427,6 +428,26 @@ public class Rechnungen extends JPanel{
 			});
 			loeschenButton.setBounds(656, 435, 163, 29);
 			add(loeschenButton);
+			
+			statusField = new JTextField();
+			statusField.setText("ID's auf bezahlt setzen...");
+			statusField.setHorizontalAlignment(SwingConstants.CENTER);
+			statusField.setFont(new Font("Dialog", Font.PLAIN, 14));
+			statusField.setColumns(10);
+			statusField.setBorder(new LineBorder(Color.BLACK, 1));
+			statusField.setBounds(1511, 186, 219, 53);
+			add(statusField);
+			
+			JButton setzenButton = new JButton("Setzen");
+			setzenButton.addMouseListener(new MouseAdapter() {
+				public void mouseClicked(MouseEvent e) {
+					
+				}
+			});
+			setzenButton.setForeground(new Color(30, 144, 255));
+			setzenButton.setBackground(new Color(30, 144, 255));
+			setzenButton.setBounds(1534, 362, 170, 50);
+			add(setzenButton);
 
 		}
 
@@ -540,9 +561,6 @@ public class Rechnungen extends JPanel{
 			inputLabel.setText("Bitte alle Felder korrekt ausfüllen.");
 			return;
 		}
-
-		// Reset input fields
-
 
 		
 		// Tabellen erstellen
