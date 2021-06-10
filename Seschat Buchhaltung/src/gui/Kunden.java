@@ -58,7 +58,7 @@ public class Kunden extends JPanel {
 
 		// Define Panel
 		setLayout(null);
-		setBounds(2000, 2000, 2000, 2000);
+		setBounds(getBounds());
 
 // Neuer Kunde
 		

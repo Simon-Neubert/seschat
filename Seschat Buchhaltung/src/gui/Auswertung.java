@@ -41,7 +41,7 @@ public class Auswertung extends JPanel{
 	public Auswertung() {
 		
 		// Set Frame
-		setBounds(2000, 2000, 2000, 2000);
+		setBounds(getBounds());
 		setLayout(null);
 		
 		fillYears();

@@ -54,7 +54,7 @@ public class Lieferanten extends JPanel{
 		
 		// Define Panel
 		setLayout(null);
-		setBounds(2000, 2000, 2000, 2000);
+		setBounds(getBounds());
 
 		JLabel bestehendLabel = new JLabel("Lieferant suchen:");
 		bestehendLabel.setBounds(101, 308, 277, 26);
