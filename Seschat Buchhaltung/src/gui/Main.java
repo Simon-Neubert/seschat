@@ -27,7 +27,8 @@ public class Main extends JFrame{
 	    setSize(Toolkit.getDefaultToolkit().getScreenSize());
 	    
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 1914, 1025);
+		tabbedPane.setBounds(getBounds());
+		tabbedPane.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
 		getContentPane().add(tabbedPane);
 		
 		tabbedPane.add("Kunden", kundenPanel);
