@@ -198,8 +198,6 @@ public class Rechnungen extends JPanel{
 			add(pane);
 
 			JButton suchenButton = new JButton("Suchen");
-			suchenButton.setForeground(new Color(30, 144, 255));
-			suchenButton.setBackground(new Color(30, 144, 255));
 			suchenButton.setBounds(873, 424, 181, 50);
 			suchenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
@@ -349,8 +347,6 @@ public class Rechnungen extends JPanel{
 			add(lieferantRadioBearbeiten);
 			
 			JButton bearbeitenButton = new JButton("Bearbeiten");
-			bearbeitenButton.setForeground(new Color(30, 144, 255));
-			bearbeitenButton.setBackground(new Color(30, 144, 255));
 			bearbeitenButton.setBounds(1245, 362, 170, 50);
 			bearbeitenButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
@@ -489,8 +485,6 @@ public class Rechnungen extends JPanel{
 					return;
 				}
 			});
-			setzenButton.setForeground(new Color(30, 144, 255));
-			setzenButton.setBackground(new Color(30, 144, 255));
 			setzenButton.setBounds(1534, 362, 170, 50);
 			add(setzenButton);
 			

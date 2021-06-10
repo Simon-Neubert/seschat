@@ -29,7 +29,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JTable;
 
-public class Lieferanten extends JPanel{
+public class LieferantenGB extends JPanel{
 
 // Read from DB and add data to objects
 	static ArrayList <objects.Lieferant> l = dbaccess.DBAccess.createLieferanten();
@@ -50,7 +50,7 @@ public class Lieferanten extends JPanel{
 	
 // Constructor for JPanel
 	
-	public Lieferanten () {
+	public LieferantenGB () {
 		
 		// Define Panel
 		setLayout(null);
@@ -99,6 +99,8 @@ public class Lieferanten extends JPanel{
 		add(generiertField);
 		
 		JButton speichernButton = new JButton("Speichern");
+		speichernButton.setBackground(new Color(30, 144, 255));
+		speichernButton.setForeground(new Color(30, 144, 255));
 		speichernButton.setBounds(936, 163, 170, 50);
 		speichernButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -184,6 +186,8 @@ public class Lieferanten extends JPanel{
 		add(pane);
 		
 		JButton suchenButton = new JButton("Suchen");
+		suchenButton.setForeground(new Color(30, 144, 255));
+		suchenButton.setBackground(new Color(30, 144, 255));
 		suchenButton.setBounds(936, 392, 170, 50);
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -277,6 +281,8 @@ public class Lieferanten extends JPanel{
 		});
 		
 		JButton bearbeitenButton = new JButton("Bearbeiten");
+		bearbeitenButton.setForeground(new Color(30, 144, 255));
+		bearbeitenButton.setBackground(new Color(30, 144, 255));
 		bearbeitenButton.setBounds(1519, 269, 170, 50);
 		bearbeitenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -317,6 +323,8 @@ public class Lieferanten extends JPanel{
 		add(bearbeitenButton);
 		
 		JButton addRechnungButton = new JButton("Neue Rechnung");
+		addRechnungButton.setForeground(new Color(30, 144, 255));
+		addRechnungButton.setBackground(new Color(30, 144, 255));
 		addRechnungButton.setBounds(1519, 380, 170, 50);
 		addRechnungButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {

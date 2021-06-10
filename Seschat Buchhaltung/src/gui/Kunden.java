@@ -135,8 +135,6 @@ public class Kunden extends JPanel {
 		add(neuLabel);
 		
 		JButton speichernButton = new JButton("Speichern");
-		speichernButton.setBackground(new Color(30, 144, 255));
-		speichernButton.setForeground(new Color(30, 144, 255));
 		speichernButton.setBounds(1241, 174, 170, 50);
 		speichernButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -272,8 +270,6 @@ public class Kunden extends JPanel {
 		add(pane);
 
 		JButton suchenButton = new JButton("Suchen");
-		suchenButton.setForeground(new Color(30, 144, 255));
-		suchenButton.setBackground(new Color(30, 144, 255));
 		suchenButton.setBounds(1241, 366, 170, 50);
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -433,8 +429,6 @@ public class Kunden extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		bearbeitenButton.setForeground(new Color(30, 144, 255));
-		bearbeitenButton.setBackground(new Color(30, 144, 255));
 		bearbeitenButton.setBounds(1544, 271, 170, 50);
 		bearbeitenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -477,8 +471,6 @@ public class Kunden extends JPanel {
 		add(bearbeitenButton);
 
 		JButton addRechnungButton = new JButton("Neue Rechnung");
-		addRechnungButton.setForeground(new Color(30, 144, 255));
-		addRechnungButton.setBackground(new Color(30, 144, 255));
 		addRechnungButton.setBounds(1544, 366, 170, 50);
 		addRechnungButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {

@@ -173,7 +173,6 @@ public class Auswertung extends JPanel{
 				return;
 			}
 		});
-		einnahmenButton.setBackground(new Color(30, 144, 255));
 		einnahmenButton.setBounds(561, 220, 170, 50);
 		add(einnahmenButton);
 		
@@ -200,7 +199,6 @@ public class Auswertung extends JPanel{
 		add(lieferantDropdown);
 		
 		JButton bestellVolumenButton = new JButton("Ausgeben");
-		bestellVolumenButton.setBackground(new Color(30, 144, 255));
 		bestellVolumenButton.setBounds(1500, 220, 170, 50);
 		bestellVolumenButton.addMouseListener(new MouseAdapter() {
 		// Ausgabe Bestellvolumen
@@ -269,12 +267,10 @@ public class Auswertung extends JPanel{
 				}
 			}
 		});
-		abchlussJahrButton.setBackground(new Color(30, 144, 255));
 		abchlussJahrButton.setBounds(471, 474, 170, 50);
 		add(abchlussJahrButton);
 		
 		JButton speichernButton = new JButton("Speichern");
-		speichernButton.setBackground(new Color(30, 144, 255));
 		speichernButton.setBounds(740, 474, 170, 50);
 		speichernButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
