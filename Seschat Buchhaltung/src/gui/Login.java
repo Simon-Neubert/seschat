@@ -10,7 +10,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import dbaccess.DBAccess;
-import java.awt.EventQueue;
 import javax.swing.JPasswordField;
 import java.awt.Color;
 import java.awt.GridBagLayout;
@@ -22,7 +21,7 @@ public class Login extends JFrame{
 
 	private String username;
 	private String password;
-	// Username: Leiterin Passsword: Leitung
+	
 	
 	// Login Fenster
 	private JPasswordField passwordField;

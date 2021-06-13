@@ -36,6 +36,7 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			
 			setBounds(800, 200, 400, 500);
 			getContentPane().setLayout(null);
+			setLocationRelativeTo(null);
 			
 			//Label
 			JLabel lieferantLabel = new JLabel("Lieferant:");

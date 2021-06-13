@@ -31,10 +31,11 @@ public class KundenRechnungBearbeiten extends JDialog{
 	private static String[] lastTenYears = new String[11];
 	private JLabel formatLabel;
 	
-	public KundenRechnungBearbeiten (int idAlt, String vornameAlt, String nachnameAlt, int plzAlt, int rechnungsID) {
+	public KundenRechnungBearbeiten (int kundenID, String vornameAlt, String nachnameAlt, int plzAlt, int rechnungsID) {
 			
 			setBounds(800, 200, 400, 500);
 			getContentPane().setLayout(null);
+			setLocationRelativeTo(null);
 			
 			//Label
 			JLabel kundeLabel = new JLabel("Kunde:");
@@ -45,7 +46,7 @@ public class KundenRechnungBearbeiten extends JDialog{
 			kundeLabel.setForeground(Color.BLACK);
 			getContentPane().add(kundeLabel);
 			
-			kundeLabel2 = new JLabel(vornameAlt + " " + nachnameAlt + " (ID: " + idAlt + ")");
+			kundeLabel2 = new JLabel(vornameAlt + " " + nachnameAlt + " (ID: " + kundenID + ")");
 			kundeLabel2.setHorizontalAlignment(SwingConstants.CENTER);
 			kundeLabel2.setBounds(133, 35, 261, 29);
 			kundeLabel2.setFont(new Font("Serif", Font.ITALIC, 18));
@@ -115,8 +116,6 @@ public class KundenRechnungBearbeiten extends JDialog{
 			bestellvolumenTextfield.setBorder(new LineBorder(Color.BLACK, 1));
 			bestellvolumenTextfield.setHorizontalAlignment(SwingConstants.CENTER);
 			bestellvolumenTextfield.setFont(new Font("Serif", Font.PLAIN, 14));
-	
-			
 			getContentPane().add(bestellvolumenTextfield);
 			
 			speichernButton = new JButton("Speichern");

@@ -13,6 +13,13 @@ public class DBAccess {
 
 	public static Connection conn = null;
 
+	// Read from DB and add data to objects
+	private static ArrayList<objects.Kunde> k = dbaccess.DBAccess.createKunden();
+	private static ArrayList<objects.Kundenrechnung> kr = dbaccess.DBAccess.createKundenrechnungen();
+	private static ArrayList<objects.Lieferant> l = dbaccess.DBAccess.createLieferanten();
+	private static ArrayList<objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
+		
+	
 	// Hilfsfunktionen
 	public static int dbGetAutoIncrement (String column, String table) {
 		try {
@@ -154,6 +161,23 @@ public class DBAccess {
 		} catch (Exception e) {e.printStackTrace();}
 		
 		return null;
+	}
+
+	// Getters
+	public static ArrayList<objects.Kunde> getK() {
+		return k;
+	}
+	
+	public static ArrayList<objects.Lieferant> getL() {
+		return l;
+	}
+	
+	public static ArrayList<objects.Kundenrechnung> getKr() {
+		return kr;
+	}
+	
+	public static ArrayList<objects.Lieferantenrechnung> getLr() {
+		return lr;
 	}
 
 }

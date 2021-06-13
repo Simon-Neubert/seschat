@@ -26,8 +26,9 @@ public class KundeBearbeiten extends JDialog{
 	
 	public KundeBearbeiten(int idAlt, String vornameAlt, String nachnameAlt, int plz){
 		
-		setBounds(800, 200, 400, 500);
+		setBounds(0, 0, 400, 500);
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel kundeLabel = new JLabel("Kunde:");
 		kundeLabel.setBounds(13, 34, 110, 29);

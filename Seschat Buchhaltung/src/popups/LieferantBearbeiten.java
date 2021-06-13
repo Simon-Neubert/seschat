@@ -26,6 +26,7 @@ public class LieferantBearbeiten extends JDialog {
 		
 		setBounds(800, 200, 400, 500);
 		getContentPane().setLayout(null);
+		setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Lieferant:");
 		lblNewLabel.setBounds(156, 36, 87, 29);

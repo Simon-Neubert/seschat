@@ -3,26 +3,24 @@ import javax.swing.JFrame;
 
 import gui.*;
 import javax.swing.JTabbedPane;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.swing.JPanel;
-
 public class Main extends JFrame{
 	
-	Kunden kundenPanel = new Kunden();
-	Lieferanten lieferantenPanel = new Lieferanten();
-	Rechnungen rechnungsPanel = new Rechnungen();
-	Auswertung auswertungsPanel = new Auswertung();
+	// Check if user close window or if it closed from correct password entry
 	static boolean abgebrochen = true;
+	
 	
 	public Main() {
 		
-		getContentPane().setLayout(null);
+		Kunden kundenPanel = new Kunden();
+		Lieferanten lieferantenPanel = new Lieferanten();
+		Rechnungen rechnungsPanel = new Rechnungen();
+		Auswertung auswertungsPanel = new Auswertung();
+		
 		getContentPane().setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
 	    setSize(Toolkit.getDefaultToolkit().getScreenSize());
 	    setLocationRelativeTo(null);
@@ -38,18 +36,18 @@ public class Main extends JFrame{
 		tabbedPane.add("Auswertung", auswertungsPanel);
 		
 	}
-
+	
 	public static void main(String[] args) {
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				
+
 				Main program = new Main();
 				program.setVisible(false);
 				program.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				program.setTitle("Seschat Buchhaltung");
 				program.pack();
-				
+
 				Login login = new Login();
 				login.setVisible(true);
 				login.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,14 +55,14 @@ public class Main extends JFrame{
 				login.setAlwaysOnTop(true);
 				login.addWindowListener(new WindowAdapter() {
 					public void windowClosed(WindowEvent e) {
-						if (abgebrochen) program.dispose();;
+						if (abgebrochen)
+							program.dispose();
+						;
 						program.setVisible(true);
 					}
 				});
-				
 			}
 		});
-		
 	}
-	
+
 }

@@ -1,86 +1,94 @@
 package gui;
 
-import java.sql.Statement;
-import java.util.ArrayList;
-
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
-import objects.*;
-import dbaccess.*;
-import popups.*;
-
 import java.awt.Color;
 import java.awt.Font;
 
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import dbaccess.DBAccess;
+import objects.Lieferant;
+import objects.Lieferantenrechnung;
+
+import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import java.awt.GridBagConstraints;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Statement;
+import java.util.ArrayList;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class Lieferanten extends JPanel{
+public class Lieferanten extends JPanel {
 
-// Read from DB and add data to objects
-	static ArrayList <objects.Lieferant> l = dbaccess.DBAccess.createLieferanten();
-	static ArrayList <objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
 	public static String lieferant = "";
 	public static boolean abgebrochen = true;
 
-	
-// Components for GUI
-	
 	private JTextField nameNeuField;
 	private JTextField generiertField;
+	private JLabel bestehendLabel;
 	private JTextField nameSuchenField;
 	private JTextField idSuchenField;
-	private JTable table;
+	private JButton suchenButton;
+	private JLabel bearbeitenLabel;
 	private JTextField idBearbeitenFeld;
-	
-	
-// Constructor for JPanel
-	
-	public Lieferanten () {
-		
-		// Define Panel
-		setLayout(null);
-		setBounds(getBounds());
+	private JButton bearbeitenButton;
+	private JButton addRechnungButton;
+	private JScrollPane pane;
+	private JTable table;
+	private JLabel changeLabel;
+	private JLabel neuInputLabel;
+	private JLabel suchenLabel;
+	private JLabel neuNameLabel;
+	private JLabel neuIDLabel;
+	private JLabel bearbeitenIDLabel;
+	private JLabel suchenIDLabel;
+	private JLabel suchenNameLabel;
 
-		JLabel bestehendLabel = new JLabel("Lieferant suchen:");
-		bestehendLabel.setBounds(101, 308, 277, 26);
-		bestehendLabel.setFont(new Font("Serif", Font.PLAIN, 25));
-		add(bestehendLabel);
+	
+	public Lieferanten() {
 		
-		JLabel labelBestellvolumen = new JLabel("Neuer Lieferant:");
-		labelBestellvolumen.setFont(new Font("Serif", Font.PLAIN, 25));
-		labelBestellvolumen.setBounds(101, 75, 395, 32);
-		add(labelBestellvolumen);
+		setBounds(0, 0, 1280, 720);
 		
-		JLabel neuLabel = new JLabel("");
-		neuLabel.setForeground(Color.RED);
-		neuLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		neuLabel.setBounds(101, 253, 1005, 26);
-		add(neuLabel);
+		GridBagLayout gbl_contentPane = new GridBagLayout();
+		gbl_contentPane.columnWidths = new int[]{0, 390, 0, 344, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		setLayout(gbl_contentPane);
 		
+		// Neuer Lieferant
+		JLabel neuLabel = new JLabel("Neuer Lieferant:");
+		GridBagConstraints gbc_neuLabel = new GridBagConstraints();
+		gbc_neuLabel.anchor = GridBagConstraints.WEST;
+		gbc_neuLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_neuLabel.gridx = 1;
+		gbc_neuLabel.gridy = 1;
+		neuLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		add(neuLabel, gbc_neuLabel);
 		
-		nameNeuField = new JTextField();
+		nameNeuField = new JTextField("Bitte Name eingeben...");
+		GridBagConstraints gbc_nameNeuField = new GridBagConstraints();
+		gbc_nameNeuField.insets = new Insets(0, 0, 5, 5);
+		gbc_nameNeuField.fill = GridBagConstraints.BOTH;
+		gbc_nameNeuField.gridx = 1;
+		gbc_nameNeuField.gridy = 3;
 		nameNeuField.setHorizontalAlignment(SwingConstants.CENTER);
-		nameNeuField.setFont(new Font("Sans", Font.PLAIN, 14));
-		nameNeuField.setBounds(101, 160, 219, 53);
 		nameNeuField.setBorder(new LineBorder(Color.BLACK, 1));
-		add(nameNeuField);
-		nameNeuField.setText("   Bitte Name eingeben...");
-		nameNeuField.setColumns(10);
+		nameNeuField.setFont(new Font("Sans", Font.PLAIN, 14));
 		nameNeuField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				nameNeuField.setText("");
@@ -88,59 +96,248 @@ public class Lieferanten extends JPanel{
 			public void focusLost(FocusEvent e) {}
 		});
 		
-		generiertField = new JTextField();
-		generiertField.setText(" Generierte ID erscheint hier");
+		neuNameLabel = new JLabel("Name:");
+		GridBagConstraints gbc_neuNameLabel = new GridBagConstraints();
+		gbc_neuNameLabel.anchor = GridBagConstraints.WEST;
+		gbc_neuNameLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_neuNameLabel.gridx = 1;
+		gbc_neuNameLabel.gridy = 2;
+		add(neuNameLabel, gbc_neuNameLabel);
+		
+		neuIDLabel = new JLabel("Generierte ID:");
+		GridBagConstraints gbc_neuIDLabel = new GridBagConstraints();
+		gbc_neuIDLabel.anchor = GridBagConstraints.WEST;
+		gbc_neuIDLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_neuIDLabel.gridx = 3;
+		gbc_neuIDLabel.gridy = 2;
+		add(neuIDLabel, gbc_neuIDLabel);
+		add(nameNeuField, gbc_nameNeuField);
+		
+		generiertField = new JTextField("Generierte ID erscheint hier...");
 		generiertField.setEditable(false);
 		generiertField.setHorizontalAlignment(SwingConstants.CENTER);
-		generiertField.setFont(new Font("Dialog", Font.PLAIN, 14));
-		generiertField.setColumns(10);
 		generiertField.setBorder(new LineBorder(Color.BLACK, 1));
-		generiertField.setBounds(518, 160, 219, 53);
-		add(generiertField);
+		generiertField.setFont(new Font("Sans", Font.PLAIN, 14));
+		GridBagConstraints gbc_generiertField = new GridBagConstraints();
+		gbc_generiertField.insets = new Insets(0, 0, 5, 5);
+		gbc_generiertField.fill = GridBagConstraints.BOTH;
+		gbc_generiertField.gridx = 3;
+		gbc_generiertField.gridy = 3;
+		add(generiertField, gbc_generiertField);
+		generiertField.setColumns(10);
 		
-		JButton speichernButton = new JButton("Speichern");
-		speichernButton.setBounds(936, 163, 170, 50);
+		JButton speichernButton = new JButton(" Speichern ");
+		GridBagConstraints gbc_speichernButton = new GridBagConstraints();
+		gbc_speichernButton.fill = GridBagConstraints.VERTICAL;
+		gbc_speichernButton.insets = new Insets(0, 0, 5, 5);
+		gbc_speichernButton.gridx = 5;
+		gbc_speichernButton.gridy = 3;
 		speichernButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
 				String nameInput = nameNeuField.getText();
-				nameNeuField.setText("   Bitte Name eingeben...");
+				nameNeuField.setText("Bitte Name eingeben...");
 				
-				if (nameInput.equals("") || nameInput.equals("   Bitte Name eingeben...")) {
-					neuLabel.setForeground(Color.RED);
-					neuLabel.setText("Bitte Eingabe prüfen.");
+				if (nameInput.equals("") || nameInput.equals("Bitte Name eingeben...")) {
+					neuInputLabel.setForeground(Color.RED);
+					neuInputLabel.setText("Bitte Eingabe prüfen.");
 					return;
 				}
 				
-				for (int i = 0; i < l.toArray().length; i++)
-					if (l.get(i).getName().equals(nameInput)) {
-						neuLabel.setForeground(Color.RED);
-						neuLabel.setText("Lieferant bereits vorhanden! (ID: " + l.get(i).getLieferantenID() + ")");
+				for (int i = 0; i < DBAccess.getL().toArray().length; i++)
+					if (DBAccess.getL().get(i).getName().equals(nameInput)) {
+						neuInputLabel.setForeground(Color.RED);
+						neuInputLabel.setText("Lieferant bereits vorhanden! (ID: " + DBAccess.getL().get(i).getLieferantenID() + ")");
 						return;
 					}
 				
 				DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
-				neuLabel.setText("");
-				neuLabel.setForeground(Color.BLACK);
+				neuInputLabel.setText("");
+				neuInputLabel.setForeground(Color.BLACK);
 				lieferantAufnehmen(nameInput);
-				neuLabel.setText(nameInput + " erfolgreich aufgenommen.");
+				neuInputLabel.setText(nameInput + " erfolgreich aufgenommen.");
 				DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
 				
-				generiertField.setText(String.valueOf(l.toArray().length));
-				nameNeuField.setText("   Bitte Name eingeben...");
+				generiertField.setText(String.valueOf(DBAccess.getL().toArray().length));
+				nameNeuField.setText("Bitte Name eingeben...");
 				return;
 			}
 		});
-		add(speichernButton);
+		add(speichernButton, gbc_speichernButton);
 		
-		nameSuchenField = new JTextField();
-		nameSuchenField.setText("   Bitte Name eingeben...");
+		neuInputLabel = new JLabel("⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+		neuInputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		GridBagConstraints gbc_neuInputLabel = new GridBagConstraints();
+		gbc_neuInputLabel.anchor = GridBagConstraints.WEST;
+		gbc_neuInputLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_neuInputLabel.gridx = 1;
+		gbc_neuInputLabel.gridy = 4;
+		add(neuInputLabel, gbc_neuInputLabel);
+		
+		bearbeitenLabel = new JLabel("Lieferant bearbeiten:");
+		bearbeitenLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		GridBagConstraints gbc_bearbeitenLabel = new GridBagConstraints();
+		gbc_bearbeitenLabel.anchor = GridBagConstraints.WEST;
+		gbc_bearbeitenLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_bearbeitenLabel.gridx = 1;
+		gbc_bearbeitenLabel.gridy = 6;
+		add(bearbeitenLabel, gbc_bearbeitenLabel);
+	 
+		
+		// Lieferant bearbeiten
+		idBearbeitenFeld = new JTextField("Bitte ID eingeben...");
+		idBearbeitenFeld.setHorizontalAlignment(SwingConstants.CENTER);
+		idBearbeitenFeld.setColumns(10);
+		idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
+		idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
+		idBearbeitenFeld.addFocusListener(new FocusListener() {
+			public void focusGained(FocusEvent e) {
+				idBearbeitenFeld.setText("");
+			}
+			public void focusLost(FocusEvent e) {}
+		});
+		
+		bearbeitenIDLabel = new JLabel("Lieferanten-ID:");
+		GridBagConstraints gbc_bearbeitenIDLabel = new GridBagConstraints();
+		gbc_bearbeitenIDLabel.anchor = GridBagConstraints.WEST;
+		gbc_bearbeitenIDLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_bearbeitenIDLabel.gridx = 1;
+		gbc_bearbeitenIDLabel.gridy = 7;
+		add(bearbeitenIDLabel, gbc_bearbeitenIDLabel);
+		GridBagConstraints gbc_idBearbeitenFeld = new GridBagConstraints();
+		gbc_idBearbeitenFeld.insets = new Insets(0, 0, 5, 5);
+		gbc_idBearbeitenFeld.fill = GridBagConstraints.BOTH;
+		gbc_idBearbeitenFeld.gridx = 1;
+		gbc_idBearbeitenFeld.gridy = 8;
+		add(idBearbeitenFeld, gbc_idBearbeitenFeld);
+		
+		bearbeitenButton = new JButton("Bearbeiten");
+		GridBagConstraints gbc_bearbeitenButton = new GridBagConstraints();
+		gbc_bearbeitenButton.fill = GridBagConstraints.VERTICAL;
+		gbc_bearbeitenButton.insets = new Insets(0, 0, 5, 5);
+		gbc_bearbeitenButton.gridx = 3;
+		gbc_bearbeitenButton.gridy = 8;
+		bearbeitenButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+
+				String idInput = idBearbeitenFeld.getText();
+				idBearbeitenFeld.setText("   Bitte ID eingeben...");
+				
+				// Check User Input
+				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
+					changeLabel.setForeground(Color.RED);
+					changeLabel.setText("Bitte Eingabe prüfen.");
+					return;
+				}	
+				
+				if (idInput.equals("0")) {
+					changeLabel.setText("ID: 0 existiert nicht.");
+					return;
+				}
+				
+				if (Integer.parseInt(idInput) > DBAccess.getL().toArray().length) {
+					changeLabel.setForeground(Color.RED);
+					changeLabel.setText("ID existiert nicht.");
+					return;
+				}
+				
+				int id = Integer.parseInt(idInput);
+				
+				try {
+			        popups.LieferantBearbeiten dialog = new popups.LieferantBearbeiten(id, getName(id));
+			        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			        dialog.setVisible(true);
+			        dialog.addWindowListener(new WindowAdapter() {
+			        	public void windowClosed(WindowEvent e) {
+			        		changeLabel.setForeground(Color.BLACK);
+			        		if (!abgebrochen) changeLabel.setText("Lieferant bearbeitet.");
+			            }
+			        });
+				} catch (Exception e1) {e1.printStackTrace();}
+				
+				resetLabel(changeLabel);
+			}
+		});
+		add(bearbeitenButton, gbc_bearbeitenButton);
+		
+		addRechnungButton = new JButton("Rechnung+");
+		GridBagConstraints gbc_addRechnungButton = new GridBagConstraints();
+		gbc_addRechnungButton.fill = GridBagConstraints.VERTICAL;
+		gbc_addRechnungButton.insets = new Insets(0, 0, 5, 5);
+		gbc_addRechnungButton.gridx = 5;
+		gbc_addRechnungButton.gridy = 8;
+		addRechnungButton.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+
+				String idInput = idBearbeitenFeld.getText();
+				idBearbeitenFeld.setText("   Bitte ID eingeben...");
+				
+				// Check User Input
+				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
+					changeLabel.setForeground(Color.RED);
+					changeLabel.setText("Bitte Eingabe prüfen.");
+					return;
+				}	
+
+				if (idInput.equals("0")) {
+					changeLabel.setText("ID: 0 existiert nicht.");
+					return;
+				}
+				
+				if (Integer.parseInt(idInput) > DBAccess.getL().toArray().length) {
+					changeLabel.setForeground(Color.RED);
+					changeLabel.setText("ID existiert nicht.");
+					return;
+				}
+				
+				int id = Integer.parseInt(idInput);
+				
+				try {
+			        popups.LieferantenRechnungenNeu dialog = new popups.LieferantenRechnungenNeu (id, getName(id), (DBAccess.getLr().toArray().length + 1));
+			        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			        dialog.setVisible(true);
+			        dialog.addWindowListener(new WindowAdapter() {
+			        	public void windowClosed(WindowEvent e) {
+			        		changeLabel.setForeground(Color.BLACK);
+			        		if (!abgebrochen) changeLabel.setText("Rechnung aufgenommen.");
+			            }
+			        });
+				} catch (Exception e1) {e1.printStackTrace();}
+				
+				resetLabel(neuInputLabel);
+			}
+		});
+		add(addRechnungButton, gbc_addRechnungButton);
+		
+		changeLabel = new JLabel("⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+		changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		GridBagConstraints gbc_changeLabel = new GridBagConstraints();
+		gbc_changeLabel.anchor = GridBagConstraints.WEST;
+		gbc_changeLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_changeLabel.gridx = 1;
+		gbc_changeLabel.gridy = 9;
+		add(changeLabel, gbc_changeLabel);
+		
+		
+		// Lieferant suchen
+		bestehendLabel = new JLabel("Lieferant suchen:");
+		bestehendLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		GridBagConstraints gbc_bestehendLabel = new GridBagConstraints();
+		gbc_bestehendLabel.anchor = GridBagConstraints.WEST;
+		gbc_bestehendLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_bestehendLabel.gridx = 1;
+		gbc_bestehendLabel.gridy = 11;
+		add(bestehendLabel, gbc_bestehendLabel);
+		
+		nameSuchenField = new JTextField("Bitte Name eingeben...");
 		nameSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
 		nameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
-		nameSuchenField.setColumns(10);
 		nameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		nameSuchenField.setBounds(101, 389, 219, 53);
-		add(nameSuchenField);
+		GridBagConstraints gbc_nameSuchenField = new GridBagConstraints();
+		gbc_nameSuchenField.insets = new Insets(0, 0, 5, 5);
+		gbc_nameSuchenField.fill = GridBagConstraints.BOTH;
+		gbc_nameSuchenField.gridx = 1;
+		gbc_nameSuchenField.gridy = 13;
 		nameSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				nameSuchenField.setText("");
@@ -148,43 +345,46 @@ public class Lieferanten extends JPanel{
 			public void focusLost(FocusEvent e) {}
 		});
 		
-		idSuchenField = new JTextField();
-		idSuchenField.setText("   Bitte ID eingeben...");
+		suchenNameLabel = new JLabel("Name:");
+		GridBagConstraints gbc_suchenNameLabel = new GridBagConstraints();
+		gbc_suchenNameLabel.anchor = GridBagConstraints.WEST;
+		gbc_suchenNameLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_suchenNameLabel.gridx = 1;
+		gbc_suchenNameLabel.gridy = 12;
+		add(suchenNameLabel, gbc_suchenNameLabel);
+		
+		suchenIDLabel = new JLabel("Lieferanten-ID:");
+		GridBagConstraints gbc_suchenIDLabel = new GridBagConstraints();
+		gbc_suchenIDLabel.anchor = GridBagConstraints.WEST;
+		gbc_suchenIDLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_suchenIDLabel.gridx = 3;
+		gbc_suchenIDLabel.gridy = 12;
+		add(suchenIDLabel, gbc_suchenIDLabel);
+		add(nameSuchenField, gbc_nameSuchenField);
+		
+		idSuchenField = new JTextField("Bitte ID eingeben...");
 		idSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
-		idSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
 		idSuchenField.setColumns(10);
 		idSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
-		idSuchenField.setBounds(518, 389, 219, 53);
-		add(idSuchenField);
+		GridBagConstraints gbc_idSuchenField = new GridBagConstraints();
+		gbc_idSuchenField.insets = new Insets(0, 0, 5, 5);
+		gbc_idSuchenField.fill = GridBagConstraints.BOTH;
+		gbc_idSuchenField.gridx = 3;
+		gbc_idSuchenField.gridy = 13;
 		idSuchenField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				idSuchenField.setText("");
 			}
 			public void focusLost(FocusEvent e) {}
 		});
+		add(idSuchenField, gbc_idSuchenField);
 		
-		JLabel suchenLabel = new JLabel("Ohne Eingabe suchen um alle Lieferanten auszugeben.");
-		suchenLabel.setForeground(Color.DARK_GRAY);
-		suchenLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		suchenLabel.setBounds(101, 469, 573, 26);
-		add(suchenLabel);
-		
-		table = new JTable();
-		table.setBounds(101, 535, 1310, 420);
-		table.setEnabled(false);
-		table.setBorder(new LineBorder(Color.BLACK, 2));
-		table.setFillsViewportHeight(true);
-		table.setShowHorizontalLines(true);
-		table.setShowVerticalLines(true);
-		table.setGridColor(Color.LIGHT_GRAY);
-		table.setRowHeight(30);
-		
-		JScrollPane pane = new JScrollPane(table);
-		pane.setBounds(101, 535, 1310, 420);
-		add(pane);
-		
-		JButton suchenButton = new JButton("Suchen");
-		suchenButton.setBounds(936, 392, 170, 50);
+		suchenButton = new JButton("   Suchen   ");
+		GridBagConstraints gbc_suchenButton = new GridBagConstraints();
+		gbc_suchenButton.fill = GridBagConstraints.VERTICAL;
+		gbc_suchenButton.insets = new Insets(0, 0, 5, 5);
+		gbc_suchenButton.gridx = 5;
+		gbc_suchenButton.gridy = 13;
 		suchenButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
@@ -194,24 +394,29 @@ public class Lieferanten extends JPanel{
 				String idInput = idSuchenField.getText();
 				boolean skip = false;
 				
-				nameSuchenField.setText("   Bitte Name eingeben...");
-				idSuchenField.setText("   Bitte ID eingeben...");
+				nameSuchenField.setText("Bitte Name eingeben...");
+				idSuchenField.setText("Bitte ID eingeben...");
 				
 				// Check User Input
-				if (!idInput.matches("[0-9]+") && !idInput.equals("   Bitte ID eingeben...")) {
+				if (!idInput.matches("[0-9]+") && !idInput.equals("Bitte ID eingeben...")) {
 					suchenLabel.setForeground(Color.RED);
 					suchenLabel.setText("Bitte Eingabe prüfen.");
 					return;
 				}
 				
+				if (idInput.equals("0")) {
+					suchenLabel.setText("ID: 0 existiert nicht.");
+					return;
+				}
+				
 				// Keine Eingabe
-				if ((idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("   Bitte Name eingeben...") || nameInput.equals(""))) {
+				if ((idInput.equals("Bitte ID eingeben...") || idInput.equals("")) && (nameInput.equals("Bitte Name eingeben...") || nameInput.equals(""))) {
 					list = tableOfAll();
 					skip = true;
 				}
 				
 				// ID und Name eingegeben
-				if (idInput.matches("[0-9]+") && !nameInput.equals("") && !nameInput.equals("   Bitte Name eingeben...") && !skip) {
+				if (idInput.matches("[0-9]+") && !nameInput.equals("") && !nameInput.equals("Bitte Name eingeben...") && !skip) {
 					list = tableByNameAndID(Integer.parseInt(idInput), nameInput);
 					skip = true;
 				}
@@ -241,244 +446,164 @@ public class Lieferanten extends JPanel{
 				
 				DefaultTableModel tableModel = new DefaultTableModel(array, new Object[] {"Lieferanten-ID", "Name"});
 				table.setModel(tableModel);
-				resetLabel(suchenLabel);
 				skip = false;
 				return;
 			}
 		});
-		add(suchenButton);
+		add(suchenButton, gbc_suchenButton);
 		
-		JLabel bearbeitenLabel = new JLabel("Lieferant bearbeiten:");
-		bearbeitenLabel.setFont(new Font("Serif", Font.PLAIN, 25));
-		bearbeitenLabel.setBounds(1508, 75, 277, 26);
-		add(bearbeitenLabel);
+		suchenLabel = new JLabel("Ohne Eingabe suchen um alle Kunden auszugeben.");
+		suchenLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		GridBagConstraints gbc_suchenLabel = new GridBagConstraints();
+		gbc_suchenLabel.anchor = GridBagConstraints.WEST;
+		gbc_suchenLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_suchenLabel.gridx = 1;
+		gbc_suchenLabel.gridy = 14;
+		add(suchenLabel, gbc_suchenLabel);
 		
-		JLabel changeLabel = new JLabel("");
-		changeLabel.setEnabled(false);
-		changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		changeLabel.setForeground(Color.RED);
-		changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
-		changeLabel.setBounds(1497, 469, 210, 26);
-		add(changeLabel);
+		table = new JTable();
+		table.setEnabled(false);
+		table.setBorder(new LineBorder(Color.BLACK, 2));
+		table.setFillsViewportHeight(true);
+		table.setShowHorizontalLines(true);
+		table.setShowVerticalLines(true);
+		table.setGridColor(Color.LIGHT_GRAY);
+		table.setRowHeight(30);
 		
-		idBearbeitenFeld = new JTextField();
-		idBearbeitenFeld.setText("   Bitte ID eingeben...");
-		idBearbeitenFeld.setHorizontalAlignment(SwingConstants.CENTER);
-		idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
-		idBearbeitenFeld.setColumns(10);
-		idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
-		idBearbeitenFeld.setBounds(1497, 151, 219, 53);
-		add(idBearbeitenFeld);
-		idBearbeitenFeld.addFocusListener(new FocusListener() {
-			public void focusGained(FocusEvent e) {
-				idBearbeitenFeld.setText("");
-			}
-			public void focusLost(FocusEvent e) {}
-		});
+		pane = new JScrollPane(table);
+		pane.setEnabled(false);
+		GridBagConstraints gbc_pane = new GridBagConstraints();
+		gbc_pane.gridheight = 6;
+		gbc_pane.gridwidth = 5;
+		gbc_pane.insets = new Insets(0, 0, 5, 5);
+		gbc_pane.fill = GridBagConstraints.BOTH;
+		gbc_pane.gridx = 1;
+		gbc_pane.gridy = 16;
+		add(pane, gbc_pane);
 		
-		JButton bearbeitenButton = new JButton("Bearbeiten");
-		bearbeitenButton.setBounds(1519, 269, 170, 50);
-		bearbeitenButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+	}
+	
+	
+	// Edit Lieferanten
+	
+		// Add Lieferant to objects and call dbAddLieferant
+		private static void lieferantAufnehmen (String name) {	
+			int newID = DBAccess.getL().toArray().length + 1;
+			DBAccess.getL().add(new Lieferant(newID, name));
+			dbAddLieferant(name);
+			DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
+		}
+		
+		// Add Lieferant in mySQL database
+		public static void dbAddLieferant (String name) {
+			try {
+				Statement stmt = DBAccess.conn.createStatement();
+				stmt.execute(" INSERT INTO lieferanten (Name) VALUES ('"+name+"')");
+			} catch (Exception e) {e.printStackTrace();}
+		}
+		
+		// Change Lieferant in objects and call dbChangeLieferant
+		public static void lieferantBearbeiten (int id, String name) {
+			DBAccess.getL().stream().filter(x -> x.getLieferantenID() == id).forEach(x -> x.setName(name));
+			dbChangeLieferant(id, name);
+			DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
+		}
 
-				String idInput = idBearbeitenFeld.getText();
-				idBearbeitenFeld.setText("   Bitte ID eingeben...");
-				
-				// Check User Input
-				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
-					changeLabel.setForeground(Color.RED);
-					changeLabel.setText("Bitte Eingabe prüfen.");
-					return;
-				}	
-				
-				if (Integer.parseInt(idInput) > l.toArray().length) {
-					changeLabel.setForeground(Color.RED);
-					changeLabel.setText("ID existiert nicht.");
-					return;
-				}
-				
-				int id = Integer.parseInt(idInput);
-				
-				try {
-			        popups.LieferantBearbeiten dialog = new popups.LieferantBearbeiten(id, getName(id));
-			        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			        dialog.setVisible(true);
-			        dialog.addWindowListener(new WindowAdapter() {
-			        	public void windowClosed(WindowEvent e) {
-			        		changeLabel.setForeground(Color.BLACK);
-			        		if (!abgebrochen) changeLabel.setText("Lieferant bearbeitet.");
-			            }
-			        });
-				} catch (Exception e1) {e1.printStackTrace();}
-				
-				resetLabel(changeLabel);
-			}
-		});
-		add(bearbeitenButton);
-		
-		JButton addRechnungButton = new JButton("Neue Rechnung");
-		addRechnungButton.setBounds(1519, 380, 170, 50);
-		addRechnungButton.addMouseListener(new MouseAdapter() {
-			public void mouseClicked(MouseEvent e) {
+		// Change Lieferant in mySQL database
+		public static void dbChangeLieferant (int id, String name) {
+			try {
+				Statement stmt = DBAccess.conn.createStatement();
+				stmt.execute("UPDATE lieferanten SET name = '"+name+"' WHERE LieferantenID = '"+id+"'");
+			} catch (Exception e) {e.printStackTrace();}
+		}
 
-				String idInput = idBearbeitenFeld.getText();
-				idBearbeitenFeld.setText("   Bitte ID eingeben...");
-				
-				// Check User Input
-				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
-					changeLabel.setForeground(Color.RED);
-					changeLabel.setText("Bitte Eingabe prüfen.");
-					return;
-				}	
-
-				if (Integer.parseInt(idInput) > l.toArray().length) {
-					changeLabel.setForeground(Color.RED);
-					changeLabel.setText("ID existiert nicht.");
-					return;
-				}
-				
-				int id = Integer.parseInt(idInput);
-				
-				try {
-			        popups.LieferantenRechnungenNeu dialog = new popups.LieferantenRechnungenNeu (id, getName(id), (lr.toArray().length + 1));
-			        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			        dialog.setVisible(true);
-			        dialog.addWindowListener(new WindowAdapter() {
-			        	public void windowClosed(WindowEvent e) {
-			        		changeLabel.setForeground(Color.BLACK);
-			        		if (!abgebrochen) changeLabel.setText("Rechnung aufgenommen.");
-			            }
-			        });
-				} catch (Exception e1) {e1.printStackTrace();}
-				
-				resetLabel(neuLabel);
-			}
-		});
-		add(addRechnungButton);
 		
-	}
-
-	
-// Edit Lieferanten
-	
-	// Add Lieferant to objects and call dbAddLieferant
-	private static void lieferantAufnehmen (String name) {	
-		int newID = l.toArray().length + 1;
-		l.add(new Lieferant(newID, name));
-		dbAddLieferant(name);
-		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
-	}
-	
-	// Add Lieferant in mySQL database
-	public static void dbAddLieferant (String name) {
-		try {
-			Statement stmt = DBAccess.conn.createStatement();
-			stmt.execute(" INSERT INTO lieferanten (Name) VALUES ('"+name+"')");
-		} catch (Exception e) {e.printStackTrace();}
-	}
-	
-	// Change Lieferant in objects and call dbChangeLieferant
-	public static void lieferantBearbeiten (int id, String name) {
-		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> x.setName(name));
-		dbChangeLieferant(id, name);
-		DBAccess.dbResetAutoIncrement("LieferantenID", "lieferanten");
-	}
-
-	// Change Lieferant in mySQL database
-	public static void dbChangeLieferant (int id, String name) {
-		try {
-			Statement stmt = DBAccess.conn.createStatement();
-			stmt.execute("UPDATE lieferanten SET name = '"+name+"' WHERE LieferantenID = '"+id+"'");
-		} catch (Exception e) {e.printStackTrace();}
-	}
-
-	
-// Add invoice
-	
-	// Add invoive to objects and call dbAddRechnung
-	public static void rechnungAufnehmen (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
-		int newID = lr.toArray().length + 1;
-		lr.add(new Lieferantenrechnung(newID, monat, jahr, bestellvolumen, status, lieferantenID));
-		dbAddRechnung(lieferantenID, monat, jahr, bestellvolumen, status);
-		DBAccess.dbResetAutoIncrement("RechnungsID", "lieferantenrechnungen");
-	}
-	
-	// Add invoice in mySQL database
-	public static void dbAddRechnung (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
-		try {
-			Statement stmt = DBAccess.conn.createStatement();
-			int tinyInt = 0;
-			if (status) tinyInt = 1;
-			stmt.execute("INSERT INTO lieferantenrechnungen (LieferantenID, Monat, Jahr, Bestellvolumen, Status) VALUES ('"+lieferantenID+"', '"+monat+"', '"+jahr+"', '"+bestellvolumen+"', '"+tinyInt+"')");
-		} catch (Exception e) {e.printStackTrace();}
-	}
-
-	
-// Auxiliary functions
-	
-	// Get name from object
-	private static String getName (int id) {
-		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> lieferant = x.getName());
-		return lieferant;
-	}
-	
-	// Set label to empty String
-	private static void resetLabel (JLabel label) {
-		label.setText("");
-	}
-	
-	
-// Tabellen erstellen
-	
-	// Create table if user only inputs name
-	private static ArrayList<String> tableByName (String name) {
-
-		ArrayList<String> table = new ArrayList<String>();
+	// Add invoice
 		
-		l.stream().filter(x -> x.getName().toLowerCase().contains(name.toLowerCase())).forEach(x -> {
-			table.add(String.valueOf(x.getLieferantenID()));
-			table.add(x.getName());
-		});
+		// Add invoive to objects and call dbAddRechnung
+		public static void rechnungAufnehmen (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
+			int newID = DBAccess.getLr().toArray().length + 1;
+			DBAccess.getLr().add(new Lieferantenrechnung(newID, monat, jahr, bestellvolumen, status, lieferantenID));
+			dbAddRechnung(lieferantenID, monat, jahr, bestellvolumen, status);
+			DBAccess.dbResetAutoIncrement("RechnungsID", "lieferantenrechnungen");
+		}
 		
-		return table;
-	}
-	
-	// Create table if user only inputs id
-	private static ArrayList<String> tableByID (int id) {
+		// Add invoice in mySQL database
+		public static void dbAddRechnung (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
+			try {
+				Statement stmt = DBAccess.conn.createStatement();
+				int tinyInt = 0;
+				if (status) tinyInt = 1;
+				stmt.execute("INSERT INTO lieferantenrechnungen (LieferantenID, Monat, Jahr, Bestellvolumen, Status) VALUES ('"+lieferantenID+"', '"+monat+"', '"+jahr+"', '"+bestellvolumen+"', '"+tinyInt+"')");
+			} catch (Exception e) {e.printStackTrace();}
+		}
 
-		ArrayList<String> table = new ArrayList<String>();
 		
-		l.stream().filter(x -> x.getLieferantenID() == id).forEach(x -> {
-			table.add(String.valueOf(x.getLieferantenID()));
-			table.add(x.getName());
-		});
+	// Auxiliary functions
 		
-		return table;
-	}
-	
-	// Create table if user inputs name and id
-	private static ArrayList<String> tableByNameAndID (int id, String name) {
+		// Get name from object
+		private static String getName (int id) {
+			DBAccess.getL().stream().filter(x -> x.getLieferantenID() == id).forEach(x -> lieferant = x.getName());
+			return lieferant;
+		}
+		
+		// Set label to empty String
+		private static void resetLabel (JLabel label) {
+			label.setText("⠀⠀⠀⠀⠀⠀⠀⠀⠀");
+		}
+		
+		
+	// Tabellen erstellen
+		
+		// Create table if user only inputs name
+		private static ArrayList<String> tableByName (String name) {
 
-		ArrayList<String> table = new ArrayList<String>();
+			ArrayList<String> table = new ArrayList<String>();
+			
+			DBAccess.getL().stream().filter(x -> x.getName().toLowerCase().contains(name.toLowerCase())).forEach(x -> {
+				table.add(String.valueOf(x.getLieferantenID()));
+				table.add(x.getName());
+			});
+			
+			return table;
+		}
 		
-		l.stream().filter(x -> x.getName().toLowerCase().contains(name.toLowerCase()) && x.getLieferantenID() == id).forEach(x -> {
-			table.add(String.valueOf(x.getLieferantenID()));
-			table.add(x.getName());
-		});
-		
-		return table;
-	}
-	
-	// // Create table if user doesnt input anything
-	private static ArrayList<String> tableOfAll () {
+		// Create table if user only inputs id
+		private static ArrayList<String> tableByID (int id) {
 
-		ArrayList<String> table = new ArrayList<String>();
+			ArrayList<String> table = new ArrayList<String>();
+			
+			DBAccess.getL().stream().filter(x -> x.getLieferantenID() == id).forEach(x -> {
+				table.add(String.valueOf(x.getLieferantenID()));
+				table.add(x.getName());
+			});
+			
+			return table;
+		}
 		
-		l.stream().forEach(x -> {
-			table.add(String.valueOf(x.getLieferantenID()));
-			table.add(x.getName());
-		});
+		// Create table if user inputs name and id
+		private static ArrayList<String> tableByNameAndID (int id, String name) {
+
+			ArrayList<String> table = new ArrayList<String>();
+			
+			DBAccess.getL().stream().filter(x -> x.getName().toLowerCase().contains(name.toLowerCase()) && x.getLieferantenID() == id).forEach(x -> {
+				table.add(String.valueOf(x.getLieferantenID()));
+				table.add(x.getName());
+			});
+			
+			return table;
+		}
 		
-		return table;
+		// // Create table if user doesnt input anything
+		private static ArrayList<String> tableOfAll () {
+
+			ArrayList<String> table = new ArrayList<String>();
+			
+			DBAccess.getL().stream().forEach(x -> {
+				table.add(String.valueOf(x.getLieferantenID()));
+				table.add(x.getName());
+			});
+			
+			return table;
+		}
 	}
-}

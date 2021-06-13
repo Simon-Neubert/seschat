@@ -35,6 +35,7 @@ public class KundenRechnungenNeu extends JDialog{
 			
 			setBounds(800, 200, 400, 500);
 			getContentPane().setLayout(null);
+			setLocationRelativeTo(null);
 			
 			//Label
 			JLabel kundeLabel = new JLabel("Kunde:");
