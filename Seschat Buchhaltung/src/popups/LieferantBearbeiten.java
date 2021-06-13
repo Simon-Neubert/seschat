@@ -32,19 +32,19 @@ public class LieferantBearbeiten extends JDialog {
 		lblNewLabel.setBounds(156, 36, 87, 29);
 		lblNewLabel.setEnabled(false);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Serif", Font.BOLD, 18));
+		lblNewLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 		lblNewLabel.setForeground(Color.BLACK);
 		getContentPane().add(lblNewLabel);
 		
 		altLabel = new JLabel(lieferantAlt + " (ID: " + idAlt + ")");
 		altLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		altLabel.setBounds(6, 87, 388, 29);
-		altLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		altLabel.setBounds(6, 95, 388, 29);
+		altLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		getContentPane().add(altLabel);
 		
 		neuField = new JTextField();
 		neuField.setHorizontalAlignment(SwingConstants.CENTER);
-		neuField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		neuField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		neuField.setColumns(10);
 		neuField.setBorder(new LineBorder(Color.BLACK, 1));
 		neuField.setBounds(124, 206, 153, 37);
@@ -58,14 +58,13 @@ public class LieferantBearbeiten extends JDialog {
 		
 		inputLabel = new JLabel("");
 		inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		inputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		inputLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		inputLabel.setBounds(6, 376, 388, 29);
 		getContentPane().add(inputLabel);
 		
 		speichernButton = new JButton("Speichern");
+		speichernButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		speichernButton.setBounds(141, 282, 117, 45);
-		speichernButton.setForeground(new Color(30, 144, 255));
-		speichernButton.setBackground(new Color(30, 144, 255));
 		speichernButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				
@@ -88,9 +87,9 @@ public class LieferantBearbeiten extends JDialog {
 		lblName = new JLabel("Name:");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
 		lblName.setForeground(Color.BLACK);
-		lblName.setFont(new Font("Serif", Font.BOLD, 18));
+		lblName.setFont(new Font("Palatino", Font.BOLD, 18));
 		lblName.setEnabled(false);
-		lblName.setBounds(124, 165, 51, 29);
+		lblName.setBounds(124, 165, 153, 29);
 		getContentPane().add(lblName);
 		
 	

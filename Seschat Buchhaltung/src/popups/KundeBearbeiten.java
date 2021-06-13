@@ -34,19 +34,19 @@ public class KundeBearbeiten extends JDialog{
 		kundeLabel.setBounds(13, 34, 110, 29);
 		kundeLabel.setEnabled(false);
 		kundeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		kundeLabel.setFont(new Font("Serif", Font.BOLD, 18));
+		kundeLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 		kundeLabel.setForeground(Color.BLACK);
 		getContentPane().add(kundeLabel);
 		
 		altLabel = new JLabel(vornameAlt + " " + nachnameAlt + " " + " (ID: " + idAlt + ")");
 		altLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		altLabel.setBounds(83, 34, 311, 29);
-		altLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		altLabel.setBounds(107, 34, 287, 29);
+		altLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		getContentPane().add(altLabel);
 		
 		vornameField = new JTextField(vornameAlt);
 		vornameField.setHorizontalAlignment(SwingConstants.CENTER);
-		vornameField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		vornameField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		vornameField.setColumns(10);
 		vornameField.setBorder(new LineBorder(Color.BLACK, 1));
 		vornameField.setBounds(176, 95, 153, 37);
@@ -55,7 +55,7 @@ public class KundeBearbeiten extends JDialog{
 		vornameLabel = new JLabel("Vorname:");
 		vornameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		vornameLabel.setForeground(Color.BLACK);
-		vornameLabel.setFont(new Font("Serif", Font.BOLD, 18));
+		vornameLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 		vornameLabel.setEnabled(false);
 		vornameLabel.setBounds(21, 100, 102, 29);
 		getContentPane().add(vornameLabel);
@@ -63,7 +63,7 @@ public class KundeBearbeiten extends JDialog{
 		JLabel nachnameLabel = new JLabel("Nachname:");
 		nachnameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		nachnameLabel.setForeground(Color.BLACK);
-		nachnameLabel.setFont(new Font("Serif", Font.BOLD, 18));
+		nachnameLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 		nachnameLabel.setEnabled(false);
 		nachnameLabel.setBounds(21, 176, 102, 29);
 		getContentPane().add(nachnameLabel);
@@ -71,14 +71,14 @@ public class KundeBearbeiten extends JDialog{
 		JLabel plzLabel = new JLabel("PLZ:");
 		plzLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		plzLabel.setForeground(Color.BLACK);
-		plzLabel.setFont(new Font("Serif", Font.BOLD, 18));
+		plzLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 		plzLabel.setEnabled(false);
 		plzLabel.setBounds(21, 257, 102, 29);
 		getContentPane().add(plzLabel);
 		
 		nachnameField = new JTextField(nachnameAlt);
 		nachnameField.setHorizontalAlignment(SwingConstants.CENTER);
-		nachnameField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		nachnameField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		nachnameField.setColumns(10);
 		nachnameField.setBorder(new LineBorder(Color.BLACK, 1));
 		nachnameField.setBounds(176, 171, 153, 37);
@@ -86,7 +86,7 @@ public class KundeBearbeiten extends JDialog{
 		
 		plzField = new JTextField(String.valueOf(plz));
 		plzField.setHorizontalAlignment(SwingConstants.CENTER);
-		plzField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		plzField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		plzField.setColumns(10);
 		plzField.setBorder(new LineBorder(Color.BLACK, 1));
 		plzField.setBounds(176, 252, 153, 37);
@@ -94,14 +94,13 @@ public class KundeBearbeiten extends JDialog{
 		
 		inputLabel = new JLabel("");
 		inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		inputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		inputLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		inputLabel.setBounds(6, 401, 388, 29);
 		getContentPane().add(inputLabel);
 		
 		speichernButton = new JButton("Speichern");
-		speichernButton.setBounds(138, 337, 117, 45);
-		speichernButton.setForeground(new Color(30, 144, 255));
-		speichernButton.setBackground(new Color(30, 144, 255));
+		speichernButton.setFont(new Font("Palatino", Font.BOLD, 16));
+		speichernButton.setBounds(145, 336, 117, 45);
 		speichernButton.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				

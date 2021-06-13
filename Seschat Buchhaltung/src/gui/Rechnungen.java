@@ -79,6 +79,7 @@ public class Rechnungen extends JPanel {
 	private JLabel bearbeitenRechnnungstypLabel;
 	private JLabel suchenStatusLabel;
 	private JLabel suchenZeitraumLabel_1;
+	private JRadioButton placeholderRadio;
 
 
 	public Rechnungen() {
@@ -87,16 +88,16 @@ public class Rechnungen extends JPanel {
 
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 380, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 30, 0, 0, 0, 0, 0, 0, 0, 30, 0, 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		fillYears();
 		
 		// Rechnung bearbeiten
 		JLabel bearbeitenLabel = new JLabel("Rechnung bearbeiten:");
-		bearbeitenLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		bearbeitenLabel.setFont(new Font("Palatino", Font.PLAIN, 25));
 		GridBagConstraints gbc_bearbeitenLabel = new GridBagConstraints();
 		gbc_bearbeitenLabel.anchor = GridBagConstraints.WEST;
 		gbc_bearbeitenLabel.insets = new Insets(0, 0, 5, 5);
@@ -107,7 +108,7 @@ public class Rechnungen extends JPanel {
 		idBearbeitenFeld = new JTextField();
 		idBearbeitenFeld.setText("Bitte ID eingeben...");
 		idBearbeitenFeld.setHorizontalAlignment(SwingConstants.CENTER);
-		idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
+		idBearbeitenFeld.setFont(new Font("Palatino", Font.PLAIN, 14));
 		idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
 		idBearbeitenFeld.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
@@ -118,6 +119,7 @@ public class Rechnungen extends JPanel {
 		});
 		
 		bearbeitenRechnnungstypLabel = new JLabel("Rechnungstyp:");
+		bearbeitenRechnnungstypLabel.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_bearbeitenRechnnungstypLabel = new GridBagConstraints();
 		gbc_bearbeitenRechnnungstypLabel.anchor = GridBagConstraints.WEST;
 		gbc_bearbeitenRechnnungstypLabel.insets = new Insets(0, 0, 5, 5);
@@ -126,7 +128,7 @@ public class Rechnungen extends JPanel {
 		add(bearbeitenRechnnungstypLabel, gbc_bearbeitenRechnnungstypLabel);
 		
 		kundeRadioBearbeiten = new JRadioButton("Kunde    ");
-		kundeRadioBearbeiten.setFont(new Font("Inconsolata", Font.BOLD, 13));
+		kundeRadioBearbeiten.setFont(new Font("Palatino", Font.BOLD, 16));
 		kundeRadioBearbeiten.setSelected(true);
 		bearbeitenGroup.add(kundeRadioBearbeiten);
 		GridBagConstraints gbc_kundeRadioBearbeiten = new GridBagConstraints();
@@ -137,7 +139,7 @@ public class Rechnungen extends JPanel {
 		add(kundeRadioBearbeiten, gbc_kundeRadioBearbeiten);
 		
 		lieferantRadioBearbeiten = new JRadioButton("Lieferant");
-		lieferantRadioBearbeiten.setFont(new Font("Inconsolata", Font.BOLD, 13));
+		lieferantRadioBearbeiten.setFont(new Font("Palatino", Font.BOLD, 16));
 		bearbeitenGroup.add(lieferantRadioBearbeiten);
 		GridBagConstraints gbc_lieferantRadioBearbeiten = new GridBagConstraints();
 		gbc_lieferantRadioBearbeiten.anchor = GridBagConstraints.WEST;
@@ -147,6 +149,7 @@ public class Rechnungen extends JPanel {
 		add(lieferantRadioBearbeiten, gbc_lieferantRadioBearbeiten);
 		
 		bearbeitenIDLabel = new JLabel("ID bearbeiten:");
+		bearbeitenIDLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_bearbeitenIDLabel = new GridBagConstraints();
 		gbc_bearbeitenIDLabel.anchor = GridBagConstraints.WEST;
 		gbc_bearbeitenIDLabel.insets = new Insets(0, 0, 5, 5);
@@ -155,6 +158,7 @@ public class Rechnungen extends JPanel {
 		add(bearbeitenIDLabel, gbc_bearbeitenIDLabel);
 		
 		bearbeitenSetzenLabel = new JLabel("ID setzen:");
+		bearbeitenSetzenLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_bearbeitenSetzenLabel = new GridBagConstraints();
 		gbc_bearbeitenSetzenLabel.anchor = GridBagConstraints.WEST;
 		gbc_bearbeitenSetzenLabel.insets = new Insets(0, 0, 5, 5);
@@ -170,6 +174,7 @@ public class Rechnungen extends JPanel {
 		add(idBearbeitenFeld, gbc_idBearbeitenFeld);
 		
 		bearbeitenButton = new JButton("Bearbeiten");
+		bearbeitenButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_bearbeitenButton = new GridBagConstraints();
 		gbc_bearbeitenButton.fill = GridBagConstraints.VERTICAL;
 		gbc_bearbeitenButton.insets = new Insets(0, 0, 5, 5);
@@ -250,7 +255,7 @@ public class Rechnungen extends JPanel {
 		statusField = new JTextField();
 		statusField.setText("ID auf bezahlt setzen...");
 		statusField.setHorizontalAlignment(SwingConstants.CENTER);
-		statusField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		statusField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		statusField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				statusField.setText("");
@@ -258,6 +263,15 @@ public class Rechnungen extends JPanel {
 			public void focusLost(FocusEvent e) {
 			}
 		});
+		
+		placeholderRadio = new JRadioButton("");
+		placeholderRadio.setVisible(false);
+		placeholderRadio.setFont(new Font("Palatino", Font.PLAIN, 16));
+		GridBagConstraints gbc_placeholderRadio = new GridBagConstraints();
+		gbc_placeholderRadio.insets = new Insets(0, 0, 5, 5);
+		gbc_placeholderRadio.gridx = 2;
+		gbc_placeholderRadio.gridy = 6;
+		add(placeholderRadio, gbc_placeholderRadio);
 		statusField.setBorder(new LineBorder(Color.BLACK, 1));
 		GridBagConstraints gbc_statusField = new GridBagConstraints();
 		gbc_statusField.insets = new Insets(0, 0, 5, 5);
@@ -268,6 +282,7 @@ public class Rechnungen extends JPanel {
 		add(bearbeitenButton, gbc_bearbeitenButton);
 		
 		setzenButton = new JButton("Setzen");
+		setzenButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_setzenButton = new GridBagConstraints();
 		gbc_setzenButton.fill = GridBagConstraints.VERTICAL;
 		gbc_setzenButton.insets = new Insets(0, 0, 5, 5);
@@ -308,7 +323,7 @@ public class Rechnungen extends JPanel {
 		changeLabel = new JLabel("⠀⠀⠀⠀⠀⠀⠀⠀⠀");
 		changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		changeLabel.setForeground(Color.RED);
-		changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		changeLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		GridBagConstraints gbc_changeLabel = new GridBagConstraints();
 		gbc_changeLabel.anchor = GridBagConstraints.WEST;
 		gbc_changeLabel.insets = new Insets(0, 0, 5, 5);
@@ -319,7 +334,7 @@ public class Rechnungen extends JPanel {
 		
 		// Rechnungen ausgeben
 		bestehendLabel = new JLabel("Rechnungen ausgeben:");
-		bestehendLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		bestehendLabel.setFont(new Font("Palatino", Font.PLAIN, 25));
 		GridBagConstraints gbc_bestehendLabel = new GridBagConstraints();
 		gbc_bestehendLabel.anchor = GridBagConstraints.WEST;
 		gbc_bestehendLabel.insets = new Insets(0, 0, 5, 5);
@@ -330,7 +345,7 @@ public class Rechnungen extends JPanel {
 		rechnungsIDField = new JTextField();
 		rechnungsIDField.setText("Rechnungs-ID eingeben...");
 		rechnungsIDField.setHorizontalAlignment(SwingConstants.CENTER);
-		rechnungsIDField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		rechnungsIDField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		rechnungsIDField.setColumns(10);
 		rechnungsIDField.setBorder(new LineBorder(Color.BLACK, 1));
 		GridBagConstraints gbc_rechnungsIDField = new GridBagConstraints();
@@ -347,6 +362,7 @@ public class Rechnungen extends JPanel {
 		});
 		
 		lblRechnungsid = new JLabel("Rechnungs-ID:");
+		lblRechnungsid.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblRechnungsid = new GridBagConstraints();
 		gbc_lblRechnungsid.anchor = GridBagConstraints.WEST;
 		gbc_lblRechnungsid.insets = new Insets(0, 0, 5, 5);
@@ -355,6 +371,7 @@ public class Rechnungen extends JPanel {
 		add(lblRechnungsid, gbc_lblRechnungsid);
 		
 		suchenStatusLabel = new JLabel("Status:");
+		suchenStatusLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_suchenStatusLabel = new GridBagConstraints();
 		gbc_suchenStatusLabel.fill = GridBagConstraints.VERTICAL;
 		gbc_suchenStatusLabel.insets = new Insets(0, 0, 5, 5);
@@ -363,6 +380,7 @@ public class Rechnungen extends JPanel {
 		add(suchenStatusLabel, gbc_suchenStatusLabel);
 		
 		suchenZeitraumLabel_1 = new JLabel("Zeitraum:");
+		suchenZeitraumLabel_1.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_suchenZeitraumLabel_1 = new GridBagConstraints();
 		gbc_suchenZeitraumLabel_1.insets = new Insets(0, 0, 5, 5);
 		gbc_suchenZeitraumLabel_1.gridx = 3;
@@ -373,7 +391,7 @@ public class Rechnungen extends JPanel {
 		kundenIDField = new JTextField();
 		kundenIDField.setText("Kunden-/Lieferanten-ID...");
 		kundenIDField.setHorizontalAlignment(SwingConstants.CENTER);
-		kundenIDField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		kundenIDField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		kundenIDField.setColumns(10);
 		kundenIDField.setBorder(new LineBorder(Color.BLACK, 1));
 		GridBagConstraints gbc_kundenIDField = new GridBagConstraints();
@@ -389,8 +407,8 @@ public class Rechnungen extends JPanel {
 			}
 		});
 		
-		bezahltRadio = new JRadioButton("Bezahlt  ");
-		bezahltRadio.setFont(new Font("Inconsolata", Font.BOLD, 13));
+		bezahltRadio = new JRadioButton("Bezahlt    ");
+		bezahltRadio.setFont(new Font("Palatino", Font.PLAIN, 16));
 		bezahltRadio.addMouseListener(new MouseAdapter() {
 		public void mouseClicked(MouseEvent e) {
 			if (unbezahltCounter == 1) unbezahltCounter--;
@@ -412,7 +430,7 @@ public class Rechnungen extends JPanel {
 		add(bezahltRadio, gbc_bezahltRadio);
 		
 		unbezahltRadio = new JRadioButton("Unbezahlt");
-		unbezahltRadio.setFont(new Font("Inconsolata", Font.BOLD, 13));
+		unbezahltRadio.setFont(new Font("Palatino", Font.PLAIN, 16));
 		ausgebenGroup.add(unbezahltRadio);
 		unbezahltRadio.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
@@ -427,6 +445,7 @@ public class Rechnungen extends JPanel {
 		});
 		
 		lblKundenlieferantenid = new JLabel("Kunden-/Lieferanten-ID:");
+		lblKundenlieferantenid.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblKundenlieferantenid = new GridBagConstraints();
 		gbc_lblKundenlieferantenid.anchor = GridBagConstraints.WEST;
 		gbc_lblKundenlieferantenid.insets = new Insets(0, 0, 5, 5);
@@ -440,7 +459,7 @@ public class Rechnungen extends JPanel {
 		add(unbezahltRadio, gbc_unbezahltRadio);
 		
 		monatDropdownSuchen = new JComboBox(monate);
-		monatDropdownSuchen.setFont(new Font("Inconsolata", Font.BOLD, 13));
+		monatDropdownSuchen.setFont(new Font("Palatino", Font.BOLD, 13));
 		monatDropdownSuchen.setMaximumRowCount(14);
 		GridBagConstraints gbc_monatDropdownSuchen = new GridBagConstraints();
 		gbc_monatDropdownSuchen.insets = new Insets(0, 0, 5, 5);
@@ -451,7 +470,7 @@ public class Rechnungen extends JPanel {
 		
 		
 		jahrDropdownSuchen = new JComboBox(lastTenYears);
-		jahrDropdownSuchen.setFont(new Font("Inconsolata", Font.BOLD, 13));
+		jahrDropdownSuchen.setFont(new Font("Palatino", Font.BOLD, 13));
 		jahrDropdownSuchen.setMaximumRowCount(14);
 		GridBagConstraints gbc_jahrDropdownSuchen = new GridBagConstraints();
 		gbc_jahrDropdownSuchen.insets = new Insets(0, 0, 5, 5);
@@ -462,7 +481,7 @@ public class Rechnungen extends JPanel {
 		suchenLabel = new JLabel("Ohne Eingabe suchen um alle Rechnungen auszugeben.");
 		suchenLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		suchenLabel.setForeground(Color.DARK_GRAY);
-		suchenLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		suchenLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		GridBagConstraints gbc_suchenLabel = new GridBagConstraints();
 		gbc_suchenLabel.anchor = GridBagConstraints.WEST;
 		gbc_suchenLabel.insets = new Insets(0, 0, 5, 5);
@@ -471,6 +490,7 @@ public class Rechnungen extends JPanel {
 		add(suchenLabel, gbc_suchenLabel);
 		
 		selectionBox = new JComboBox(selection);
+		selectionBox.setFont(new Font("Palatino", Font.BOLD, 13));
 		GridBagConstraints gbc_selectionBox = new GridBagConstraints();
 		gbc_selectionBox.insets = new Insets(0, 0, 5, 5);
 		gbc_selectionBox.fill = GridBagConstraints.HORIZONTAL;
@@ -479,6 +499,7 @@ public class Rechnungen extends JPanel {
 		add(selectionBox, gbc_selectionBox);
 		
 		steigungsBox = new JComboBox(new Object[]{"absteigend", "aufsteigend"});
+		steigungsBox.setFont(new Font("Palatino", Font.BOLD, 13));
 		steigungsBox.setMaximumRowCount(2);
 		GridBagConstraints gbc_steigungsBox = new GridBagConstraints();
 		gbc_steigungsBox.insets = new Insets(0, 0, 5, 5);
@@ -487,6 +508,7 @@ public class Rechnungen extends JPanel {
 		add(steigungsBox, gbc_steigungsBox);
 		
 		suchenButton = new JButton("Suchen");
+		suchenButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_suchenButton = new GridBagConstraints();
 		gbc_suchenButton.fill = GridBagConstraints.VERTICAL;
 		gbc_suchenButton.insets = new Insets(0, 0, 5, 5);

@@ -77,7 +77,7 @@ public class Lieferanten extends JPanel {
 		gbc_neuLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_neuLabel.gridx = 1;
 		gbc_neuLabel.gridy = 1;
-		neuLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		neuLabel.setFont(new Font("Palatino", Font.PLAIN, 25));
 		add(neuLabel, gbc_neuLabel);
 		
 		nameNeuField = new JTextField("Bitte Name eingeben...");
@@ -88,7 +88,7 @@ public class Lieferanten extends JPanel {
 		gbc_nameNeuField.gridy = 3;
 		nameNeuField.setHorizontalAlignment(SwingConstants.CENTER);
 		nameNeuField.setBorder(new LineBorder(Color.BLACK, 1));
-		nameNeuField.setFont(new Font("Sans", Font.PLAIN, 14));
+		nameNeuField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		nameNeuField.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				nameNeuField.setText("");
@@ -97,6 +97,7 @@ public class Lieferanten extends JPanel {
 		});
 		
 		neuNameLabel = new JLabel("Name:");
+		neuNameLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_neuNameLabel = new GridBagConstraints();
 		gbc_neuNameLabel.anchor = GridBagConstraints.WEST;
 		gbc_neuNameLabel.insets = new Insets(0, 0, 5, 5);
@@ -105,6 +106,7 @@ public class Lieferanten extends JPanel {
 		add(neuNameLabel, gbc_neuNameLabel);
 		
 		neuIDLabel = new JLabel("Generierte ID:");
+		neuIDLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_neuIDLabel = new GridBagConstraints();
 		gbc_neuIDLabel.anchor = GridBagConstraints.WEST;
 		gbc_neuIDLabel.insets = new Insets(0, 0, 5, 5);
@@ -117,7 +119,7 @@ public class Lieferanten extends JPanel {
 		generiertField.setEditable(false);
 		generiertField.setHorizontalAlignment(SwingConstants.CENTER);
 		generiertField.setBorder(new LineBorder(Color.BLACK, 1));
-		generiertField.setFont(new Font("Sans", Font.PLAIN, 14));
+		generiertField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_generiertField = new GridBagConstraints();
 		gbc_generiertField.insets = new Insets(0, 0, 5, 5);
 		gbc_generiertField.fill = GridBagConstraints.BOTH;
@@ -127,6 +129,7 @@ public class Lieferanten extends JPanel {
 		generiertField.setColumns(10);
 		
 		JButton speichernButton = new JButton(" Speichern ");
+		speichernButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_speichernButton = new GridBagConstraints();
 		gbc_speichernButton.fill = GridBagConstraints.VERTICAL;
 		gbc_speichernButton.insets = new Insets(0, 0, 5, 5);
@@ -166,7 +169,7 @@ public class Lieferanten extends JPanel {
 		add(speichernButton, gbc_speichernButton);
 		
 		neuInputLabel = new JLabel("⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-		neuInputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		neuInputLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		GridBagConstraints gbc_neuInputLabel = new GridBagConstraints();
 		gbc_neuInputLabel.anchor = GridBagConstraints.WEST;
 		gbc_neuInputLabel.insets = new Insets(0, 0, 5, 5);
@@ -175,7 +178,7 @@ public class Lieferanten extends JPanel {
 		add(neuInputLabel, gbc_neuInputLabel);
 		
 		bearbeitenLabel = new JLabel("Lieferant bearbeiten:");
-		bearbeitenLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		bearbeitenLabel.setFont(new Font("Palatino", Font.PLAIN, 25));
 		GridBagConstraints gbc_bearbeitenLabel = new GridBagConstraints();
 		gbc_bearbeitenLabel.anchor = GridBagConstraints.WEST;
 		gbc_bearbeitenLabel.insets = new Insets(0, 0, 5, 5);
@@ -189,7 +192,7 @@ public class Lieferanten extends JPanel {
 		idBearbeitenFeld.setHorizontalAlignment(SwingConstants.CENTER);
 		idBearbeitenFeld.setColumns(10);
 		idBearbeitenFeld.setBorder(new LineBorder(Color.BLACK, 1));
-		idBearbeitenFeld.setFont(new Font("Dialog", Font.PLAIN, 14));
+		idBearbeitenFeld.setFont(new Font("Palatino", Font.PLAIN, 14));
 		idBearbeitenFeld.addFocusListener(new FocusListener() {
 			public void focusGained(FocusEvent e) {
 				idBearbeitenFeld.setText("");
@@ -198,6 +201,7 @@ public class Lieferanten extends JPanel {
 		});
 		
 		bearbeitenIDLabel = new JLabel("Lieferanten-ID:");
+		bearbeitenIDLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_bearbeitenIDLabel = new GridBagConstraints();
 		gbc_bearbeitenIDLabel.anchor = GridBagConstraints.WEST;
 		gbc_bearbeitenIDLabel.insets = new Insets(0, 0, 5, 5);
@@ -212,6 +216,7 @@ public class Lieferanten extends JPanel {
 		add(idBearbeitenFeld, gbc_idBearbeitenFeld);
 		
 		bearbeitenButton = new JButton("Bearbeiten");
+		bearbeitenButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_bearbeitenButton = new GridBagConstraints();
 		gbc_bearbeitenButton.fill = GridBagConstraints.VERTICAL;
 		gbc_bearbeitenButton.insets = new Insets(0, 0, 5, 5);
@@ -261,6 +266,7 @@ public class Lieferanten extends JPanel {
 		add(bearbeitenButton, gbc_bearbeitenButton);
 		
 		addRechnungButton = new JButton("Rechnung+");
+		addRechnungButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_addRechnungButton = new GridBagConstraints();
 		gbc_addRechnungButton.fill = GridBagConstraints.VERTICAL;
 		gbc_addRechnungButton.insets = new Insets(0, 0, 5, 5);
@@ -310,7 +316,7 @@ public class Lieferanten extends JPanel {
 		add(addRechnungButton, gbc_addRechnungButton);
 		
 		changeLabel = new JLabel("⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-		changeLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		changeLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		GridBagConstraints gbc_changeLabel = new GridBagConstraints();
 		gbc_changeLabel.anchor = GridBagConstraints.WEST;
 		gbc_changeLabel.insets = new Insets(0, 0, 5, 5);
@@ -321,7 +327,7 @@ public class Lieferanten extends JPanel {
 		
 		// Lieferant suchen
 		bestehendLabel = new JLabel("Lieferant suchen:");
-		bestehendLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+		bestehendLabel.setFont(new Font("Palatino", Font.PLAIN, 25));
 		GridBagConstraints gbc_bestehendLabel = new GridBagConstraints();
 		gbc_bestehendLabel.anchor = GridBagConstraints.WEST;
 		gbc_bestehendLabel.insets = new Insets(0, 0, 5, 5);
@@ -331,7 +337,7 @@ public class Lieferanten extends JPanel {
 		
 		nameSuchenField = new JTextField("Bitte Name eingeben...");
 		nameSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
-		nameSuchenField.setFont(new Font("Dialog", Font.PLAIN, 14));
+		nameSuchenField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		nameSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
 		GridBagConstraints gbc_nameSuchenField = new GridBagConstraints();
 		gbc_nameSuchenField.insets = new Insets(0, 0, 5, 5);
@@ -346,6 +352,7 @@ public class Lieferanten extends JPanel {
 		});
 		
 		suchenNameLabel = new JLabel("Name:");
+		suchenNameLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_suchenNameLabel = new GridBagConstraints();
 		gbc_suchenNameLabel.anchor = GridBagConstraints.WEST;
 		gbc_suchenNameLabel.insets = new Insets(0, 0, 5, 5);
@@ -354,6 +361,7 @@ public class Lieferanten extends JPanel {
 		add(suchenNameLabel, gbc_suchenNameLabel);
 		
 		suchenIDLabel = new JLabel("Lieferanten-ID:");
+		suchenIDLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_suchenIDLabel = new GridBagConstraints();
 		gbc_suchenIDLabel.anchor = GridBagConstraints.WEST;
 		gbc_suchenIDLabel.insets = new Insets(0, 0, 5, 5);
@@ -363,6 +371,7 @@ public class Lieferanten extends JPanel {
 		add(nameSuchenField, gbc_nameSuchenField);
 		
 		idSuchenField = new JTextField("Bitte ID eingeben...");
+		idSuchenField.setFont(new Font("Palatino", Font.BOLD, 16));
 		idSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
 		idSuchenField.setColumns(10);
 		idSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
@@ -380,6 +389,7 @@ public class Lieferanten extends JPanel {
 		add(idSuchenField, gbc_idSuchenField);
 		
 		suchenButton = new JButton("   Suchen   ");
+		suchenButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_suchenButton = new GridBagConstraints();
 		gbc_suchenButton.fill = GridBagConstraints.VERTICAL;
 		gbc_suchenButton.insets = new Insets(0, 0, 5, 5);
@@ -453,7 +463,7 @@ public class Lieferanten extends JPanel {
 		add(suchenButton, gbc_suchenButton);
 		
 		suchenLabel = new JLabel("Ohne Eingabe suchen um alle Kunden auszugeben.");
-		suchenLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+		suchenLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		GridBagConstraints gbc_suchenLabel = new GridBagConstraints();
 		gbc_suchenLabel.anchor = GridBagConstraints.WEST;
 		gbc_suchenLabel.insets = new Insets(0, 0, 5, 5);

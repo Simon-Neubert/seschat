@@ -43,34 +43,34 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			lieferantLabel.setBounds(34, 35, 87, 29);
 			lieferantLabel.setEnabled(false);
 			lieferantLabel.setHorizontalAlignment(SwingConstants.LEFT);
-			lieferantLabel.setFont(new Font("Serif", Font.BOLD, 18));
+			lieferantLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 			lieferantLabel.setForeground(Color.BLACK);
 			getContentPane().add(lieferantLabel);
 			
 			lieferantLabel2 = new JLabel(lieferantAlt + " (ID: " + idAlt + ")");
 			lieferantLabel2.setHorizontalAlignment(SwingConstants.CENTER);
 			lieferantLabel2.setBounds(133, 35, 261, 29);
-			lieferantLabel2.setFont(new Font("Serif", Font.ITALIC, 18));
+			lieferantLabel2.setFont(new Font("Palatino", Font.ITALIC, 18));
 			getContentPane().add(lieferantLabel2);
 			
 			idLabel = new JLabel("Rechnungs-ID:");
 			idLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			idLabel.setForeground(Color.BLACK);
-			idLabel.setFont(new Font("Serif", Font.BOLD, 18));
+			idLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 			idLabel.setEnabled(false);
-			idLabel.setBounds(34, 88, 117, 29);
+			idLabel.setBounds(34, 88, 153, 29);
 			getContentPane().add(idLabel);
 			
 			rechnungsIDLabel = new JLabel("ID: " + rechnungsID);
 			rechnungsIDLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			rechnungsIDLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+			rechnungsIDLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 			rechnungsIDLabel.setBounds(163, 88, 231, 29);
 			getContentPane().add(rechnungsIDLabel);
 			
 			bestellvolumenLabel = new JLabel("Bestellvolumen:");
 			bestellvolumenLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			bestellvolumenLabel.setForeground(Color.BLACK);
-			bestellvolumenLabel.setFont(new Font("Serif", Font.BOLD, 18));
+			bestellvolumenLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 			bestellvolumenLabel.setEnabled(false);
 			bestellvolumenLabel.setBounds(34, 215, 153, 29);
 			getContentPane().add(bestellvolumenLabel);
@@ -78,36 +78,39 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			statusLabel = new JLabel("Status:");
 			statusLabel.setHorizontalAlignment(SwingConstants.LEFT);
 			statusLabel.setForeground(Color.BLACK);
-			statusLabel.setFont(new Font("Serif", Font.BOLD, 18));
+			statusLabel.setFont(new Font("Palatino", Font.BOLD, 18));
 			statusLabel.setEnabled(false);
 			statusLabel.setBounds(272, 215, 72, 29);
 			getContentPane().add(statusLabel);
 			
 			formatLabel = new JLabel("Format: xxx.xx");
 			formatLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			formatLabel.setFont(new Font("Serif", Font.PLAIN, 14));
+			formatLabel.setFont(new Font("Palatino", Font.PLAIN, 14));
 			formatLabel.setBounds(34, 306, 153, 29);
 			getContentPane().add(formatLabel);
 			
 			inputLabel = new JLabel("");
 			inputLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			inputLabel.setFont(new Font("Serif", Font.ITALIC, 18));
+			inputLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 			inputLabel.setBounds(6, 403, 388, 29);
 			getContentPane().add(inputLabel);
 			
 			fillYears();
 			// Input Komponenten
 			JComboBox monatDropdown = new JComboBox(monate);
+			monatDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
 			monatDropdown.setMaximumRowCount(14);
 			monatDropdown.setBounds(20, 129, 181, 78);
 			getContentPane().add(monatDropdown);
 			
 			JComboBox jahrDropdown = new JComboBox(lastTenYears);
+			jahrDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
 			jahrDropdown.setMaximumRowCount(14);
 			jahrDropdown.setBounds(202, 129, 181, 78);
 			getContentPane().add(jahrDropdown);
 			
 			JRadioButton statusRadio = new JRadioButton("Bezahlt");
+			statusRadio.setFont(new Font("Palatino", Font.PLAIN, 16));
 			statusRadio.setBounds(257, 268, 87, 37);
 			getContentPane().add(statusRadio);
 			
@@ -116,15 +119,14 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			bestellvolumenTextfield.setColumns(10);
 			bestellvolumenTextfield.setBorder(new LineBorder(Color.BLACK, 1));
 			bestellvolumenTextfield.setHorizontalAlignment(SwingConstants.CENTER);
-			bestellvolumenTextfield.setFont(new Font("Serif", Font.PLAIN, 14));
+			bestellvolumenTextfield.setFont(new Font("Palatino", Font.PLAIN, 14));
 	
 			
 			getContentPane().add(bestellvolumenTextfield);
 			
 			speichernButton = new JButton("Speichern");
-			speichernButton.setBounds(143, 368, 117, 45);
-			speichernButton.setForeground(new Color(30, 144, 255));
-			speichernButton.setBackground(new Color(30, 144, 255));
+			speichernButton.setFont(new Font("Palatino", Font.BOLD, 16));
+			speichernButton.setBounds(144, 347, 117, 45);
 			speichernButton.addMouseListener(new MouseAdapter() {
 				public void mouseClicked(MouseEvent e) {
 					

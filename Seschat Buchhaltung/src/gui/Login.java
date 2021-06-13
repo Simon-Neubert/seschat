@@ -16,6 +16,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.SwingConstants;
+import java.awt.Font;
 
 public class Login extends JFrame{
 
@@ -35,12 +36,13 @@ public class Login extends JFrame{
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{20, 260, 20, 0};
-		gridBagLayout.rowHeights = new int[]{16, 26, 16, 26, 30, 0, 0, 30, 16, 55, 0, 0};
+		gridBagLayout.rowHeights = new int[]{16, 26, 16, 40, 30, 0, 40, 30, 16, 55, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 		
 		JLabel wrongInput = new JLabel("");
+		wrongInput.setFont(new Font("Palatino", Font.PLAIN, 13));
 		wrongInput.setForeground(Color.RED);
 		GridBagConstraints gbc_wrongInput = new GridBagConstraints();
 		gbc_wrongInput.insets = new Insets(0, 0, 5, 5);
@@ -50,6 +52,7 @@ public class Login extends JFrame{
 		
 		// Login Button
 		JButton loginButton = new JButton("Login");
+		loginButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		loginButton.addMouseListener(new MouseAdapter() {
 			// Login-Button Press
 			public void mouseClicked(MouseEvent e) {
@@ -60,6 +63,7 @@ public class Login extends JFrame{
 		
 		// Password Textfield
 		passwordField = new JPasswordField();
+		passwordField.setFont(new Font("Palatino", Font.PLAIN, 15));
 		passwordField.addKeyListener(new KeyAdapter() {
 			// User presses enter in Passowrd field
 			public void keyPressed(KeyEvent e) {
@@ -72,6 +76,7 @@ public class Login extends JFrame{
 		
 		// Labels
 		JLabel usernameLabel = new JLabel("Username:");
+		usernameLabel.setFont(new Font("Palatino", Font.PLAIN, 18));
 		usernameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_usernameLabel = new GridBagConstraints();
 		gbc_usernameLabel.anchor = GridBagConstraints.WEST;
@@ -82,6 +87,7 @@ public class Login extends JFrame{
 		
 		// Username Textfield
 		usernameField = new JTextField();
+		usernameField.setFont(new Font("Palatino", Font.PLAIN, 15));
 		usernameField.setColumns(30);
 		GridBagConstraints gbc_usernameField = new GridBagConstraints();
 		gbc_usernameField.fill = GridBagConstraints.BOTH;
@@ -91,6 +97,7 @@ public class Login extends JFrame{
 		getContentPane().add(usernameField, gbc_usernameField);
 		
 		JLabel passwordLabel = new JLabel("Password:");
+		passwordLabel.setFont(new Font("Palatino", Font.PLAIN, 18));
 		passwordLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		GridBagConstraints gbc_passwordLabel = new GridBagConstraints();
 		gbc_passwordLabel.anchor = GridBagConstraints.WEST;
@@ -105,6 +112,7 @@ public class Login extends JFrame{
 		gbc_passwordField.gridy = 6;
 		getContentPane().add(passwordField, gbc_passwordField);
 		GridBagConstraints gbc_loginButton = new GridBagConstraints();
+		gbc_loginButton.fill = GridBagConstraints.VERTICAL;
 		gbc_loginButton.insets = new Insets(0, 0, 5, 5);
 		gbc_loginButton.gridx = 1;
 		gbc_loginButton.gridy = 8;

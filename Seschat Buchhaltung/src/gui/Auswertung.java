@@ -68,7 +68,7 @@ public class Auswertung extends JPanel {
 		
 		// Labels
 		JLabel labelEinnahmen = new JLabel("Einnahmen ausgeben:");
-		labelEinnahmen.setFont(new Font("Serif", Font.PLAIN, 25));
+		labelEinnahmen.setFont(new Font("Palatino", Font.PLAIN, 25));
 		GridBagConstraints gbc_labelEinnahmen = new GridBagConstraints();
 		gbc_labelEinnahmen.fill = GridBagConstraints.VERTICAL;
 		gbc_labelEinnahmen.anchor = GridBagConstraints.WEST;
@@ -78,7 +78,7 @@ public class Auswertung extends JPanel {
 		add(labelEinnahmen, gbc_labelEinnahmen);
 		
 		JLabel labelBestellvolumen = new JLabel("Bestellvolumen ausgeben:");
-		labelBestellvolumen.setFont(new Font("Serif", Font.PLAIN, 25));
+		labelBestellvolumen.setFont(new Font("Palatino", Font.PLAIN, 25));
 		GridBagConstraints gbc_labelBestellvolumen = new GridBagConstraints();
 		gbc_labelBestellvolumen.fill = GridBagConstraints.VERTICAL;
 		gbc_labelBestellvolumen.anchor = GridBagConstraints.WEST;
@@ -89,7 +89,7 @@ public class Auswertung extends JPanel {
 		
 		JLabel labelJahresabschluss = new JLabel("Jahresabschluss:");
 		labelJahresabschluss.setHorizontalAlignment(SwingConstants.LEFT);
-		labelJahresabschluss.setFont(new Font("Serif", Font.PLAIN, 25));
+		labelJahresabschluss.setFont(new Font("Palatino", Font.PLAIN, 25));
 		GridBagConstraints gbc_labelJahresabschluss = new GridBagConstraints();
 		gbc_labelJahresabschluss.fill = GridBagConstraints.VERTICAL;
 		gbc_labelJahresabschluss.anchor = GridBagConstraints.WEST;
@@ -101,6 +101,7 @@ public class Auswertung extends JPanel {
 		
 		// Einnahmen Komponenten
 		JComboBox monatDropdownEinnahmen = new JComboBox(monate);
+		monatDropdownEinnahmen.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_monatDropdownEinnahmen = new GridBagConstraints();
 		gbc_monatDropdownEinnahmen.fill = GridBagConstraints.BOTH;
 		gbc_monatDropdownEinnahmen.insets = new Insets(0, 0, 5, 5);
@@ -110,6 +111,7 @@ public class Auswertung extends JPanel {
 		add(monatDropdownEinnahmen, gbc_monatDropdownEinnahmen);
 
 		JComboBox jahrDropdownEinnahmen = new JComboBox(lastTenYears);
+		jahrDropdownEinnahmen.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_jahrDropdownEinnahmen = new GridBagConstraints();
 		gbc_jahrDropdownEinnahmen.fill = GridBagConstraints.BOTH;
 		gbc_jahrDropdownEinnahmen.insets = new Insets(0, 0, 5, 5);
@@ -120,7 +122,7 @@ public class Auswertung extends JPanel {
 
 		plzField = new JTextField();
 		plzField.setHorizontalAlignment(SwingConstants.CENTER);
-		plzField.setFont(new Font("Sans", Font.PLAIN, 14));
+		plzField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		plzField.setBorder(new LineBorder(Color.BLACK, 1));
 		plzField.setText("Bitte PLZ eingeben...");
 		GridBagConstraints gbc_plzField = new GridBagConstraints();
@@ -137,6 +139,7 @@ public class Auswertung extends JPanel {
 		
 		
 		JButton einnahmenButton = new JButton("Ausgeben");
+		einnahmenButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_einnahmenButton = new GridBagConstraints();
 		gbc_einnahmenButton.fill = GridBagConstraints.BOTH;
 		gbc_einnahmenButton.insets = new Insets(0, 0, 5, 5);
@@ -213,6 +216,7 @@ public class Auswertung extends JPanel {
 		add(einnahmenButton, gbc_einnahmenButton);
 
 		einnahmenResultField = new JTextField();
+		einnahmenResultField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		einnahmenResultField.setHorizontalAlignment(SwingConstants.CENTER);
 		einnahmenResultField.setEditable(false);
 		einnahmenResultField.setBorder(new LineBorder(Color.BLACK, 1));
@@ -234,6 +238,7 @@ public class Auswertung extends JPanel {
 		
 		// Bestellvolumen Komponenten
 		JComboBox monatDropdownBestellvolumen = new JComboBox(monate);
+		monatDropdownBestellvolumen.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_monatDropdownBestellvolumen = new GridBagConstraints();
 		gbc_monatDropdownBestellvolumen.fill = GridBagConstraints.BOTH;
 		gbc_monatDropdownBestellvolumen.insets = new Insets(0, 0, 5, 5);
@@ -243,6 +248,7 @@ public class Auswertung extends JPanel {
 		add(monatDropdownBestellvolumen, gbc_monatDropdownBestellvolumen);
 		
 		JComboBox jahrDropdownBestellvolumen = new JComboBox(lastTenYears);
+		jahrDropdownBestellvolumen.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_jahrDropdownBestellvolumen = new GridBagConstraints();
 		gbc_jahrDropdownBestellvolumen.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jahrDropdownBestellvolumen.insets = new Insets(0, 0, 5, 5);
@@ -251,6 +257,7 @@ public class Auswertung extends JPanel {
 		add(jahrDropdownBestellvolumen, gbc_jahrDropdownBestellvolumen);
 		
 		JComboBox lieferantDropdown = new JComboBox(lieferanten);
+		lieferantDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
 		lieferantDropdown.setMaximumRowCount(DBAccess.getL().toArray().length + 1);
 		GridBagConstraints gbc_lieferantDropdown = new GridBagConstraints();
 		gbc_lieferantDropdown.insets = new Insets(0, 0, 5, 5);
@@ -260,6 +267,7 @@ public class Auswertung extends JPanel {
 		add(lieferantDropdown, gbc_lieferantDropdown);
 		
 		JButton bestellVolumenButton = new JButton("Ausgeben");
+		bestellVolumenButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_bestellVolumenButton = new GridBagConstraints();
 		gbc_bestellVolumenButton.fill = GridBagConstraints.BOTH;
 		gbc_bestellVolumenButton.insets = new Insets(0, 0, 5, 5);
@@ -316,6 +324,7 @@ public class Auswertung extends JPanel {
 		add(bestellVolumenButton, gbc_bestellVolumenButton);
 		
 		bestellvolumenResultField = new JTextField();
+		bestellvolumenResultField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		bestellvolumenResultField.setHorizontalAlignment(SwingConstants.CENTER);
 		bestellvolumenResultField.setEditable(false);
 		bestellvolumenResultField.setBorder(new LineBorder(Color.BLACK, 1));
@@ -331,6 +340,7 @@ public class Auswertung extends JPanel {
 		
 		// Jahresabschluss Komponenten
 		JComboBox jahrDropdownJahresabschluss = new JComboBox(lastTenYears);
+		jahrDropdownJahresabschluss.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_jahrDropdownJahresabschluss = new GridBagConstraints();
 		gbc_jahrDropdownJahresabschluss.insets = new Insets(0, 0, 5, 5);
 		gbc_jahrDropdownJahresabschluss.fill = GridBagConstraints.HORIZONTAL;
@@ -339,6 +349,7 @@ public class Auswertung extends JPanel {
 		add(jahrDropdownJahresabschluss, gbc_jahrDropdownJahresabschluss);
 		
 		JButton speichernButton = new JButton("Speichern");
+		speichernButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_speichernButton = new GridBagConstraints();
 		gbc_speichernButton.fill = GridBagConstraints.BOTH;
 		gbc_speichernButton.insets = new Insets(0, 0, 5, 5);
@@ -356,6 +367,7 @@ public class Auswertung extends JPanel {
 		add(speichernButton, gbc_speichernButton);
 		
 		JButton abschlussJahrButton = new JButton("Ausgeben");
+		abschlussJahrButton.setFont(new Font("Palatino", Font.BOLD, 16));
 		GridBagConstraints gbc_abschlussJahrButton = new GridBagConstraints();
 		gbc_abschlussJahrButton.fill = GridBagConstraints.BOTH;
 		gbc_abschlussJahrButton.insets = new Insets(0, 0, 5, 5);
@@ -383,6 +395,7 @@ public class Auswertung extends JPanel {
 		add(abschlussJahrButton, gbc_abschlussJahrButton);
 		
 		jahresAbschlussTable = new JTable();
+		jahresAbschlussTable.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		jahresAbschlussTable.setEnabled(false);
 		jahresAbschlussTable.setBorder(new LineBorder(Color.BLACK, 2));
 		jahresAbschlussTable.setFillsViewportHeight(true);
