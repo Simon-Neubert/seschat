@@ -10,9 +10,7 @@ import java.awt.event.WindowEvent;
 
 public class Main extends JFrame{
 	
-	// Check if user close window or if it closed from correct password entry
-	static boolean abgebrochen = true;
-	
+	static boolean abgebrochen = true;	
 	
 	public Main() {
 		
