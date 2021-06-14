@@ -39,7 +39,7 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 	
 	public LieferantenRechnungBearbeiten (int idAlt, String lieferantAlt, int rechnungsID, boolean isNeu) {
 			
-			setBounds(800, 200, 400, 500);
+			setBounds(0, 0, 400, 500);
 			getContentPane().setLayout(null);
 			setLocationRelativeTo(null);
 			

@@ -39,7 +39,7 @@ public class KundenRechnungBearbeiten extends JDialog{
 	
 	public KundenRechnungBearbeiten (int kundenID, String vornameAlt, String nachnameAlt, int plzAlt, int rechnungsID, boolean isNeu) {
 			
-			setBounds(800, 200, 400, 500);
+			setBounds(0, 0, 400, 500);
 			getContentPane().setLayout(null);
 			setLocationRelativeTo(null);
 			
