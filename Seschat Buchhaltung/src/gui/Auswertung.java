@@ -360,7 +360,7 @@ public class Auswertung extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String jahr = String.valueOf(jahrDropdownJahresabschluss.getSelectedItem());
 				if (jahrDropdownJahresabschluss.getSelectedIndex() != 0) {
-					exportToCSV(createCVS(Integer.parseInt(jahr)));
+					exportToCSV(createCVS(Integer.parseInt(jahr), true));
 				}
 			}
 		});
@@ -378,7 +378,7 @@ public class Auswertung extends JPanel {
 				String jahr = String.valueOf(jahrDropdownJahresabschluss.getSelectedItem());
 				if (jahrDropdownJahresabschluss.getSelectedIndex() != 0) {
 					resetCounter();
-					ArrayList<String> list = createCVS(Integer.parseInt(jahr));
+					ArrayList<String> list = createCVS(Integer.parseInt(jahr), false);
 					String [][] table = new String [13][7];
 					for (int i = 0; i < 13; i++) 
 						for (int j = 0; j < 7; j++) {
@@ -583,7 +583,7 @@ public class Auswertung extends JPanel {
 		
 		// Auswertung Jahresabschluss
 		
-		private static ArrayList<String> createCVS(int jahr) {
+		private static ArrayList<String> createCVS(int jahr, boolean save) {
 			
 			ArrayList<String> table = new ArrayList<String>();
 			resetSumme();
@@ -607,11 +607,11 @@ public class Auswertung extends JPanel {
 				summeSaldo += saldo;
 				
 				String [] hold = {" " + monate[i], doubleAsString(forderungen), doubleAsString(einnahmen), doubleAsString(verbindlichkeiten), doubleAsString(ausgaben), doubleAsString(bilanz), doubleAsString(saldo)};
-				addEuro(hold);
+				if (!save) addEuro(hold);
 				table.addAll(Arrays.asList(hold));
 			}
 			String [] hold = {" Summe", doubleAsString(summeForderungen), doubleAsString(summeEinnahmen), doubleAsString(summeVerbindlichkeiten), doubleAsString(summeAusgaben), doubleAsString(summeBilanz), doubleAsString(summeSaldo)};
-			addEuro(hold);
+			if (!save) addEuro(hold);
 			table.addAll(Arrays.asList(hold));
 			return table;
 		}
