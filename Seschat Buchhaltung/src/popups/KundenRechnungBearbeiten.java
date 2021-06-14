@@ -31,7 +31,7 @@ public class KundenRechnungBearbeiten extends JDialog{
 	private static String[] lastTenYears = new String[11];
 	private JLabel formatLabel;
 	
-	public KundenRechnungBearbeiten (int kundenID, String vornameAlt, String nachnameAlt, int plzAlt, int rechnungsID) {
+	public KundenRechnungBearbeiten (int kundenID, String vornameAlt, String nachnameAlt, int plzAlt, int rechnungsID, boolean isNeu) {
 			
 			setBounds(800, 200, 400, 500);
 			getContentPane().setLayout(null);
@@ -160,7 +160,13 @@ public class KundenRechnungBearbeiten extends JDialog{
 					
 					int jahr = Integer.parseInt(lastTenYears[jahrDropdown.getSelectedIndex()]);
 					double wert = Double.parseDouble(bestellvolumen);
-
+					
+					if (isNeu) {
+						gui.Kunden.rechnungAufnehmen(kundenID, monat, jahr, wert, status);
+						dispose();
+						return;
+					}
+					
 					gui.Rechnungen.rechnungBearbeitenKunde(rechnungsID, monat, jahr, wert, status);
 					dispose();
 				}

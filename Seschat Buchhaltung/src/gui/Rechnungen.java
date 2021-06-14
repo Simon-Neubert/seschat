@@ -223,7 +223,7 @@ public class Rechnungen extends JPanel {
 				try {
 					if (kunde) {
 						int kundenID = getKundenID(id);
-						popups.KundenRechnungBearbeiten dialog = new popups.KundenRechnungBearbeiten(kundenID, getVorname(kundenID), getNachname(kundenID), getPLZ(kundenID), id);
+						popups.KundenRechnungBearbeiten dialog = new popups.KundenRechnungBearbeiten(kundenID, getVorname(kundenID), getNachname(kundenID), getPLZ(kundenID), id, false);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 						dialog.addWindowListener(new WindowAdapter() {
@@ -235,7 +235,7 @@ public class Rechnungen extends JPanel {
 					}
 					
 					if (lieferant) {
-						popups.LieferantenRechnungBearbeiten dialog = new popups.LieferantenRechnungBearbeiten(getLieferantenID(id), getName(getLieferantenID(id)), id);
+						popups.LieferantenRechnungBearbeiten dialog = new popups.LieferantenRechnungBearbeiten(getLieferantenID(id), getName(getLieferantenID(id)), id, false);
 						dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 						dialog.setVisible(true);
 						dialog.addWindowListener(new WindowAdapter() {

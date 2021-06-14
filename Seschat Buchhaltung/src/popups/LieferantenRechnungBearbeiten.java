@@ -32,7 +32,7 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 	private JLabel formatLabel;
 	
 	
-	public LieferantenRechnungBearbeiten (int idAlt, String lieferantAlt, int rechnungsID) {
+	public LieferantenRechnungBearbeiten (int idAlt, String lieferantAlt, int rechnungsID, boolean isNeu) {
 			
 			setBounds(800, 200, 400, 500);
 			getContentPane().setLayout(null);
@@ -165,6 +165,12 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 					int jahr = Integer.parseInt(lastTenYears[jahrDropdown.getSelectedIndex()]);
 					double wert = Double.parseDouble(bestellvolumen);
 
+					if (isNeu) {
+						gui.Lieferanten.rechnungAufnehmen(idAlt, monat, jahr, wert, status);
+						dispose();
+						return;
+					}
+					
 					gui.Rechnungen.rechnungBearbeitenLieferant(rechnungsID, monat, jahr, wert, status);
 					dispose();
 				}

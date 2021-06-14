@@ -384,7 +384,7 @@ public class Kunden extends JPanel {
 				int id = Integer.parseInt(idInput);
 
 				try {
-					popups.KundenRechnungenNeu dialog = new popups.KundenRechnungenNeu(id, getVorname(id), getNachname(id), getPLZ(id), (DBAccess.getKr().toArray().length + 1));
+					popups.KundenRechnungBearbeiten dialog = new popups.KundenRechnungBearbeiten(id, getVorname(id), getNachname(id), getPLZ(id), (DBAccess.getKr().toArray().length + 1), true);
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 					dialog.addWindowListener(new WindowAdapter() {

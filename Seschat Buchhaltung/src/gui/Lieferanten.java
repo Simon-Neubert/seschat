@@ -226,10 +226,10 @@ public class Lieferanten extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 
 				String idInput = idBearbeitenFeld.getText();
-				idBearbeitenFeld.setText("   Bitte ID eingeben...");
+				idBearbeitenFeld.setText("Bitte ID eingeben...");
 				
 				// Check User Input
-				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
+				if (!idInput.matches("[0-9]+") || idInput.equals("Bitte ID eingeben...") || idInput.equals("")) {
 					changeLabel.setForeground(Color.RED);
 					changeLabel.setText("Bitte Eingabe prüfen.");
 					return;
@@ -276,10 +276,10 @@ public class Lieferanten extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 
 				String idInput = idBearbeitenFeld.getText();
-				idBearbeitenFeld.setText("   Bitte ID eingeben...");
+				idBearbeitenFeld.setText("Bitte ID eingeben...");
 				
 				// Check User Input
-				if (!idInput.matches("[0-9]+") || idInput.equals("   Bitte ID eingeben...") || idInput.equals("")) {
+				if (!idInput.matches("[0-9]+") || idInput.equals("Bitte ID eingeben...") || idInput.equals("")) {
 					changeLabel.setForeground(Color.RED);
 					changeLabel.setText("Bitte Eingabe prüfen.");
 					return;
@@ -299,7 +299,7 @@ public class Lieferanten extends JPanel {
 				int id = Integer.parseInt(idInput);
 				
 				try {
-			        popups.LieferantenRechnungenNeu dialog = new popups.LieferantenRechnungenNeu (id, getName(id), (DBAccess.getLr().toArray().length + 1));
+			        popups.LieferantenRechnungBearbeiten dialog = new popups.LieferantenRechnungBearbeiten (id, getName(id), (DBAccess.getLr().toArray().length + 1), true);
 			        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			        dialog.setVisible(true);
 			        dialog.addWindowListener(new WindowAdapter() {
