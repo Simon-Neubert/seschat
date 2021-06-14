@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
+import dbaccess.DBAccess;
+
 public class LieferantenRechnungBearbeiten extends JDialog {
 	private JButton speichernButton;
 	private JLabel lieferantLabel2;
@@ -31,6 +33,9 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 	private static String[] lastTenYears = new String[11];
 	private JLabel formatLabel;
 	
+	static int monat = 0, jahr = 0;
+	static double bestellvolumen = 0.0;
+	static boolean bezahlt = false;
 	
 	public LieferantenRechnungBearbeiten (int idAlt, String lieferantAlt, int rechnungsID, boolean isNeu) {
 			
@@ -120,9 +125,20 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			bestellvolumenTextfield.setBorder(new LineBorder(Color.BLACK, 1));
 			bestellvolumenTextfield.setHorizontalAlignment(SwingConstants.CENTER);
 			bestellvolumenTextfield.setFont(new Font("Palatino", Font.PLAIN, 14));
-	
-			
 			getContentPane().add(bestellvolumenTextfield);
+			
+			// Set current values if edit
+			if(!isNeu) {
+							
+				DBAccess.getLr().stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x-> {
+				monat = x.getMonat(); jahr = x.getJahr(); bestellvolumen = x.getSumme(); bezahlt = x.isStatus();
+				});
+							
+				monatDropdown.setSelectedIndex(monat);
+				jahrDropdown.setSelectedIndex(currentYear - jahr + 1);
+				bestellvolumenTextfield.setText(String.valueOf(bestellvolumen));
+				statusRadio.setSelected(bezahlt);
+			}
 			
 			speichernButton = new JButton("Speichern");
 			speichernButton.setFont(new Font("Palatino", Font.BOLD, 16));
