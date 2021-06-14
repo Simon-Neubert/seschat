@@ -395,7 +395,7 @@ public class Auswertung extends JPanel {
 		add(abschlussJahrButton, gbc_abschlussJahrButton);
 		
 		jahresAbschlussTable = new JTable();
-		jahresAbschlussTable.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		jahresAbschlussTable.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		jahresAbschlussTable.setEnabled(false);
 		jahresAbschlussTable.setBorder(new LineBorder(Color.BLACK, 2));
 		jahresAbschlussTable.setFillsViewportHeight(true);

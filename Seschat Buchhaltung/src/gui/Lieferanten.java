@@ -371,7 +371,7 @@ public class Lieferanten extends JPanel {
 		add(nameSuchenField, gbc_nameSuchenField);
 		
 		idSuchenField = new JTextField("Bitte ID eingeben...");
-		idSuchenField.setFont(new Font("Palatino", Font.BOLD, 16));
+		idSuchenField.setFont(new Font("Palatino", Font.PLAIN, 14));
 		idSuchenField.setHorizontalAlignment(SwingConstants.CENTER);
 		idSuchenField.setColumns(10);
 		idSuchenField.setBorder(new LineBorder(Color.BLACK, 1));
