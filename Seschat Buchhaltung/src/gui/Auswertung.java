@@ -625,13 +625,21 @@ public class Auswertung extends JPanel {
 			for (int i = 1; i < s.length; i++) s[i] += "€";
 		}
 		
+		private static ArrayList<String> addHeader (ArrayList<String> list) {
+			String s [] = {" Monat", "Forderungen", "Einnahmen", "Verbindlichkeiten", "Ausgaben", "Bilanz", "Saldo"};
+			list.addAll(0, Arrays.asList(s));
+			return list;
+		}
+		
 		private static void exportToCSV(ArrayList<String> list) {
+			
+			list = addHeader(list);
 			
 			StringBuilder str = new StringBuilder("");
 			int i = 1; 
 		    for (String s : list) {
 		    	if (i % 7 == 0) str.append(s).append("\n");
-		    	else str.append(s).append(",");
+		    	else str.append(s).append(";");
 		    	i++;
 		    }
 			
