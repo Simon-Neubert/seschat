@@ -382,7 +382,7 @@ public class Auswertung extends JPanel {
 					String [][] table = new String [13][7];
 					for (int i = 0; i < 13; i++) 
 						for (int j = 0; j < 7; j++) {
-							table[i][j] = list.get(counter);
+							table[i][j] = " " + list.get(counter);
 							counter++;
 						}
 					
@@ -401,7 +401,7 @@ public class Auswertung extends JPanel {
 		jahresAbschlussTable.setFillsViewportHeight(true);
 		jahresAbschlussTable.setShowHorizontalLines(true);
 		jahresAbschlussTable.setShowVerticalLines(true);
-		jahresAbschlussTable.setRowHeight(30);
+		jahresAbschlussTable.setRowHeight(39);
 		jahresAbschlussTable.setGridColor(Color.LIGHT_GRAY);
 		
 		JScrollPane scrollPane = new JScrollPane(jahresAbschlussTable);

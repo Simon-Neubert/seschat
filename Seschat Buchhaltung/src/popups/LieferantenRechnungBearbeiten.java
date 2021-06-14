@@ -106,6 +106,7 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			monatDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
 			monatDropdown.setMaximumRowCount(14);
 			monatDropdown.setBounds(20, 129, 181, 78);
+			getContentPane().add(monatDropdown);
 			
 			JComboBox jahrDropdown = new JComboBox(lastTenYears);
 			jahrDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
@@ -131,7 +132,7 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 				DBAccess.getLr().stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x-> {
 					monat = x.getMonat(); jahr = x.getJahr(); bestellvolumen = x.getSumme(); bezahlt = x.isStatus();
 				});
-				
+				 
 				monatDropdown.setSelectedIndex(monat);
 				jahrDropdown.setSelectedIndex(currentYear - jahr + 1);
 				bestellvolumenTextfield.setText(String.valueOf(bestellvolumen));
