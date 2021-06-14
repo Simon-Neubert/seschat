@@ -129,7 +129,6 @@ public class KundenRechnungBearbeiten extends JDialog{
 			
 			// Set current values if edit
 			if(!isNeu) {
-				
 				DBAccess.getKr().stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x-> {
 					monat = x.getMonat(); jahr = x.getJahr(); bestellvolumen = x.getSumme(); bezahlt = x.isStatus();
 				});

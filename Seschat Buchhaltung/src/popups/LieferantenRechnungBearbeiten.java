@@ -43,10 +43,6 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			getContentPane().setLayout(null);
 			setLocationRelativeTo(null);
 			
-			DBAccess.getLr().stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x-> {
-				monat = x.getMonat(); jahr = x.getJahr(); bestellvolumen = x.getSumme(); bezahlt = x.isStatus();
-			});
-			
 			//Labels
 			JLabel lieferantLabel = new JLabel("Lieferant:");
 			lieferantLabel.setBounds(34, 35, 87, 29);
@@ -132,15 +128,14 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			
 			// Set current values if edit
 			if(!isNeu) {
+				DBAccess.getLr().stream().filter(x -> x.getRechnungsID() == rechnungsID).forEach(x-> {
+					monat = x.getMonat(); jahr = x.getJahr(); bestellvolumen = x.getSumme(); bezahlt = x.isStatus();
+				});
+				
 				monatDropdown.setSelectedIndex(monat);
 				jahrDropdown.setSelectedIndex(currentYear - jahr + 1);
 				bestellvolumenTextfield.setText(String.valueOf(bestellvolumen));
 				statusRadio.setSelected(bezahlt);
-				
-				System.out.println(isNeu);
-				System.out.println(monat + " " + jahr);
-				System.out.println(String.valueOf(bestellvolumen));
-				System.out.println(bezahlt);
 			}
 			
 			speichernButton = new JButton("Speichern");
