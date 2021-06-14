@@ -105,13 +105,13 @@ public class KundenRechnungBearbeiten extends JDialog{
 			JComboBox monatDropdown = new JComboBox(monate);
 			monatDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
 			monatDropdown.setMaximumRowCount(14);
-			monatDropdown.setBounds(20, 158, 181, 20);
+			monatDropdown.setBounds(20, 158, 181, 29);
 			getContentPane().add(monatDropdown);
 			
 			JComboBox jahrDropdown = new JComboBox(lastTenYears);
 			jahrDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
 			jahrDropdown.setMaximumRowCount(14);
-			jahrDropdown.setBounds(201, 158, 181, 20);
+			jahrDropdown.setBounds(201, 158, 181, 29);
 			getContentPane().add(jahrDropdown);
 			
 			JRadioButton statusRadio = new JRadioButton("Bezahlt");
