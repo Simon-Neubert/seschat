@@ -295,7 +295,6 @@ public class Rechnungen extends JPanel {
 
 				String zahl = statusField.getText();
 				boolean kunde = kundeRadioBearbeiten.isSelected();
-				boolean lieferant = lieferantRadioBearbeiten.isSelected();
 				
 				if (!zahl.matches("[0-9]+") ) {
 					setErrMessage(changeLabel);

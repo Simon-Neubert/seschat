@@ -139,8 +139,11 @@ public class KundenRechnungBearbeiten extends JDialog{
 				
 				monatDropdown.setSelectedIndex(monat);
 				jahrDropdown.setSelectedIndex(currentYear - jahr + 1);
-				// jahrDropdown.setSelectedItem(String.valueOf(jahr));
+				
+				
 				bestellvolumenTextfield.setText(String.valueOf(bestellvolumen));
+				
+				
 				statusRadio.setSelected(bezahlt);
 			}
 			

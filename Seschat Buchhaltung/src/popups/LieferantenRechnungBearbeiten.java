@@ -141,7 +141,12 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 				 
 				monatDropdown.setSelectedIndex(monat);
 				jahrDropdown.setSelectedIndex(currentYear - jahr + 1);
+				
+				
 				bestellvolumenTextfield.setText(String.valueOf(bestellvolumen));
+				
+				
+				
 				statusRadio.setSelected(bezahlt);
 			}
 			
