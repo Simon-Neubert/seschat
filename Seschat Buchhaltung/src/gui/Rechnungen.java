@@ -43,7 +43,6 @@ public class Rechnungen extends JPanel {
 	private static String[] lastTenYears = new String[11];
 	private static String[] selection = {"Sortieren nach...", "Summe", "Jahre", "ID", "Rechnungs-ID"};
 	
-	
 	public static String lieferant = "";
 	public static int kundeID = 0;
 	public static int lieferantID = 0;
@@ -82,6 +81,7 @@ public class Rechnungen extends JPanel {
 	private JRadioButton placeholderRadio;
 
 
+	// Constructor
 	public Rechnungen() {
 
 		setBounds(100, 100, 1280, 720);
@@ -764,7 +764,9 @@ public class Rechnungen extends JPanel {
 	}
 
 	
-	// Create tables
+// Create tables
+	
+	// Create table by bill-ID
 	private static ArrayList<String> tableByrechnungsID(int id, boolean kunde) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -796,6 +798,7 @@ public class Rechnungen extends JPanel {
 		return table;
 	}
 
+	// // Create table of all
 	private static ArrayList<String> tableOfAll(boolean kunde, boolean bezahlt, boolean unbezahlt) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -881,6 +884,7 @@ public class Rechnungen extends JPanel {
 		
 	}
 	
+	// Create table by ID
 	private static ArrayList<String> tableByID(int id, boolean kunde, boolean bezahlt, boolean unbezahlt) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -965,6 +969,7 @@ public class Rechnungen extends JPanel {
 		return table;
 	}
 	
+	// Create table by year
 	private static ArrayList<String> tableByJahr(boolean kunde, int jahr, boolean bezahlt, boolean unbezahlt) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -1049,6 +1054,7 @@ public class Rechnungen extends JPanel {
 		return table;
 	}
 
+	// Create table by month
 	private static ArrayList<String> tableByMonat(boolean kunde, int monat, int jahr, boolean bezahlt, boolean unbezahlt) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -1130,6 +1136,7 @@ public class Rechnungen extends JPanel {
 		return table;			
 	}
 	
+	// Create table by year
 	private static ArrayList<String> tableByIDinJahr(int id, boolean kunde, int jahr, boolean bezahlt, boolean unbezahlt) {
 
 		ArrayList<String> table = new ArrayList<String>();
@@ -1211,6 +1218,7 @@ public class Rechnungen extends JPanel {
 		return table;
 	}
 
+	// Create table by ID in month
 	private static ArrayList<String> tableByIDinMonat(int id, boolean kunde, int monat, int jahr, boolean bezahlt, boolean unbezahlt) {
 
 		ArrayList<String> table = new ArrayList<String>();

@@ -28,6 +28,8 @@ public class Login extends JFrame{
 	private JPasswordField passwordField;
 	private JTextField usernameField;
 	
+	
+	// Constructor
 	public Login() {
 		
 		// Window
@@ -127,6 +129,7 @@ public class Login extends JFrame{
 		getContentPane().add(icon, gbc_icon);
 		
 	}
+	
 	
 	// Check if typed values match database entries, exit if true
 	private void checkInput () {

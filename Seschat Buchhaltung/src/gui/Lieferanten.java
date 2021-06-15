@@ -58,7 +58,7 @@ public class Lieferanten extends JPanel {
 	private JLabel suchenIDLabel;
 	private JLabel suchenNameLabel;
 
-	
+	// Constructor
 	public Lieferanten() {
 		
 		setBounds(0, 0, 1280, 720);
@@ -530,7 +530,7 @@ public class Lieferanten extends JPanel {
 		
 	// Add invoice
 		
-		// Add invoive to objects and call dbAddRechnung
+		// Add invoice to objects and call dbAddRechnung
 		public static void rechnungAufnehmen (int lieferantenID, int monat, int jahr, double bestellvolumen, boolean status) {
 			int newID = DBAccess.getLr().toArray().length + 1;
 			DBAccess.getLr().add(new Lieferantenrechnung(newID, monat, jahr, bestellvolumen, status, lieferantenID));
@@ -616,4 +616,4 @@ public class Lieferanten extends JPanel {
 			
 			return table;
 		}
-	}
+}

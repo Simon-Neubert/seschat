@@ -35,7 +35,6 @@ public class Kunden extends JPanel {
 		static String vorname = "", nachname = ""; static int plz = 0;
 		public static boolean abgebrochen = true;
 		
-	// Components for GUI
 		private JTable table;
 		private JTextField vornameNeuField;
 		private JTextField nachnameNeuField;
@@ -755,7 +754,7 @@ public class Kunden extends JPanel {
 		
 	// Add invoice
 
-		// Add invoive to objects and call dbAddRechnung
+		// Add invoice to objects and call dbAddRechnung
 		public static void rechnungAufnehmen(int kundenID, int monat, int jahr, double bestellvolumen, boolean status) {
 			int newID = DBAccess.getKr().toArray().length + 1;
 			DBAccess.getKr().add(new Kundenrechnung(newID, monat, jahr, bestellvolumen, status, kundenID));
@@ -821,7 +820,7 @@ public class Kunden extends JPanel {
 		}
 		
 		
-	// Tabellen erstellen (suchen)
+	// Create table (suchen)
 
 		// Create table if user only inputs first name
 		private static ArrayList<String> tableByVorname(String vorname) {
@@ -883,7 +882,7 @@ public class Kunden extends JPanel {
 			return table;
 		}
 
-		// Create table if user inputs name and plz
+		// Create table if user inputs plz
 		private static ArrayList<String> tableByPLZ(int plz) {
 
 			ArrayList<String> table = new ArrayList<String>();
@@ -899,6 +898,7 @@ public class Kunden extends JPanel {
 			return table;
 		}
 
+		// Create table if user inputs first name and plz
 		private static ArrayList<String> tableByVornameUndPLZ(String vorname, int plz) {
 
 			ArrayList<String> table = new ArrayList<String>();
@@ -913,6 +913,7 @@ public class Kunden extends JPanel {
 			return table;
 		}
 		
+		//  Create table if user inputs name and plz
 		private static ArrayList<String> tableByNachnameUndPLZ(String nachname, int plz) {
 
 			ArrayList<String> table = new ArrayList<String>();
@@ -927,6 +928,7 @@ public class Kunden extends JPanel {
 			return table;
 		}
 		
+		// Create table if user inputs full name and plz
 		private static ArrayList<String> tableByVorUndNachnameUndPLZ(String vorname, String nachname, int plz) {
 
 			ArrayList<String> table = new ArrayList<String>();
@@ -941,7 +943,7 @@ public class Kunden extends JPanel {
 			return table;
 		}
 		
-		// Create table if user doesnt input anything
+		// Create table if user doesn't input anything
 		private static ArrayList<String> tableOfAll() {
 
 			ArrayList<String> table = new ArrayList<String>();
@@ -955,4 +957,4 @@ public class Kunden extends JPanel {
 
 			return table;
 		}
-	}
+}
