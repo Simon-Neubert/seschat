@@ -37,12 +37,10 @@ import javax.swing.JScrollPane;
 
 public class Auswertung extends JPanel {
 
-	// Monatsliste für Dropdown Menus
 	static String[] monate = {"Bitte Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
 	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	private static String[] lastTenYears = new String[11];
 	
-	// Globale Hilfsvariablen
 	private static int summe;
 	private static int ausstehend;
 	private static int[] kunden = new int [DBAccess.getK().toArray().length];
@@ -360,7 +358,7 @@ public class Auswertung extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String jahr = String.valueOf(jahrDropdownJahresabschluss.getSelectedItem());
 				if (jahrDropdownJahresabschluss.getSelectedIndex() != 0) {
-					exportToCSV(createCVS(Integer.parseInt(jahr), true));
+					exportToCSV(createCSV(Integer.parseInt(jahr), true));
 				}
 			}
 		});
@@ -378,7 +376,7 @@ public class Auswertung extends JPanel {
 				String jahr = String.valueOf(jahrDropdownJahresabschluss.getSelectedItem());
 				if (jahrDropdownJahresabschluss.getSelectedIndex() != 0) {
 					resetCounter();
-					ArrayList<String> list = createCVS(Integer.parseInt(jahr), false);
+					ArrayList<String> list = createCSV(Integer.parseInt(jahr), false);
 					String [][] table = new String [13][7];
 					for (int i = 0; i < 13; i++) 
 						for (int j = 0; j < 7; j++) {
@@ -418,40 +416,67 @@ public class Auswertung extends JPanel {
 	}
 	
 	
-	// Hilfsfunktionen
+	// Auxiliary functions
+	
+		// Fills lastTenYears-array
 		private static void fillYears () {
 			lastTenYears[0] = "Bitte Jahr auswählen ...";
 			for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
 		}
+		// Resets summe
 		private static void resetSumme () {
 			summe = 0;
 		}
+		// Resets counter
 		private static void resetCounter () {
 			counter = 0;
 		}
+		// Resets ausstehend
 		private static void resetAusstehend () {
 			ausstehend = 0;
 		}
+		// Resets kunden-array
 		private static void resetKunden () {
 			Arrays.fill(kunden, 0);
 		}
+		// Check for status and add to ausstehend if necessary
 		private static void checkStatus (boolean status, double debt) {
 			if (!status) ausstehend += (int)(debt*100);
 		}
+		// Check if inputted time is valid
 		private static boolean checkIfTimeframeInputIsValid (int monat, int jahr) {
 			if (monat != 0) {
 				if (monat != 0 && jahr == 0) return false;
 			}
 			return true;
 		}
+		// Check if plz-input is valid
 		private static boolean isInputValidPLZ(String plz) {
 			if (plz.matches("[0-9]+") && plz.length() == 5) return true;
 			return false;
 		}
 		
+		// Convert double to String
+		private static String doubleAsString (int i) {
+			return String.valueOf((double)i/100);
+		}
 		
-		// Auswertung Einnahmen
+		// Add Euro-symbol
+		private static void addEuro (String [] s) {
+			for (int i = 1; i < s.length; i++) s[i] += "€";
+		}
 		
+		// Add first row of table
+		private static ArrayList<String> addHeader (ArrayList<String> list) {
+			String s [] = {" Monat", "Forderungen", "Einnahmen", "Verbindlichkeiten", "Ausgaben", "Bilanz", "Saldo"};
+			list.addAll(0, Arrays.asList(s));
+			return list;
+		}
+		
+		
+	// Calculate Einnahmen
+		
+		// Einnahmen for month
 		private static int einnahmenImMonat (int monat, int jahr) {
 			resetSumme();
 			resetAusstehend();
@@ -462,6 +487,7 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 
+		// Einnahmen for year
 		private static int einnahmenImJahr (int jahr) {
 			resetSumme();
 			resetAusstehend();
@@ -472,6 +498,7 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 		
+		// Sort by plz
 		private static void sortByPLZ (int plz) {
 			DBAccess.getK().stream().filter(x -> x.getPlz() == plz).forEach(x -> { 
 				resetCounter();
@@ -486,6 +513,7 @@ public class Auswertung extends JPanel {
 			resetCounter();
 		}
 		
+		// Einnahmen for plz
 		private static int einnahmenAusPLZ (int plz) {
 			sortByPLZ(plz);
 			resetSumme();
@@ -500,6 +528,7 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 		
+		// Einnahmen for month in plz
 		private static int einnahmenAusPLZInMonat (int plz, int monat, int jahr) {
 			sortByPLZ(plz);
 			resetSumme();
@@ -514,6 +543,7 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 		
+		// Einnahmen for year in plz
 		private static int einnahmenAusPLZImJahr (int plz, int jahr) {
 			sortByPLZ(plz);
 			resetSumme();
@@ -529,8 +559,9 @@ public class Auswertung extends JPanel {
 		}
 		
 		
-		// Auswertung Bestellvolumen
+	// Calculate Bestellvolumen
 		
+		// Bestellvolumen by lieferant
 		private static int volumenVonLieferant (int lieferant) {
 			resetSumme();
 			resetAusstehend();
@@ -541,6 +572,7 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 		
+		// Bestellvolumen in time frame
 		private static int volumenAusZeitraum (int monat, int jahr) {
 			resetSumme();
 			resetAusstehend();
@@ -551,6 +583,7 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 		
+		// Bestellvolumen in year
 		private static int volumenAusJahr (int jahr) {
 			resetSumme();
 			resetAusstehend();
@@ -561,6 +594,7 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 		
+		// Bestellvolumen by lieferant in year
 		private static int volumenVonLieferantImJahr (int lieferant, int jahr) {
 			resetSumme();
 			resetAusstehend();
@@ -571,6 +605,7 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 
+		// Bestellvolumen by lieferant in time frame
 		private static int volumenVonLieferantImMonat (int lieferant, int monat, int jahr) {
 			resetSumme();
 			resetAusstehend();
@@ -581,9 +616,11 @@ public class Auswertung extends JPanel {
 			return summe;
 		}
 		
-		// Auswertung Jahresabschluss
 		
-		private static ArrayList<String> createCVS(int jahr, boolean save) {
+	// Jahresabschluss
+		
+		// Create csv-table
+		private static ArrayList<String> createCSV(int jahr, boolean save) {
 			
 			ArrayList<String> table = new ArrayList<String>();
 			resetSumme();
@@ -616,21 +653,7 @@ public class Auswertung extends JPanel {
 			return table;
 		}
 		
-		// Hilfsfunktionen
-		private static String doubleAsString (int i) {
-			return String.valueOf((double)i/100);
-		}
-		
-		private static void addEuro (String [] s) {
-			for (int i = 1; i < s.length; i++) s[i] += "€";
-		}
-		
-		private static ArrayList<String> addHeader (ArrayList<String> list) {
-			String s [] = {" Monat", "Forderungen", "Einnahmen", "Verbindlichkeiten", "Ausgaben", "Bilanz", "Saldo"};
-			list.addAll(0, Arrays.asList(s));
-			return list;
-		}
-		
+		// Save csv-table
 		private static void exportToCSV(ArrayList<String> list) {
 			
 			list = addHeader(list);
@@ -652,4 +675,5 @@ public class Auswertung extends JPanel {
 			catch (Exception e) {e.printStackTrace();}
 			
 		}
+
 }
