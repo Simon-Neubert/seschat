@@ -248,7 +248,7 @@ public class Rechnungen extends JPanel {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				resetLabel(changeLabel);
+				changeLabel.setText("Rechnung bearbeitet");
 			}
 		});
 		
@@ -322,7 +322,7 @@ public class Rechnungen extends JPanel {
 		
 		changeLabel = new JLabel("⠀⠀⠀⠀⠀⠀⠀⠀⠀");
 		changeLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		changeLabel.setForeground(Color.RED);
+		changeLabel.setForeground(Color.BLACK);
 		changeLabel.setFont(new Font("Palatino", Font.ITALIC, 18));
 		GridBagConstraints gbc_changeLabel = new GridBagConstraints();
 		gbc_changeLabel.anchor = GridBagConstraints.WEST;

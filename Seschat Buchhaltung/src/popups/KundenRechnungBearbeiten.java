@@ -42,6 +42,7 @@ public class KundenRechnungBearbeiten extends JDialog{
 			setBounds(0, 0, 400, 500);
 			getContentPane().setLayout(null);
 			setLocationRelativeTo(null);
+			setAlwaysOnTop(true);
 			
 			//Label
 			JLabel kundeLabel = new JLabel("Kunde:");

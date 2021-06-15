@@ -10,8 +10,10 @@ import java.awt.event.WindowEvent;
 
 public class Main extends JFrame{
 	
+	
 	static boolean abgebrochen = true;	
 	
+
 	public Main() {
 		
 		Kunden kundenPanel = new Kunden();
@@ -34,6 +36,8 @@ public class Main extends JFrame{
 		tabbedPane.add("Auswertung", auswertungsPanel);
 		
 	}
+	
+	
 	
 	public static void main(String[] args) {
 

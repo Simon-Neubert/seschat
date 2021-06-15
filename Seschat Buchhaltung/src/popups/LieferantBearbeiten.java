@@ -29,6 +29,9 @@ public class LieferantBearbeiten extends JDialog {
 		
 		setBounds(800, 200, 400, 500);
 		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
+		
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{388, 0};
 		gridBagLayout.rowHeights = new int[]{29, 29, 30, 29, 41, 29, 37, 39, 45, 29, 0, 0};

@@ -31,6 +31,9 @@ public class KundeBearbeiten extends JDialog{
 		
 		setBounds(0, 0, 400, 535);
 		setLocationRelativeTo(null);
+		setAlwaysOnTop(true);
+		
+		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{40, 249, 40, 0};
 		gridBagLayout.rowHeights = new int[]{0, 29, 32, 0, 37, 39, 37, 0, 44, 0, 37, 35, 23, 51, -31, 0, 0};
