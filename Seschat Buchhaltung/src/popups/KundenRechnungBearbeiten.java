@@ -34,7 +34,6 @@ public class KundenRechnungBearbeiten extends JDialog{
 	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	private static String[] lastTenYears = new String[11];
 	
-	
 	static int monat = 0, jahr = 0;
 	static double bestellvolumen = 0.0;
 	static boolean bezahlt = false;
