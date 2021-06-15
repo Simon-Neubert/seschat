@@ -297,20 +297,15 @@ public class Rechnungen extends JPanel {
 				boolean kunde = kundeRadioBearbeiten.isSelected();
 				boolean lieferant = lieferantRadioBearbeiten.isSelected();
 				
-				
-				if (!kunde && !lieferant) {
-					
-					changeLabel.setText("Kunde oder Lieferant auswählen");
-					return;
-				}
-				
 				if (!zahl.matches("[0-9]+") ) {
 					setErrMessage(changeLabel);
+					statusField.setText("ID auf bezahlt setzen...");
 					return;
 				}
 				
 				if (zahl.equals("0")) {
 					changeLabel.setText("ID: 0 existiert nicht.");
+					statusField.setText("ID auf bezahlt setzen...");
 					return;
 				};
 				
