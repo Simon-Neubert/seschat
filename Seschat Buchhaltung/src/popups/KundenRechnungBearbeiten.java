@@ -28,11 +28,12 @@ public class KundenRechnungBearbeiten extends JDialog{
 	private JLabel rechnungsIDLabel;
 	private JLabel bestellvolumenLabel;
 	private JLabel statusLabel;
-
+	private JLabel formatLabel;
+	
 	static String[] monate = {"Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
 	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	private static String[] lastTenYears = new String[11];
-	private JLabel formatLabel;
+	
 	
 	static int monat = 0, jahr = 0;
 	static double bestellvolumen = 0.0;
