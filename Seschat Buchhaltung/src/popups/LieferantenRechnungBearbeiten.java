@@ -18,6 +18,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import dbaccess.DBAccess;
+import gui.Lieferanten;
+import gui.Rechnungen;
 
 public class LieferantenRechnungBearbeiten extends JDialog {
 	
@@ -186,11 +188,15 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 
 					if (isNeu) {
 						gui.Lieferanten.rechnungAufnehmen(idAlt, monat, jahr, wert, status);
+						Lieferanten.abgebrochen = false;
+						Rechnungen.abgebrochen = false;
 						dispose();
 						return;
 					}
 					
 					gui.Rechnungen.rechnungBearbeitenLieferant(rechnungsID, monat, jahr, wert, status);
+					Lieferanten.abgebrochen = false;
+					Rechnungen.abgebrochen = false;
 					dispose();
 				}
 			});

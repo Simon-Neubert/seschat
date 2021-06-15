@@ -50,7 +50,7 @@ public class Auswertung extends JPanel {
 	private JTable jahresAbschlussTable;
 	private JTextField bestellvolumenResultField;
 	
-	
+	// Constructor
 	public Auswertung() {
 		
 		setBounds(0, 0, 1280, 720);

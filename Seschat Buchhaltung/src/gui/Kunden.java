@@ -395,6 +395,8 @@ public class Kunden extends JPanel {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
+				
+				abgebrochen = true;
 			}
 		});
 		add(addRechnungButton, gbc_addRechnungButton);
@@ -701,8 +703,6 @@ public class Kunden extends JPanel {
 		gbc_pane.gridx = 1;
 		gbc_pane.gridy = 16;
 		add(pane, gbc_pane);
-		
-		
 		
 	}
 

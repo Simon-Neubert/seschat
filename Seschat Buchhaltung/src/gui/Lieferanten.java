@@ -311,6 +311,7 @@ public class Lieferanten extends JPanel {
 				} catch (Exception e1) {e1.printStackTrace();}
 				
 				resetLabel(neuInputLabel);
+				abgebrochen = true;
 			}
 		});
 		add(addRechnungButton, gbc_addRechnungButton);

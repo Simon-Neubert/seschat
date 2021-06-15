@@ -248,7 +248,9 @@ public class Rechnungen extends JPanel {
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				changeLabel.setText("Rechnung bearbeitet");
+				
+				abgebrochen = true;
+				
 			}
 		});
 		
@@ -297,7 +299,7 @@ public class Rechnungen extends JPanel {
 				
 				
 				if (!kunde && !lieferant) {
-					changeLabel.setForeground(Color.RED);
+					
 					changeLabel.setText("Kunde oder Lieferant auswählen");
 					return;
 				}
@@ -314,6 +316,7 @@ public class Rechnungen extends JPanel {
 				
 				statusSetzen(Integer.parseInt(zahl), kunde);
 				statusField.setText("ID auf bezahlt setzen...");
+				changeLabel.setForeground(Color.BLACK);
 				changeLabel.setText("Status geändert");
 				return;
 			}

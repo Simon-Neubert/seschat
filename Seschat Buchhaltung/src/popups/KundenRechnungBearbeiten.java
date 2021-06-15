@@ -16,6 +16,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
 import dbaccess.DBAccess;
+import gui.Kunden;
+import gui.Rechnungen;
 
 public class KundenRechnungBearbeiten extends JDialog{
 
@@ -184,11 +186,15 @@ public class KundenRechnungBearbeiten extends JDialog{
 					
 					if (isNeu) {
 						gui.Kunden.rechnungAufnehmen(kundenID, monat, jahr, wert, status);
+						Kunden.abgebrochen = false;
+						Rechnungen.abgebrochen = false;
 						dispose();
 						return;
 					}
 					
 					gui.Rechnungen.rechnungBearbeitenKunde(rechnungsID, monat, jahr, wert, status);
+					Kunden.abgebrochen = false;
+					Rechnungen.abgebrochen = false;
 					dispose();
 				}
 			});
