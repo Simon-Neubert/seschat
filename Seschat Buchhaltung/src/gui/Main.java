@@ -14,6 +14,7 @@ public class Main extends JFrame{
 	static boolean abgebrochen = true;	
 	
 
+	// Constructor
 	public Main() {
 		
 		Kunden kundenPanel = new Kunden();
@@ -38,6 +39,7 @@ public class Main extends JFrame{
 	}
 	
 	
+	// Main function
 	public static void main(String[] args) {
 
 		EventQueue.invokeLater(new Runnable() {
