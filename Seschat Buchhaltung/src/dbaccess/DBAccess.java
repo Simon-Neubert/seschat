@@ -20,7 +20,9 @@ public class DBAccess {
 	private static ArrayList<objects.Lieferantenrechnung> lr = dbaccess.DBAccess.createLieferantenrechnungen();
 		
 	
-	// Hilfsfunktionen
+	// Auxiliary functions
+	
+	// Get autoincrement index
 	public static int dbGetAutoIncrement (String column, String table) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
@@ -33,6 +35,7 @@ public class DBAccess {
 		return -1;
 	}
 
+	// Reset autoincrement
 	public static void dbResetAutoIncrement (String column, String table) {
 		try {
 			Statement stmt = DBAccess.conn.createStatement();
@@ -44,6 +47,7 @@ public class DBAccess {
 		}
 	}
 	
+	// Check if Login was successful
 	public static boolean checkLogin (String username, String password) {
 
 		checkConnection();
@@ -62,7 +66,10 @@ public class DBAccess {
         return false;
     }
 	
+	
 	// Manage Connection to DB
+	
+	// Establish connection to DB
 	public static void accessDB () {
     	
         String url = "jdbc:mysql://3.125.60.55:3306/";
@@ -77,13 +84,16 @@ public class DBAccess {
         } catch (Exception e) {e.printStackTrace();}
 	}	
 	
+	// Check if connection is live already, establish if not
 	public static void checkConnection () {
 		if (conn == null) accessDB();
 	}
 	
+	// Close connection to DB
 	public static void closeConnection () {
 		try {conn.close();} catch (SQLException e) {e.printStackTrace();}
 	}
+	
 	
 	// Create Object arrays
 	public static ArrayList<Kunde> createKunden () {
@@ -163,6 +173,7 @@ public class DBAccess {
 		return null;
 	}
 
+	
 	// Getters
 	public static ArrayList<objects.Kunde> getK() {
 		return k;

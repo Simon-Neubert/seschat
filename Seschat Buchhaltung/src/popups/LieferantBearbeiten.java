@@ -25,6 +25,7 @@ public class LieferantBearbeiten extends JDialog {
 	private JLabel inputLabel;
 	private JLabel lblName;
 	
+	// Constructor for pop-up
 	public LieferantBearbeiten(int idAlt, String lieferantAlt){
 		
 		setBounds(800, 200, 400, 500);

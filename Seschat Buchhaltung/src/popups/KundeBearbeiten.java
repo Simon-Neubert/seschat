@@ -27,6 +27,7 @@ public class KundeBearbeiten extends JDialog{
 	private JTextField nachnameField;
 	private JTextField plzField;
 	
+	// Constructor for pop-up
 	public KundeBearbeiten(int idAlt, String vornameAlt, String nachnameAlt, int plz){
 		
 		setBounds(0, 0, 400, 535);

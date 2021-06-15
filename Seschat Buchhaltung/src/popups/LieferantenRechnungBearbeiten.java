@@ -20,6 +20,7 @@ import javax.swing.border.LineBorder;
 import dbaccess.DBAccess;
 
 public class LieferantenRechnungBearbeiten extends JDialog {
+	
 	private JButton speichernButton;
 	private JLabel lieferantLabel2;
 	private JLabel inputLabel;
@@ -37,6 +38,8 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 	static double bestellvolumen = 0.0;
 	static boolean bezahlt = false;
 	
+	
+	// Constructor for pop-up
 	public LieferantenRechnungBearbeiten (int idAlt, String lieferantAlt, int rechnungsID, boolean isNeu) {
 			
 			setBounds(0, 0, 400, 500);
@@ -195,11 +198,16 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			
 	}
 	
+	
+	// Auxiliary functions
+	
+	// Fills lastTenYears-array
 	private static void fillYears () {
 		lastTenYears[0] = "Jahr auswählen ...";
 		for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
 	}
 	
+	// Sets standard error message for labels
 	private static void setErrMessage (JLabel inputLabel) {
 		inputLabel.setForeground(Color.RED);
 		inputLabel.setText("Bitte alle Felder korrekt ausfüllen.");
