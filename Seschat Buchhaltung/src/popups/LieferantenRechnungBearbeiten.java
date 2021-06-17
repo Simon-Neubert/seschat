@@ -19,6 +19,7 @@ import javax.swing.border.LineBorder;
 
 import dbaccess.DBAccess;
 import gui.Lieferanten;
+import gui.Main;
 import gui.Rechnungen;
 
 public class LieferantenRechnungBearbeiten extends JDialog {
@@ -32,10 +33,6 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 	private JLabel bestellvolumenLabel;
 	private JLabel statusLabel;
 	private JLabel formatLabel;
-	
-	static String[] monate = {"Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
-	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	private static String[] lastTenYears = new String[11];
 	
 	static int monat = 0, jahr = 0;
 	static double bestellvolumen = 0.0;
@@ -107,15 +104,14 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 			inputLabel.setBounds(6, 403, 388, 29);
 			getContentPane().add(inputLabel);
 			
-			fillYears();
 			// Input Komponenten
-			JComboBox monatDropdown = new JComboBox(monate);
+			JComboBox monatDropdown = new JComboBox(Main.monate);
 			monatDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
 			monatDropdown.setMaximumRowCount(14);
 			monatDropdown.setBounds(20, 158, 181, 29);
 			getContentPane().add(monatDropdown);
 			
-			JComboBox jahrDropdown = new JComboBox(lastTenYears);
+			JComboBox jahrDropdown = new JComboBox(Main.lastTenYears);
 			jahrDropdown.setFont(new Font("Palatino", Font.PLAIN, 14));
 			jahrDropdown.setMaximumRowCount(14);
 			jahrDropdown.setBounds(202, 158, 181, 29);
@@ -141,7 +137,7 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 				});
 				 
 				monatDropdown.setSelectedIndex(monat);
-				jahrDropdown.setSelectedIndex(currentYear - jahr + 1);
+				jahrDropdown.setSelectedIndex(Main.currentYear - jahr + 1);
 				String s = String.valueOf(bestellvolumen);
 				char [] bs = String.valueOf(bestellvolumen).toCharArray();
 				if (bs[bs.length - 2] == '.') s += "0";
@@ -187,7 +183,7 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 						return;
 					}
 					
-					int jahr = Integer.parseInt(lastTenYears[jahrDropdown.getSelectedIndex()]);
+					int jahr = Integer.parseInt(Main.lastTenYears[jahrDropdown.getSelectedIndex()]);
 					double wert = Double.parseDouble(bestellvolumen);
 
 					if (isNeu) {
@@ -210,12 +206,6 @@ public class LieferantenRechnungBearbeiten extends JDialog {
 	
 	
 	// Auxiliary functions
-	
-	// Fills lastTenYears-array
-	private static void fillYears () {
-		lastTenYears[0] = "Jahr auswählen ...";
-		for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
-	}
 	
 	// Sets standard error message for labels
 	private static void setErrMessage (JLabel inputLabel) {

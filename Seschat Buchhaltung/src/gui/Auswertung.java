@@ -36,9 +36,6 @@ import javax.swing.JScrollPane;
 public class Auswertung extends JPanel {
 
 	private static final long serialVersionUID = 1L;
-	static String[] monate = {"Bitte Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
-	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	private static String[] lastTenYears = new String[11];
 	
 	private static int summe;
 	private static int ausstehend;
@@ -53,8 +50,6 @@ public class Auswertung extends JPanel {
 	public Auswertung() {
 		
 		setBounds(0, 0, 1280, 720);
-		
-		fillYears();
 		
 		GridBagLayout gbl_contentPane = new GridBagLayout();
 		gbl_contentPane.columnWidths = new int[]{0, 310, 202, 0, 310, 138, 0, 0};
@@ -98,7 +93,7 @@ public class Auswertung extends JPanel {
 		
 		
 		// Einnahmen Komponenten
-		JComboBox monatDropdownEinnahmen = new JComboBox(monate);
+		JComboBox monatDropdownEinnahmen = new JComboBox(Main.monate);
 		monatDropdownEinnahmen.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_monatDropdownEinnahmen = new GridBagConstraints();
 		gbc_monatDropdownEinnahmen.fill = GridBagConstraints.BOTH;
@@ -108,7 +103,7 @@ public class Auswertung extends JPanel {
 		monatDropdownEinnahmen.setMaximumRowCount(14);
 		add(monatDropdownEinnahmen, gbc_monatDropdownEinnahmen);
 
-		JComboBox jahrDropdownEinnahmen = new JComboBox(lastTenYears);
+		JComboBox jahrDropdownEinnahmen = new JComboBox(Main.lastTenYears);
 		jahrDropdownEinnahmen.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_jahrDropdownEinnahmen = new GridBagConstraints();
 		gbc_jahrDropdownEinnahmen.fill = GridBagConstraints.BOTH;
@@ -170,7 +165,7 @@ public class Auswertung extends JPanel {
 				}
 				
 				int jahrIndex = jahrDropdownEinnahmen.getSelectedIndex();
-				String jahr = lastTenYears[jahrIndex];
+				String jahr = Main.lastTenYears[jahrIndex];
 				
 				// PLZ + Monat
 				if (plzLength == 5 && zeitraumIndex > 0 && jahrIndex > 0) {
@@ -235,7 +230,7 @@ public class Auswertung extends JPanel {
 		
 		
 		// Bestellvolumen Komponenten
-		JComboBox monatDropdownBestellvolumen = new JComboBox(monate);
+		JComboBox monatDropdownBestellvolumen = new JComboBox(Main.monate);
 		monatDropdownBestellvolumen.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_monatDropdownBestellvolumen = new GridBagConstraints();
 		gbc_monatDropdownBestellvolumen.fill = GridBagConstraints.BOTH;
@@ -245,7 +240,7 @@ public class Auswertung extends JPanel {
 		monatDropdownBestellvolumen.setMaximumRowCount(14);
 		add(monatDropdownBestellvolumen, gbc_monatDropdownBestellvolumen);
 		
-		JComboBox jahrDropdownBestellvolumen = new JComboBox(lastTenYears);
+		JComboBox jahrDropdownBestellvolumen = new JComboBox(Main.lastTenYears);
 		jahrDropdownBestellvolumen.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_jahrDropdownBestellvolumen = new GridBagConstraints();
 		gbc_jahrDropdownBestellvolumen.fill = GridBagConstraints.HORIZONTAL;
@@ -287,7 +282,7 @@ public class Auswertung extends JPanel {
 				}
 				
 				int jahrIndex = jahrDropdownBestellvolumen.getSelectedIndex();
-				String jahr = lastTenYears[jahrIndex];
+				String jahr = Main.lastTenYears[jahrIndex];
 				
 				// Lieferant und Jahr ohne Monat
 				if (lieferantIndex > 0 && zeitraumIndex == 0 && jahrIndex > 0) {
@@ -337,7 +332,7 @@ public class Auswertung extends JPanel {
 		
 		
 		// Jahresabschluss Komponenten
-		JComboBox jahrDropdownJahresabschluss = new JComboBox(lastTenYears);
+		JComboBox jahrDropdownJahresabschluss = new JComboBox(Main.lastTenYears);
 		jahrDropdownJahresabschluss.setFont(new Font("Palatino", Font.PLAIN, 14));
 		GridBagConstraints gbc_jahrDropdownJahresabschluss = new GridBagConstraints();
 		gbc_jahrDropdownJahresabschluss.insets = new Insets(0, 0, 5, 5);
@@ -418,11 +413,6 @@ public class Auswertung extends JPanel {
 	
 	// Auxiliary functions
 	
-		// Fills lastTenYears-array
-		private static void fillYears () {
-			lastTenYears[0] = "Bitte Jahr auswählen ...";
-			for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
-		}
 		// Resets summe
 		private static void resetSumme () {
 			summe = 0;
@@ -643,7 +633,7 @@ public class Auswertung extends JPanel {
 				summeBilanz += bilanz;
 				summeSaldo += saldo;
 				
-				String [] hold = {" " + monate[i], doubleAsString(forderungen), doubleAsString(einnahmen), doubleAsString(verbindlichkeiten), doubleAsString(ausgaben), doubleAsString(bilanz), doubleAsString(saldo)};
+				String [] hold = {" " + Main.monate[i], doubleAsString(forderungen), doubleAsString(einnahmen), doubleAsString(verbindlichkeiten), doubleAsString(ausgaben), doubleAsString(bilanz), doubleAsString(saldo)};
 				if (!save) addEuro(hold);
 				table.addAll(Arrays.asList(hold));
 			}

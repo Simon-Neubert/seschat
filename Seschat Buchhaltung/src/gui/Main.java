@@ -6,15 +6,20 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Calendar;
 
 public class Main extends JFrame{
 	
 	private static final long serialVersionUID = 1L;
 	static boolean abgebrochen = true;	
+	public static String[] monate = {"Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
+	public static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+	public static String[] lastTenYears = new String[11];
 
 	// Constructor
 	public Main() {
 		
+		fillYears();
 		Kunden kundenPanel = new Kunden();
 		Lieferanten lieferantenPanel = new Lieferanten();
 		Rechnungen rechnungsPanel = new Rechnungen();
@@ -65,5 +70,12 @@ public class Main extends JFrame{
 			}
 		});
 	}
+	
+	// Fills lastTenYears-array
+	private static void fillYears () {
+		lastTenYears[0] = "Jahr auswählen ...";
+		for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
+	}
+			
 
 }

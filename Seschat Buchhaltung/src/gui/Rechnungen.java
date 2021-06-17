@@ -39,9 +39,6 @@ public class Rechnungen extends JPanel {
 	static String vorname = "", nachname = ""; static int plz = 0;
 	public static boolean abgebrochen = true;
 
-	static String[] monate = {"Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
-	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-	private static String[] lastTenYears = new String[11];
 	private static String[] selection = {"Sortieren nach...", "Summe", "Zeitraum", "ID", "Rechnungs-ID", "Status"};
 	
 	public static String lieferant = "";
@@ -93,8 +90,6 @@ public class Rechnungen extends JPanel {
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
-		
-		fillYears();
 		
 		// Rechnung bearbeiten
 		JLabel bearbeitenLabel = new JLabel("Rechnung bearbeiten:");
@@ -456,7 +451,7 @@ public class Rechnungen extends JPanel {
 		gbc_unbezahltRadio.gridy = 16;
 		add(unbezahltRadio, gbc_unbezahltRadio);
 		
-		monatDropdownSuchen = new JComboBox(monate);
+		monatDropdownSuchen = new JComboBox(Main.monate);
 		monatDropdownSuchen.setFont(new Font("Palatino", Font.BOLD, 13));
 		monatDropdownSuchen.setMaximumRowCount(14);
 		GridBagConstraints gbc_monatDropdownSuchen = new GridBagConstraints();
@@ -467,7 +462,7 @@ public class Rechnungen extends JPanel {
 		add(kundenIDField, gbc_kundenIDField);
 		
 		
-		jahrDropdownSuchen = new JComboBox(lastTenYears);
+		jahrDropdownSuchen = new JComboBox(Main.lastTenYears);
 		jahrDropdownSuchen.setFont(new Font("Palatino", Font.BOLD, 13));
 		jahrDropdownSuchen.setMaximumRowCount(14);
 		GridBagConstraints gbc_jahrDropdownSuchen = new GridBagConstraints();
@@ -547,7 +542,7 @@ public class Rechnungen extends JPanel {
 				}
 			
 				int monat = monatDropdownSuchen.getSelectedIndex();
-				String jahr = lastTenYears[jahrDropdownSuchen.getSelectedIndex()];
+				String jahr = Main.lastTenYears[jahrDropdownSuchen.getSelectedIndex()];
 				
 				if (monat > 0 && !jahr.matches("[0-9]+")) {
 					suchenLabel.setText("Monat immer mit Jahr auswählen");
@@ -738,13 +733,7 @@ public class Rechnungen extends JPanel {
 		return lieferantID;
 	}
 	
-	// Fill LastTenYears
-	private static void fillYears () {
-		lastTenYears[0] = "Jahr auswählen ... ";
-		for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
-	}
-
-	
+	// Reset Labels
 	private static void resetFields(JTextField field1, JTextField field2) {
 		field1.setText("Rechnungs-ID eingeben...");
 		field2.setText("Kunden-/Lieferanten-ID...");
@@ -771,7 +760,7 @@ public class Rechnungen extends JPanel {
 			DBAccess.getKr().stream().filter(x -> x.getRechnungsID() == id).forEach(x -> {
 				table.add(String.valueOf(x.getRechnungsID()));
 				table.add(String.valueOf(x.getKundenID()));
-				table.add(monate[x.getMonat()]);
+				table.add(Main.monate[x.getMonat()]);
 				table.add(String.valueOf(x.getJahr()));
 				table.add(String.valueOf(x.getSumme()) + "€");
 				if (x.isStatus()) table.add(bezahlt);
@@ -782,7 +771,7 @@ public class Rechnungen extends JPanel {
 			DBAccess.getLr().stream().filter(x -> x.getRechnungsID() == id).forEach(x -> {
 				table.add(String.valueOf(x.getRechnungsID()));
 				table.add(String.valueOf(x.getLieferantenID()));
-				table.add(monate[x.getMonat()]);
+				table.add(Main.monate[x.getMonat()]);
 				table.add(String.valueOf(x.getJahr()));
 				table.add(String.valueOf(x.getSumme()) + "€");
 				if (x.isStatus()) table.add(bezahlt);
@@ -804,7 +793,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -816,7 +805,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -828,7 +817,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -841,7 +830,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -853,7 +842,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -865,7 +854,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -890,7 +879,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -902,7 +891,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -914,7 +903,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -928,7 +917,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -940,7 +929,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -952,7 +941,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -975,7 +964,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getJahr() == jahr).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -987,7 +976,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getJahr() == jahr && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -999,7 +988,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1013,7 +1002,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getJahr() == jahr).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1025,7 +1014,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getJahr() == jahr && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1037,7 +1026,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1060,7 +1049,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getMonat() == monat && x.getJahr() == jahr).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1071,7 +1060,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getMonat() == monat && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1083,7 +1072,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getMonat() == monat && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1096,7 +1085,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getMonat() == monat  && x.getJahr() == jahr).forEach(x -> {
 					table.add(String.valueOf(x.getLieferantenID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1107,7 +1096,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getMonat() == monat  && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1119,7 +1108,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getMonat() == monat && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1142,7 +1131,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id && x.getJahr() == jahr).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1153,7 +1142,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1165,7 +1154,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1178,7 +1167,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id && x.getJahr() == jahr).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1189,7 +1178,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1201,7 +1190,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1224,7 +1213,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id && x.getMonat() == monat && x.getJahr() == jahr).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1235,7 +1224,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id && x.getMonat() == monat && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1247,7 +1236,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getKr().stream().filter(x -> x.getKundenID() == id && x.getMonat() == monat && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getKundenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1260,7 +1249,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id && x.getMonat() == monat  && x.getJahr() == jahr).forEach(x -> {
 					table.add(String.valueOf(x.getLieferantenID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1271,7 +1260,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id && x.getMonat() == monat  && x.getJahr() == jahr && x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
@@ -1283,7 +1272,7 @@ public class Rechnungen extends JPanel {
 				DBAccess.getLr().stream().filter(x -> x.getLieferantenID() == id && x.getMonat() == monat && x.getJahr() == jahr && !x.isStatus()).forEach(x -> {
 					table.add(String.valueOf(x.getRechnungsID()));
 					table.add(String.valueOf(x.getLieferantenID()));
-					table.add(monate[x.getMonat()]);
+					table.add(Main.monate[x.getMonat()]);
 					table.add(String.valueOf(x.getJahr()));
 					table.add(String.valueOf(x.getSumme()) + "€");
 					if (x.isStatus()) table.add(bezahltS);
