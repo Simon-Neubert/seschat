@@ -41,7 +41,7 @@ public class Rechnungen extends JPanel {
 	static String[] monate = {"Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
 	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	private static String[] lastTenYears = new String[11];
-	private static String[] selection = {"Sortieren nach...", "Summe", "Zeitraum", "ID", "Rechnungs-ID"};
+	private static String[] selection = {"Sortieren nach...", "Summe", "Zeitraum", "ID", "Rechnungs-ID", "Status"};
 	
 	public static String lieferant = "";
 	public static int kundeID = 0;
@@ -1331,6 +1331,11 @@ public class Rechnungen extends JPanel {
 			return Integer.compare(s2.getLieferantenID(), s1.getLieferantenID()); 
 		};
 		
+		Comparator<objects.Rechnung> byStatus = (s1, s2) -> {
+			if (steigung > 0) return Boolean.compare(s1.isStatus(), s2.isStatus()); 
+			return Boolean.compare(s2.isStatus(), s1.isStatus()); 
+		};
+		
 		switch (selection) {
 		case 1: 
 			if (isLieferant) DBAccess.getLr().sort(bySumme);
@@ -1353,6 +1358,10 @@ public class Rechnungen extends JPanel {
 		case 4: 
 			if (isLieferant) DBAccess.getLr().sort(byRechnung);
 			if (isKunde) DBAccess.getKr().sort(byRechnung);
+			return;
+		case 5:
+			if (isLieferant) DBAccess.getLr().sort(byStatus);
+			if (isKunde) DBAccess.getKr().sort(byStatus);
 			return;
 		default: break;
 		}
