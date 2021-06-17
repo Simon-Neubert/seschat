@@ -138,7 +138,7 @@ public class DBAccess {
 	public static ArrayList<Kundenrechnung> createKundenrechnungen () {
 		
 		checkConnection();
-		int counter = 1;
+
 		try {
 			Statement stmt = conn.createStatement();
             ResultSet rs;
@@ -157,7 +157,7 @@ public class DBAccess {
 	public static ArrayList<Lieferantenrechnung> createLieferantenrechnungen () {
 		
 		checkConnection();
-		int counter = 1;
+
 		try {
 			Statement stmt = conn.createStatement();;
             ResultSet rs;
