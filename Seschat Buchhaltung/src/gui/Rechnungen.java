@@ -41,7 +41,7 @@ public class Rechnungen extends JPanel {
 	static String[] monate = {"Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
 	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	private static String[] lastTenYears = new String[11];
-	private static String[] selection = {"Sortieren nach...", "Summe", "Jahre", "ID", "Rechnungs-ID"};
+	private static String[] selection = {"Sortieren nach...", "Summe", "Zeitraum", "ID", "Rechnungs-ID"};
 	
 	public static String lieferant = "";
 	public static int kundeID = 0;
@@ -1301,9 +1301,14 @@ public class Rechnungen extends JPanel {
 	// Rechnungen-Objekte sortieren
 	private static void sortRechnungen (int steigung, int selection, boolean isKunde, boolean isLieferant) {
 		
+		Comparator<objects.Rechnung> byMonth = (s1, s2) -> {
+			if (steigung > 0) return Integer.compare(s1.getMonat(), s2.getMonat()); 
+			return Integer.compare(s2.getMonat(), s1.getMonat()); 
+		};
+		
 		Comparator<objects.Rechnung> byZeitraum = (s1, s2) -> {
 			if (steigung > 0) return Integer.compare(s1.getJahr(), s2.getJahr()); 
-			return Integer.compare(s2.getJahr(), s1.getJahr()); 
+			return Integer.compare(s2.getJahr(), s1.getJahr());
 		};
 		
 		Comparator<objects.Rechnung> bySumme = (s1, s2) -> {
@@ -1332,8 +1337,14 @@ public class Rechnungen extends JPanel {
 			if (isKunde) DBAccess.getKr().sort(bySumme);
 			break;
 		case 2: 
-			if (isLieferant) DBAccess.getLr().sort(byZeitraum);
-			if (isKunde) DBAccess.getKr().sort(byZeitraum);
+			if (isLieferant) {
+				DBAccess.getLr().sort(byMonth);
+				DBAccess.getLr().sort(byZeitraum);
+			}
+			if (isKunde) {
+				DBAccess.getLr().sort(byMonth);
+				DBAccess.getKr().sort(byZeitraum);
+			}
 			break;
 		case 3:
 			if (isLieferant) DBAccess.getLr().sort(byLieferant);
