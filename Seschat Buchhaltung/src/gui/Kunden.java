@@ -32,6 +32,7 @@ import javax.swing.JTable;
 
 public class Kunden extends JPanel {
 
+		private static final long serialVersionUID = 1L;
 		static String vorname = "", nachname = ""; static int plz = 0;
 		public static boolean abgebrochen = true;
 		

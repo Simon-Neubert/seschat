@@ -34,6 +34,7 @@ import javax.swing.JTable;
 
 public class Lieferanten extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	public static String lieferant = "";
 	public static boolean abgebrochen = true;
 

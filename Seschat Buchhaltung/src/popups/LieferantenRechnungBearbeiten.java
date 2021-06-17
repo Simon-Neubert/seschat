@@ -23,6 +23,7 @@ import gui.Rechnungen;
 
 public class LieferantenRechnungBearbeiten extends JDialog {
 	
+	private static final long serialVersionUID = 1L;
 	private JButton speichernButton;
 	private JLabel lieferantLabel2;
 	private JLabel inputLabel;

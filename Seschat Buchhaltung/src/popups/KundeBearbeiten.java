@@ -19,6 +19,7 @@ import java.awt.Insets;
 
 public class KundeBearbeiten extends JDialog{
 	
+	private static final long serialVersionUID = 1L;
 	private JTextField vornameField;
 	private JButton speichernButton;
 	private JLabel altLabel;

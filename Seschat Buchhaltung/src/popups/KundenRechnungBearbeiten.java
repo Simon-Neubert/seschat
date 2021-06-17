@@ -21,6 +21,7 @@ import gui.Rechnungen;
 
 public class KundenRechnungBearbeiten extends JDialog{
 
+	private static final long serialVersionUID = 1L;
 	private JButton speichernButton;
 	private JLabel kundeLabel2;
 	private JLabel inputLabel;

@@ -1,7 +1,6 @@
 package gui;
 import javax.swing.JFrame;
 
-import gui.*;
 import javax.swing.JTabbedPane;
 import java.awt.EventQueue;
 import java.awt.Toolkit;
@@ -10,9 +9,8 @@ import java.awt.event.WindowEvent;
 
 public class Main extends JFrame{
 	
-	
+	private static final long serialVersionUID = 1L;
 	static boolean abgebrochen = true;	
-	
 
 	// Constructor
 	public Main() {

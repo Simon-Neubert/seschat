@@ -19,6 +19,7 @@ import java.awt.Insets;
 
 public class LieferantBearbeiten extends JDialog {
 	
+	private static final long serialVersionUID = 1L;
 	private JTextField neuField;
 	private JButton speichernButton;
 	private JLabel altLabel;

@@ -29,14 +29,13 @@ import java.util.Calendar;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-
-import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 
 public class Auswertung extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	static String[] monate = {"Bitte Monat auswählen ...","Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"};
 	private static int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 	private static String[] lastTenYears = new String[11];

@@ -35,6 +35,7 @@ import javax.swing.JTable;
 
 public class Rechnungen extends JPanel {
 
+	private static final long serialVersionUID = 1L;
 	static String vorname = "", nachname = ""; static int plz = 0;
 	public static boolean abgebrochen = true;
 
@@ -743,15 +744,11 @@ public class Rechnungen extends JPanel {
 		for (int i = 1; i < lastTenYears.length; i++) lastTenYears[i] = String.valueOf(currentYear-i+1);
 	}
 
-	// Set label to empty String
-	private static void resetLabel(JLabel label) {
-		label.setText("⠀⠀⠀⠀⠀⠀⠀⠀⠀");
-	}
+	
 	private static void resetFields(JTextField field1, JTextField field2) {
 		field1.setText("Rechnungs-ID eingeben...");
 		field2.setText("Kunden-/Lieferanten-ID...");
 	}
-
 
 	// Set label to display error message
 	private static void setErrMessage (JLabel inputLabel) {
