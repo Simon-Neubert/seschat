@@ -32,40 +32,40 @@ import javax.swing.JTable;
 
 public class Kunden extends JPanel {
 
-		private static final long serialVersionUID = 1L;
-		static String vorname = "", nachname = ""; static int plz = 0;
-		public static boolean abgebrochen = true;
-		
-		private JTable table;
-		private JTextField vornameNeuField;
-		private JTextField nachnameNeuField;
-		private JTextField plzNeuField;
-		private JButton speichernButton;
-		private JLabel bestehendLabel;
-		private JTextField generiertField;
-		private JLabel bearbeitenLabel;
-		private JTextField vornameSuchenField;
-		private JTextField nachnameSuchenField;
-		private JTextField plzSuchenField;
-		private JTextField idSuchenField;
-		private JButton suchenButton;
-		private JTextField idBearbeitenFeld;
-		private JButton bearbeitenButton;
-		private JButton addRechnungButton;
-		private JLabel suchenLabel;
-		private JLabel neuLabel;
-		private JScrollPane pane;
-		private JLabel changeLabel;
-		private JLabel neuVornameLabel;
-		private JLabel neuNachnameLabel;
-		private JLabel neuPLZLabel;
-		private JLabel neuIDLabel;
-		private JLabel bearbeitenIDLabel;
-		private JLabel suchenVornameLabel;
-		private JLabel suchenNachnameLabel;
-		private JLabel suchenPLZLabel;
-		private JLabel suchenIDLabel;
-	
+	private static final long serialVersionUID = 1L;
+	static String vorname = "", nachname = "";
+	static int plz = 0;
+	public static boolean abgebrochen = true;
+
+	private JTable table;
+	private JTextField vornameNeuField;
+	private JTextField nachnameNeuField;
+	private JTextField plzNeuField;
+	private JButton speichernButton;
+	private JLabel bestehendLabel;
+	private JTextField generiertField;
+	private JLabel bearbeitenLabel;
+	private JTextField vornameSuchenField;
+	private JTextField nachnameSuchenField;
+	private JTextField plzSuchenField;
+	private JTextField idSuchenField;
+	private JButton suchenButton;
+	private JTextField idBearbeitenFeld;
+	private JButton bearbeitenButton;
+	private JButton addRechnungButton;
+	private JLabel suchenLabel;
+	private JLabel neuLabel;
+	private JScrollPane pane;
+	private JLabel changeLabel;
+	private JLabel neuVornameLabel;
+	private JLabel neuNachnameLabel;
+	private JLabel neuPLZLabel;
+	private JLabel neuIDLabel;
+	private JLabel bearbeitenIDLabel;
+	private JLabel suchenVornameLabel;
+	private JLabel suchenNachnameLabel;
+	private JLabel suchenPLZLabel;
+	private JLabel suchenIDLabel;
 	
 	// Constructor
 	public Kunden() {
